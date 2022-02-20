@@ -1,6 +1,27 @@
+import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
 
 import { Text, View } from "../components/Themed";
+
+interface IAccordian {
+  title: string;
+  content: string;
+}
+
+const Accordian = ({ title, content }: IAccordian) => {
+  const [isActive, setIsActive] = React.useState(false);
+  const [height, setHeight] = React.useState("0px");
+  const [rotation, setRotation] = React.useState("transform duration-700 ease");
+
+  const toggleAccordian = () => {
+    setIsActive(!isActive);
+    setHeight(isActive ? "0px" : "100%");
+    setRotation(
+      isActive ? "transform duration-700 ease" : "transform duration-700 ease"
+    );
+  };
+  return <></>;
+};
 
 const Rules = () => {
   return (

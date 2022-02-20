@@ -18,8 +18,12 @@ import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import TabOneScreen from "../screens/CreatePlayer";
-import TabTwoScreen from "../screens/Rules";
+import CreatePlayer from "../screens/CreatePlayer";
+import Rules from "../screens/Rules";
+import Landing from "../screens/Landing";
+import CreateGame from "../screens/CreateGame";
+import Baseball from "../screens/games/Baseball";
+
 import {
   RootStackParamList,
   RootTabParamList,
@@ -59,6 +63,9 @@ const RootNavigator = () => {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
+      <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
+      <Stack.Screen name="CreateGame" component={CreateGame} />
+      <Stack.Screen name="Baseball" component={Baseball} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
@@ -84,7 +91,7 @@ const BottomTabNavigator = () => {
     >
       <BottomTab.Screen
         name="GetStarted"
-        component={TabOneScreen}
+        component={Landing}
         options={({ navigation }: RootTabScreenProps<"GetStarted">) => ({
           title: "Get Started",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
@@ -107,7 +114,7 @@ const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="Rules"
-        component={TabTwoScreen}
+        component={Rules}
         options={{
           title: "Rules",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
