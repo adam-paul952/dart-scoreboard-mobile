@@ -6,7 +6,10 @@ import { Text, View } from "../../components/Themed";
 const Baseball = () => {
   return (
     <>
-      <View></View>
+      <View>
+        <Scoreboard />
+        <BaseballScoreCalculator />
+      </View>
     </>
   );
 };
@@ -14,3 +17,11 @@ const Baseball = () => {
 export default Baseball;
 
 const styles = StyleSheet.create({});
+
+const Scoreboard = () => {
+  return <></>;
+};
+
+const BaseballScoreCalculator = () => {
+  return <></>;
+};

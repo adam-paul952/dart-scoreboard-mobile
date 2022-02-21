@@ -1,16 +1,34 @@
 import React from "react";
+import useAsyncStorage from "./useAsyncStorage";
+
+export interface IPlayers {
+  id: number;
+  name: string;
+}
+
+type PlayerList = IPlayers[];
 
 const useGame = () => {
-  const [playerList, setPlayerList] = React.useState<string[]>([]);
+  const [playerList, setPlayerList] = useAsyncStorage<PlayerList>(
+    "listOfPlayers",
+    []
+  );
 
-  const onAddPlayer = (playerName: string) => {
+  const addPlayer = (playerName: IPlayers) => {
     setPlayerList([...playerList, playerName]);
+  };
+
+  const deletePlayer = (playerId: number) => {
+    let updatedArray = [...playerList];
+    updatedArray.filter((player) => player.id !== playerId);
+    setPlayerList(updatedArray);
   };
 
   return {
     playerList,
     setPlayerList,
-    onAddPlayer,
+    addPlayer,
+    deletePlayer,
   };
 };
 

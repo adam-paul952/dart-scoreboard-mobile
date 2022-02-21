@@ -1,15 +1,16 @@
 import React from "react";
-import { Button, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
-// import {
-//   Table,
-//   TableWrapper,
-//   Row,
-//   Rows,
-//   Col,
-// } from "react-native-table-component";
 import { Text, View } from "../components/Themed";
-import { RootTabScreenProps } from "../types";
+import useGame, { IPlayers } from "../hooks/useGame";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CONTENT = {
   tableHead: ["Id", "Player Name", "", "Delete"],
@@ -22,56 +23,110 @@ const CONTENT = {
   ],
 };
 
-const CreatePlayer = ({ navigation }: RootTabScreenProps<"GetStarted">) => {
+const CreatePlayer = () => {
+  const { playerList, addPlayer, deletePlayer } = useGame();
   const navigator = useNavigation();
-  const [playerName, setPlayerName] = React.useState<string>("");
+
+  const initialState = {
+    id: Math.floor(Math.random() * 100),
+    name: "",
+  };
+
+  const [playerName, setPlayerName] = React.useState<IPlayers>(initialState);
+  const { name } = playerName;
+  const [refreshFlatList, setRefreshFlatList] = React.useState(false);
+
+  const onAddPlayer = () => {
+    addPlayer(playerName);
+    setPlayerName(initialState);
+  };
   return (
     <>
       <View style={styles.container}>
         <Text>Enter Playername:</Text>
         <TextInput
           style={styles.input}
-          value={playerName}
-          onChangeText={() => setPlayerName(playerName)}
+          value={name}
+          onChangeText={(text) => setPlayerName({ ...playerName, name: text })}
           keyboardType="default"
         />
-        <Button title="Add Player" onPress={() => {}} />
+        <Button
+          title="Add Player"
+          onPress={() => {
+            onAddPlayer();
+          }}
+        />
+        <ScrollView>
+          <View style={styles.list}>
+            <FlatList
+              extraData={refreshFlatList}
+              data={playerList}
+              renderItem={(item) => (
+                <View key={item.item.id} style={styles.listRow}>
+                  <Text style={styles.listCol}>{item.item.id}</Text>
+                  <Text style={styles.listCol}>{item.item.name}</Text>
+                  <View style={styles.listCol}>
+                    {/* <DeleteButton
+                    playerId={item.item.id}
+                    deletePlayer={deletePlayer}
+                  /> */}
+                    <Button
+                      title="Delete"
+                      onPress={() => {
+                        console.log(`Deleted player ${item.item.name}`);
+                        console.log(`Deleted player ${item.item.id}`);
+                        console.log(
+                          `PlayerList length after delete ${playerList.length}`
+                        );
+                        console.log(`What is item.item = ${item.item}`);
+                        deletePlayer(item.item.id);
+                        setRefreshFlatList(!refreshFlatList);
+                      }}
+                    />
+                  </View>
+                </View>
+              )}
+            />
+            <Button
+              title="Create Game"
+              onPress={() => {
+                navigator.navigate("CreateGame");
+              }}
+            />
+          </View>
+          {/* <Button
+            title="Reset State"
+            onPress={() => {
+              AsyncStorage.clear();
+            }}
+          /> */}
+        </ScrollView>
       </View>
-      <Button
-        title="Create Game"
-        onPress={() => {
-          navigator.navigate("CreateGame");
-        }}
-      />
-      {/* <View style={styles.tableContainer}>
-        <Table borderStyle={{ borderWidth: 1 }}>
-          <Row
-            data={CONTENT.tableHead}
-            flexArr={[1, 2, 1, 1]}
-            // style={styles.head}
-            // textStyle={styles.text}
-          />
-          <TableWrapper style={styles.wrapper}>
-            <Col
-              data={CONTENT.tableTitle}
-              // style={styles.tableTitle}
-              heightArr={[28, 28]}
-              // textStyle={styles.text}
-            />
-            <Rows
-              data={CONTENT.tableData}
-              flexArr={[2, 1, 1]}
-              // style={styles.row}
-              // textStyle={styles.text}
-            />
-          </TableWrapper>
-        </Table> */}
-      {/* </View> */}
     </>
   );
 };
 
 export default CreatePlayer;
+
+interface IDeleteButtonProps {
+  playerId: number;
+  deletePlayer: (id: number) => void;
+}
+
+const DeleteButton = ({ playerId, deletePlayer }: IDeleteButtonProps) => {
+  const removePlayer = (id: number) => {
+    deletePlayer(id);
+  };
+
+  return (
+    <Button
+      title="Delete"
+      onPress={() => {
+        removePlayer(playerId);
+      }}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -104,11 +159,28 @@ const styles = StyleSheet.create({
     padding: 16,
     paddingTop: 100,
     color: "white",
-    // backgroundColor: "#fff",
+    backgroundColor: "#fff",
   },
   head: { height: 40, backgroundColor: "orange" },
   wrapper: { flexDirection: "row" },
   tableTitle: { flex: 1, backgroundColor: "#2ecc71" },
   row: { height: 28 },
   text: { textAlign: "center", color: "white" },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  },
+  list: { marginTop: 20, justifyContent: "center", alignItems: "center" },
+  listRow: {
+    flexDirection: "row",
+    marginTop: 20,
+    marginBottom: 20,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  listCol: {
+    marginLeft: 20,
+    marginRight: 20,
+  },
 });

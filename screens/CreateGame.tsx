@@ -1,8 +1,9 @@
 import React from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { Text, View } from "../components/Themed";
-import { StyleSheet } from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import { Button, StyleSheet } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { RootStackParamList } from "../types";
 
 const games = [
   { label: "Baseball", value: "Baseball" },
@@ -13,7 +14,9 @@ const games = [
 ];
 
 const CreateGame = () => {
-  const [value, setValue] = React.useState(null);
+  const navigator = useNavigation();
+  const route = useRoute();
+  const [value, setValue] = React.useState<keyof RootStackParamList>();
   const [isFocus, setIsFocus] = React.useState(false);
 
   const renderLabel = () => {
@@ -49,6 +52,16 @@ const CreateGame = () => {
             setIsFocus(false);
           }}
         />
+      </View>
+      <View>
+        <Text>Game selected: {value}</Text>
+        <Button
+          title="Continue"
+          onPress={() => {
+            navigator.navigate(value!);
+          }}
+          disabled={!value ? true : false}
+        ></Button>
       </View>
     </>
   );
