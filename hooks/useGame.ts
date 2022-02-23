@@ -4,11 +4,16 @@ import useAsyncStorage from "./useAsyncStorage";
 export interface IPlayers {
   id: number;
   name: string;
+  scoreList?: number[];
 }
 
-type PlayerList = IPlayers[];
+export type PlayerList = IPlayers[];
 
 const useGame = () => {
+  /*
+   * playerList to store players into storage
+   * helper functions to manage players
+   */
   const [playerList, setPlayerList] = useAsyncStorage<PlayerList>(
     "listOfPlayers",
     []
@@ -20,8 +25,23 @@ const useGame = () => {
 
   const deletePlayer = (playerId: number) => {
     let updatedArray = [...playerList];
-    updatedArray.filter((player) => player.id !== playerId);
-    setPlayerList(updatedArray);
+    let newPlayerList = updatedArray.filter((player) => player.id !== playerId);
+    setPlayerList(newPlayerList);
+  };
+
+  /*
+   * Helper functions for gameplay
+   */
+
+  const [turn, setTurn] = React.useState<number>(0);
+
+  const nextTurn = () => {
+    const newTurn = turn + 1;
+    setTurn(newTurn % playerList.length);
+  };
+
+  const getCurrentPlayer = () => {
+    return playerList[turn];
   };
 
   return {
@@ -29,6 +49,10 @@ const useGame = () => {
     setPlayerList,
     addPlayer,
     deletePlayer,
+    turn,
+    setTurn,
+    nextTurn,
+    getCurrentPlayer,
   };
 };
 
