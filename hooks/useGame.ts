@@ -4,7 +4,7 @@ import useAsyncStorage from "./useAsyncStorage";
 export interface IPlayers {
   id: number;
   name: string;
-  scoreList?: number[];
+  scoreList: number[];
 }
 
 export type PlayerList = IPlayers[];
@@ -40,8 +40,27 @@ const useGame = () => {
     setTurn(newTurn % playerList.length);
   };
 
+  const [round, setRound] = React.useState<number>(0);
+
+  const changeRounds = () => {
+    if (turn === playerList.length - 1) {
+      const newRound = round + 1;
+      setRound(newRound);
+    }
+  };
+
   const getCurrentPlayer = () => {
     return playerList[turn];
+  };
+
+  const resetScoreList = () => {
+    let newScoreList = [...playerList];
+    for (let i = 0; i < newScoreList.length; i++) {
+      newScoreList[i].scoreList = [];
+      setPlayerList(newScoreList);
+    }
+    setTurn(0);
+    setRound(0);
   };
 
   return {
@@ -53,6 +72,9 @@ const useGame = () => {
     setTurn,
     nextTurn,
     getCurrentPlayer,
+    round,
+    changeRounds,
+    resetScoreList,
   };
 };
 

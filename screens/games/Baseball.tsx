@@ -7,15 +7,28 @@ import useGame, { PlayerList } from "../../hooks/useGame";
 import BaseballScoreCalculator from "../../components/scoreCalculator/BaseballScoreCalculator";
 
 const Baseball = () => {
-  const { playerList, nextTurn, getCurrentPlayer } = useGame();
+  const {
+    playerList,
+    setPlayerList,
+    nextTurn,
+    getCurrentPlayer,
+    turn,
+    round,
+    changeRounds,
+  } = useGame();
 
   return (
     <>
       <View style={styles.container}>
         <Scoreboard playerList={playerList} />
         <BaseballScoreCalculator
+          playerList={playerList}
+          setPlayerList={setPlayerList}
           nextTurn={nextTurn}
           getCurrentPlayer={getCurrentPlayer}
+          turn={turn}
+          round={round}
+          changeRounds={changeRounds}
         />
       </View>
     </>
@@ -59,8 +72,21 @@ const Scoreboard = ({ playerList }: { playerList: PlayerList }) => {
           renderItem={(item) => (
             <View key={item.item.id} style={styles.listRow}>
               <Text style={styles.listCol}>{item.item.name}</Text>
-              {/* <Text style={styles.listCol}>{item.item.scoreList[0]}</Text> */}
-              <View style={styles.listCol}></View>
+              <Text style={styles.listCol}>{item.item.scoreList[0]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[1]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[2]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[3]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[4]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[5]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[6]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[7]}</Text>
+              <Text style={styles.listCol}>{item.item.scoreList[8]}</Text>
+              <Text style={styles.listCol}>
+                {item.item.scoreList!.reduce(
+                  (sum, current) => sum + current,
+                  0
+                )}
+              </Text>
             </View>
           )}
         />

@@ -3,11 +3,16 @@ import { StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 
 import BaseballCalculatorButtons from "../calculatorButtons/BaseballButtons";
-import { IPlayers } from "../../hooks/useGame";
+import { PlayerList, IPlayers } from "../../hooks/useGame";
 
 interface IBaseballScoreCalculatorProps {
+  playerList: PlayerList;
+  setPlayerList: (playerList: PlayerList) => void;
   nextTurn: () => void;
   getCurrentPlayer: () => IPlayers;
+  turn: number;
+  round: number;
+  changeRounds: () => void;
 }
 
 const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
@@ -44,10 +49,16 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
 
   const changeTurn = (score: number) => {
     let currentPlayer = props.getCurrentPlayer();
-    console.log(`Current Player is: ${currentPlayer.name}`);
+    console.log(currentPlayer);
+    currentPlayer.scoreList.push(score);
+    props.setPlayerList([...props.playerList]);
     props.nextTurn();
-    console.log(`Score from changeTurn = ${score}`);
+    props.changeRounds();
   };
+
+  React.useEffect(() => {
+    console.log(props.playerList);
+  }, []);
 
   return (
     <>

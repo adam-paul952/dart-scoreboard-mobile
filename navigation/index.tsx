@@ -4,6 +4,7 @@
  *
  */
 import { FontAwesome } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   NavigationContainer,
@@ -13,6 +14,8 @@ import {
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { ColorSchemeName, Pressable } from "react-native";
+
+import useGame from "../hooks/useGame";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -51,6 +54,8 @@ export default Navigation;
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
+  const { resetScoreList } = useGame();
+  const colorScheme = useColorScheme();
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -65,7 +70,28 @@ const RootNavigator = () => {
       />
       <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
       <Stack.Screen name="CreateGame" component={CreateGame} />
-      <Stack.Screen name="Baseball" component={Baseball} />
+      <Stack.Screen
+        name="Baseball"
+        component={Baseball}
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => {
+                resetScoreList();
+              }}
+              style={({ pressed }) => ({
+                opacity: pressed ? 0.5 : 1,
+              })}
+            >
+              <MaterialCommunityIcons
+                name="delete-sweep"
+                size={24}
+                color={Colors[colorScheme].text}
+              />
+            </Pressable>
+          ),
+        }}
+      />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
