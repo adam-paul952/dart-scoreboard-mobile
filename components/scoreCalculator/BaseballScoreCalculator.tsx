@@ -13,6 +13,8 @@ interface IBaseballScoreCalculatorProps {
   turn: number;
   round: number;
   changeRounds: () => void;
+  winner: IPlayers | null;
+  setWinner: (player: IPlayers) => void;
 }
 
 const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
@@ -49,7 +51,7 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
 
   const changeTurn = (score: number) => {
     let currentPlayer = props.getCurrentPlayer();
-    console.log(currentPlayer);
+    // console.log(currentPlayer);
     currentPlayer.scoreList.push(score);
     props.setPlayerList([...props.playerList]);
     props.nextTurn();
@@ -57,13 +59,29 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
   };
 
   React.useEffect(() => {
-    console.log(props.playerList);
-  }, []);
+    const declareWinner = () => {
+      const totalRounds = 9;
+      let winnerScore = -1;
+      if (props.round === totalRounds) {
+        props.playerList.forEach((player) => {
+          const totalScore = player.scoreList.reduce((a, b) => a + b, 0);
+          if (totalScore > winnerScore) {
+            winnerScore = totalScore;
+            props.setWinner(player);
+          }
+        });
+      } else {
+        return null;
+      }
+    };
+    declareWinner();
+  }, [props]);
 
   return (
     <>
       <View style={styles.scoreDisplay}>
         <Text>Player Score: {playerScore}</Text>
+        {props.winner && <Text>The winner is {props.winner.name}</Text>}
       </View>
       <BaseballCalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
     </>

@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.adam.paul.dartscoreboardmobile"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

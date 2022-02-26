@@ -29,6 +29,8 @@ const useGame = () => {
     setPlayerList(newPlayerList);
   };
 
+  const [winner, setWinner] = React.useState<IPlayers | null>(null);
+
   /*
    * Helper functions for gameplay
    */
@@ -61,6 +63,7 @@ const useGame = () => {
     }
     setTurn(0);
     setRound(0);
+    setWinner(null);
   };
 
   return {
@@ -75,6 +78,8 @@ const useGame = () => {
     round,
     changeRounds,
     resetScoreList,
+    winner,
+    setWinner,
   };
 };
 

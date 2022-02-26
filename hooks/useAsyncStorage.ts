@@ -10,7 +10,7 @@ const useAsyncStorage = <T>(key: string, initialValue: T) => {
       const value = item ? JSON.parse(item) : initialValue;
       setStoredValue(value);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return initialValue;
     }
   };
@@ -26,7 +26,8 @@ const useAsyncStorage = <T>(key: string, initialValue: T) => {
       setStoredValue(valueToStore);
       await AsyncStorage.setItem(key, JSON.stringify(valueToStore));
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      throw error;
     }
   };
 

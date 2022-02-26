@@ -15,6 +15,8 @@ const Baseball = () => {
     turn,
     round,
     changeRounds,
+    winner,
+    setWinner,
   } = useGame();
 
   return (
@@ -29,6 +31,8 @@ const Baseball = () => {
           turn={turn}
           round={round}
           changeRounds={changeRounds}
+          winner={winner}
+          setWinner={setWinner}
         />
       </View>
     </>
