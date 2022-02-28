@@ -64,6 +64,7 @@ jobs:
           serviceAccountJsonPlainText: ${{ secrets.GOOGLE_ACCOUNT_KEY_PATH }}
           packageName: com.adam.paul.dartscoreboardmobile
           track: internal
+          releaseFiles: https://expo.dev/accounts/adam.paul/projects/dart-scoreboard-mobile​
 
       # - name: Submit to playstore
       #   run: eas submit --platform android --latest --non-interactive
