@@ -58,5 +58,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Submit to playstore
-        run: eas submit --platform android --latest --non-interactive
+      - name: Deploy to Play Store (BETA)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.GOOGLE_ACCOUNT_KEY_PATH }}
+          packageName: com.adam.paul.dartscoreboardmobile
+          track: internal
+
+      # - name: Submit to playstore
+      #   run: eas submit --platform android --latest --non-interactive
