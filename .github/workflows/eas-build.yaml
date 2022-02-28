@@ -59,4 +59,4 @@ jobs:
         run: npm ci
 
       - name: Submit to playstore
-        run: eas submit --platform android --latest
+        run: eas submit --platform android --latest --non-interactive --key=${{secrets.GOOGLE_ACCOUNT_KEY_PATH}}
