@@ -15,7 +15,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "$GOOGLE_ACCOUNT_KEY_PATH",
+        "serviceAccountKeyPath": "${{secrets.GOOGLE_ACCOUNT_KEY_PATH}}",
         "track": "internal"
       }
     }
