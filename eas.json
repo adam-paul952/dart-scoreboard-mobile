@@ -16,7 +16,8 @@
     "production": {
       "android": {
         "serviceAccountKeyPath": "./credentials.json",
-        "track": "internal"
+        "track": "internal",
+        "release_status": "draft"
       }
     }
   }
