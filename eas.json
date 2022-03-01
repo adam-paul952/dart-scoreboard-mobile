@@ -15,7 +15,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "/Users/adamp/Desktop/Google/937938114174-3032db67cf74.json",
+        "serviceAccountKeyPath": "/credentials.json",
         "track": "internal"
       }
     }
