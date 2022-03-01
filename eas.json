@@ -15,7 +15,7 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "/credentials.json",
+        "serviceAccountKeyPath": "./credentials.json",
         "track": "internal"
       }
     }
