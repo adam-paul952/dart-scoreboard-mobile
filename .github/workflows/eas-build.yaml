@@ -63,7 +63,7 @@ jobs:
         uses: jsdaniell/create-json@1.1.2
         with:
           name: "credentials.json"
-          json: ${{ secrets.GOOGLE_ACCOUNT_KEYPATH }}
+          json: ${{ secrets.GOOGLE_ACCOUNT_KEY_PATH }}
 
       # - name: Deploy to Play Store (BETA)
       #   uses: r0adkll/upload-google-play@v1
