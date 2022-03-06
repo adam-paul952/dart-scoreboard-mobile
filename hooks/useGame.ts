@@ -5,6 +5,7 @@ export interface IPlayers {
   id: number;
   name: string;
   scoreList: number[];
+  score?: number;
 }
 
 export type PlayerList = IPlayers[];
@@ -59,11 +60,31 @@ const useGame = () => {
     let newScoreList = [...playerList];
     for (let i = 0; i < newScoreList.length; i++) {
       newScoreList[i].scoreList = [];
+      newScoreList[i].score = 0;
       setPlayerList(newScoreList);
     }
     setTurn(0);
     setRound(0);
     setWinner(null);
+  };
+
+  /*
+   *  Helper functions for X01 Game Selection
+   */
+
+  const [x01Points, setX01Points] = React.useState<number>(0);
+
+  const x01GameSelect = (value: number) => {
+    setX01Points(value);
+  };
+
+  const assignX01PlayerScore = (points: number) => {
+    let playerScore = [...playerList];
+    for (let i = 0; i < playerScore.length; i++) {
+      playerScore[i].score = x01Points;
+      playerScore[i].scoreList!.push(points);
+      setPlayerList(playerScore);
+    }
   };
 
   return {
@@ -80,6 +101,10 @@ const useGame = () => {
     resetScoreList,
     winner,
     setWinner,
+    x01Points,
+    setX01Points,
+    x01GameSelect,
+    assignX01PlayerScore,
   };
 };
 

@@ -11,6 +11,7 @@ const CreatePlayer = () => {
   const initialState = {
     id: Math.floor(Math.random() * 100),
     name: "",
+    score: 0,
     scoreList: [],
   };
 
