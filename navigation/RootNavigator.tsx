@@ -10,6 +10,9 @@ import CreatePlayer from "../screens/CreatePlayer";
 import CreateGame from "../screens/CreateGame";
 import Baseball from "../screens/games/Baseball";
 import X01 from "../screens/games/X01";
+import Elimination from "../screens/games/Elimination";
+import KillerSetUp from "../screens/gameOptions/KillerSetup";
+import Killer from "../screens/games/Killer";
 
 // Navigation Buttons
 import ResetScoreListButton from "./buttons/ResetScoreListButton";
@@ -68,6 +71,33 @@ const RootNavigator = () => {
           headerLeft: () => <StackNavigatorBackButton />,
           title: "Elimination Setup",
           // headerRight: () => <ResetScoreListButton />,
+        }}
+      />
+      <Stack.Screen
+        name="EliminationGame"
+        component={Elimination}
+        options={{
+          headerLeft: () => <StackNavigatorBackButton />,
+          title: "Elimination",
+          headerRight: () => <ResetScoreListButton />,
+        }}
+      />
+      <Stack.Screen
+        name="Killer"
+        component={KillerSetUp}
+        options={{
+          headerLeft: () => <StackNavigatorBackButton />,
+          title: "Killer Setup",
+          // headerRight: () => <ResetScoreListButton />,
+        }}
+      />
+      <Stack.Screen
+        name="KillerGame"
+        component={Killer}
+        options={{
+          headerLeft: () => <StackNavigatorBackButton />,
+          title: "Killer",
+          headerRight: () => <ResetScoreListButton />,
         }}
       />
       <Stack.Group screenOptions={{ presentation: "modal" }}>

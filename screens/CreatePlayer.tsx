@@ -13,6 +13,7 @@ const CreatePlayer = () => {
     name: "",
     score: 0,
     scoreList: [],
+    lives: 0,
   };
 
   const [playerName, setPlayerName] = React.useState<IPlayers>(initialState);

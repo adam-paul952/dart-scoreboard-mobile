@@ -10,8 +10,8 @@ const X01 = () => {
       {playerList.map((player) => {
         return (
           <>
-            <Text>{player.name}</Text>
-            <Text>{player.score}</Text>
+            <Text key={player.id}>{player.name}</Text>
+            <Text key={player.id + 1}>{player.score}</Text>
           </>
         );
       })}

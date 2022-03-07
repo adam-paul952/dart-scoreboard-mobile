@@ -14,7 +14,8 @@ interface ISelectionDropdown {
   initialPlaceholder: string;
   setGame:
     | React.Dispatch<React.SetStateAction<keyof RootStackParamList | undefined>>
-    | React.Dispatch<React.SetStateAction<number>>;
+    | React.Dispatch<React.SetStateAction<number>>
+    | React.Dispatch<React.SetStateAction<string>>;
   setX01Points?: React.Dispatch<React.SetStateAction<number>>;
 }
 

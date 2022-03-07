@@ -6,14 +6,17 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 // Hooks
 import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
+import useGame from "../../hooks/useGame";
 
 const StackNavigatorBackButton = () => {
+  const { resetScoreList } = useGame();
   const colorScheme = useColorScheme();
   const navigator = useNavigation();
   return (
     <>
       <Pressable
-        onPress={() => {
+        onPress={async () => {
+          await resetScoreList();
           navigator.navigate("CreateGame");
         }}
         style={({ pressed }) => ({

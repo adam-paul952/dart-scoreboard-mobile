@@ -5,7 +5,8 @@ export interface IPlayers {
   id: number;
   name: string;
   scoreList: number[];
-  score?: number;
+  score: number;
+  lives: number;
 }
 
 export type PlayerList = IPlayers[];
@@ -56,11 +57,16 @@ const useGame = () => {
     return playerList[turn];
   };
 
+  const getCurrentPlayerById = () => {
+    return playerList[turn].id;
+  };
+
   const resetScoreList = () => {
     let newScoreList = [...playerList];
     for (let i = 0; i < newScoreList.length; i++) {
       newScoreList[i].scoreList = [];
       newScoreList[i].score = 0;
+      newScoreList[i].lives = 0;
       setPlayerList(newScoreList);
     }
     setTurn(0);
@@ -87,6 +93,31 @@ const useGame = () => {
     }
   };
 
+  /*
+   *  Helper functions for Elimination Set-Up
+   */
+  const assignPlayerLives = (playerLives: number) => {
+    let numberOfPlayerLives = [...playerList];
+    for (let i = 0; i < numberOfPlayerLives.length; i++) {
+      numberOfPlayerLives[i].lives = playerLives;
+      setPlayerList(numberOfPlayerLives);
+    }
+  };
+
+  /*
+   *  Helper functions for Killer setup
+   */
+
+  const assignPlayerTarget = (score: number) => {
+    let currentPlayer = getCurrentPlayer();
+    currentPlayer.score = score;
+    setPlayerList([...playerList]);
+    nextTurn();
+    if (turn === playerList.length - 1) {
+      changeRounds();
+    }
+  };
+
   return {
     playerList,
     setPlayerList,
@@ -105,6 +136,9 @@ const useGame = () => {
     setX01Points,
     x01GameSelect,
     assignX01PlayerScore,
+    assignPlayerLives,
+    assignPlayerTarget,
+    getCurrentPlayerById,
   };
 };
 
