@@ -7,20 +7,21 @@ import BottomTabNavigator from "./BottomTabNavigator";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import CreatePlayer from "../screens/CreatePlayer";
-import CreateGame from "../screens/CreateGame";
+import CreateGame from "../screens/CreateMatch";
 import Baseball from "../screens/games/Baseball";
 import X01 from "../screens/games/X01";
 import Elimination from "../screens/games/Elimination";
 import KillerSetUp from "../screens/gameOptions/KillerSetup";
 import Killer from "../screens/games/Killer";
+import X01GameSelection from "../screens/gameOptions/X01Setup";
+import EliminationSetUp from "../screens/gameOptions/EliminationSetUp";
 
 // Navigation Buttons
 import ResetScoreListButton from "./buttons/ResetScoreListButton";
 import StackNavigatorBackButton from "./buttons/StackNavigatorBackButton";
+import AddPlayerButton from "./buttons/AddPlayerButton";
 
 import { RootStackParamList } from "../types";
-import X01GameSelection from "../screens/gameOptions/X01Setup";
-import EliminationSetUp from "../screens/gameOptions/EliminationSetUp";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -37,8 +38,19 @@ const RootNavigator = () => {
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
-      <Stack.Screen name="CreatePlayer" component={CreatePlayer} />
-      <Stack.Screen name="CreateGame" component={CreateGame} />
+      <Stack.Screen
+        name="CreatePlayer"
+        component={CreatePlayer}
+        options={{ title: "Select Players" }}
+      />
+      <Stack.Screen
+        name="CreateGame"
+        component={CreateGame}
+        options={{
+          title: "Create Match",
+          headerRight: () => <AddPlayerButton />,
+        }}
+      />
       <Stack.Screen
         name="Baseball"
         component={Baseball}

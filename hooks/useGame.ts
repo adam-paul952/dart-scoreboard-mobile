@@ -75,6 +75,14 @@ const useGame = () => {
   };
 
   /*
+   * Set defaults from previous session
+   */
+
+  const [selectedGame, setSelectedGame] = React.useState<string>("Baseball");
+
+  const [selectedPlayers, setSelectedPlayers] = React.useState<PlayerList>([]);
+
+  /*
    *  Helper functions for X01 Game Selection
    */
 
@@ -118,6 +126,10 @@ const useGame = () => {
     }
   };
 
+  const [killerTargets, setKillerTargets] = React.useState<
+    { label: number; value: number }[]
+  >([]);
+
   return {
     playerList,
     setPlayerList,
@@ -139,6 +151,12 @@ const useGame = () => {
     assignPlayerLives,
     assignPlayerTarget,
     getCurrentPlayerById,
+    killerTargets,
+    setKillerTargets,
+    selectedGame,
+    setSelectedGame,
+    selectedPlayers,
+    setSelectedPlayers,
   };
 };
 

@@ -11,8 +11,14 @@ import Colors from "../../constants/Colors";
 import useColorScheme from "../../hooks/useColorScheme";
 
 const KillerSetUp = () => {
-  const { playerList, setPlayerList, assignPlayerTarget, getCurrentPlayer } =
-    useGame();
+  const {
+    playerList,
+    setPlayerList,
+    assignPlayerTarget,
+    getCurrentPlayer,
+    killerTargets,
+    setKillerTargets,
+  } = useGame();
   const navigator = useNavigation();
   const colorScheme = useColorScheme();
   const [playerTarget, setPlayerTarget] = React.useState<string>("");
@@ -43,6 +49,15 @@ const KillerSetUp = () => {
   const sortPlayerList = () => {
     const sortedList = playerList.sort((a, b) => (a.score > b.score ? 1 : -1));
     setPlayerList(sortedList);
+  };
+
+  const onSetupSubmit = () => {
+    const assignCalculatorButtons = playerList.map((player) => {
+      return { label: player.score, value: player.score };
+    });
+    setKillerTargets(assignCalculatorButtons);
+    sortPlayerList();
+    navigator.navigate("KillerGame");
   };
 
   return (
@@ -84,8 +99,7 @@ const KillerSetUp = () => {
         <Button
           title="Continue to Game"
           onPress={() => {
-            sortPlayerList();
-            navigator.navigate("KillerGame");
+            onSetupSubmit();
           }}
         />
       </View>

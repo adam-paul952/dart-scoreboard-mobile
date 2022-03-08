@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     marginTop: 60,
-    height: 300,
+    // height: 300,
   },
   buttonRow: {
     flexDirection: "row",
@@ -194,12 +194,17 @@ interface IKillerScoreCalculator {
 }
 
 export const KillerScoreCalculator = (props: IKillerScoreCalculator) => {
+  const { killerTargets } = useGame();
   const [playerScore, setPlayerScore] = React.useState<string>("");
-  const [playerTargets] = React.useState(
-    props.playerList.map((player) => {
-      return { label: player.score, value: player.score };
-    })
-  );
+  const [playerTargets, setPlayerTargets] = React.useState(killerTargets);
+
+  // React.useEffect(() => {
+  //   const assignTargets: { label: number; value: number }[] =
+  //     props.playerList.map((player) => {
+  //       return { label: player.score, value: player.score };
+  //     });
+  //   setPlayerTargets(assignTargets);
+  // }, []);
 
   React.useEffect(() => {
     console.log(playerTargets);
@@ -208,6 +213,7 @@ export const KillerScoreCalculator = (props: IKillerScoreCalculator) => {
   const onHandleScoreSubmit = () => {
     return;
   };
+
   return (
     <>
       <View style={styles.scoreDisplay}>
@@ -217,10 +223,11 @@ export const KillerScoreCalculator = (props: IKillerScoreCalculator) => {
       <>
         <View style={styles.buttonGroup}>
           <View style={styles.buttonRow}>
-            {/* <FlatList
+            <FlatList
+              extraData={playerTargets}
               data={playerTargets}
-              numColumns={3}
-              //   keyExtractor={(item) => item}
+              numColumns={2}
+              keyExtractor={(item) => item.value.toString()}
               renderItem={(item) => (
                 <Pressable
                   style={styles.button}
@@ -228,10 +235,10 @@ export const KillerScoreCalculator = (props: IKillerScoreCalculator) => {
                     onHandleScoreSubmit();
                   }}
                 >
-                  <Text>{item.item}</Text>
+                  <Text>{item.item.value}</Text>
                 </Pressable>
               )}
-            /> */}
+            />
           </View>
         </View>
       </>

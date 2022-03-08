@@ -1,12 +1,28 @@
 import React from "react";
-import { Button, FlatList, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  FlatList,
+  Pressable,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Text, View } from "../components/Themed";
-import useGame, { IPlayers } from "../hooks/useGame";
+import useGame, { IPlayers, PlayerList } from "../hooks/useGame";
+
+import { Feather } from "@expo/vector-icons";
 
 const CreatePlayer = () => {
-  const { playerList, addPlayer, deletePlayer } = useGame();
+  const {
+    playerList,
+    addPlayer,
+    deletePlayer,
+    setSelectedPlayers,
+    selectedPlayers,
+  } = useGame();
   const navigator = useNavigation();
+
+  let list: PlayerList = [];
 
   const initialState = {
     id: Math.floor(Math.random() * 100),
@@ -45,15 +61,35 @@ const CreatePlayer = () => {
           data={playerList}
           renderItem={(item) => (
             <View key={item.item.id} style={styles.listRow}>
-              <Text style={styles.listCol}>{item.item.id}</Text>
-              <Text style={styles.listCol}>{item.item.name}</Text>
+              <Pressable
+                style={({ pressed }) => [
+                  { opacity: pressed ? 0.5 : 1 },
+                  { flexDirection: "row" },
+                ]}
+                onPressIn={() => {
+                  list.push(item.item);
+                  console.log(item.item);
+                }}
+                onPressOut={() => {
+                  console.log(list);
+                  // setSelectedPlayers([...selectedPlayers, list]);
+                }}
+                onPress={() => {
+                  console.log(selectedPlayers);
+                  navigator.navigate("CreateGame");
+                }}
+              >
+                <Text style={styles.listCol}>{item.item.id}</Text>
+                <Text style={styles.listCol}>{item.item.name}</Text>
+              </Pressable>
               <View style={styles.listCol}>
-                <Button
-                  title="Delete"
-                  onPress={() => {
+                <Pressable
+                  onPressOut={() => {
                     deletePlayer(item.item.id);
                   }}
-                />
+                >
+                  <Feather name="delete" size={27} color="white" />
+                </Pressable>
               </View>
             </View>
           )}
@@ -101,5 +137,6 @@ const styles = StyleSheet.create({
   listCol: {
     marginLeft: 20,
     marginRight: 20,
+    fontSize: 22,
   },
 });

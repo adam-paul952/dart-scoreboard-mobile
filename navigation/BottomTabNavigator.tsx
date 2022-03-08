@@ -2,11 +2,12 @@
  * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
-import { FontAwesome } from "@expo/vector-icons";
+import { Foundation } from "@expo/vector-icons";
+import { Entypo } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import * as React from "react";
-import { Pressable } from "react-native";
+// import { Pressable } from "react-native";
 
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
@@ -32,23 +33,25 @@ const BottomTabNavigator = () => {
         name="GetStarted"
         component={Landing}
         options={({ navigation }: RootTabScreenProps<"GetStarted">) => ({
-          title: "Get Started",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
+          title: "Dart Scoreboard",
+          tabBarIcon: ({ color }) => (
+            <TabBarIconHome name="target" color={color} />
           ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate("Modal")}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}
+          //   >
+          //     <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     />
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
@@ -56,7 +59,9 @@ const BottomTabNavigator = () => {
         component={Rules}
         options={{
           title: "Rules",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIconRules name="text-document" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
@@ -68,9 +73,16 @@ export default BottomTabNavigator;
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-const TabBarIcon = (props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"];
+const TabBarIconRules = (props: {
+  name: React.ComponentProps<typeof Entypo>["name"];
   color: string;
 }) => {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <Entypo size={30} style={{ marginBottom: -3 }} {...props} />;
+};
+
+const TabBarIconHome = (props: {
+  name: React.ComponentProps<typeof Foundation>["name"];
+  color: string;
+}) => {
+  return <Foundation size={30} style={{ marginBottom: -3 }} {...props} />;
 };
