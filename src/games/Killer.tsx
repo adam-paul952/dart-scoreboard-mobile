@@ -1,14 +1,14 @@
 import React from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
-import { Text, View } from "../../components/Themed";
+import { Text, View } from "../components/Themed";
 
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 
-import useGame, { PlayerList, IPlayers } from "../../hooks/useGame";
-import Colors from "../../constants/Colors";
-import useColorScheme from "../../hooks/useColorScheme";
+import useGame, { PlayerList, IPlayers } from "../hooks/useGame";
+import Colors from "../constants/Colors";
+import useColorScheme from "../hooks/useColorScheme";
 
-import BaseballCalculatorButtons from "../../components/calculatorButtons/BaseballButtons";
+import BaseballCalculatorButtons from "../components/calculatorButtons/BaseballButtons";
 
 const Killer = () => {
   const {

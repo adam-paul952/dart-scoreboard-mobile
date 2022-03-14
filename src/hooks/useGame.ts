@@ -1,4 +1,5 @@
 import React from "react";
+import { RootStackParamList } from "../../types";
 import useAsyncStorage from "./useAsyncStorage";
 
 export interface IPlayers {
@@ -7,6 +8,7 @@ export interface IPlayers {
   scoreList: number[];
   score: number;
   lives: number;
+  selected?: boolean;
 }
 
 export type PlayerList = IPlayers[];
@@ -78,7 +80,8 @@ const useGame = () => {
    * Set defaults from previous session
    */
 
-  const [selectedGame, setSelectedGame] = React.useState<string>("Baseball");
+  const [selectedGame, setSelectedGame] =
+    React.useState<keyof RootStackParamList>("Baseball");
 
   const [selectedPlayers, setSelectedPlayers] = React.useState<PlayerList>([]);
 
@@ -104,6 +107,7 @@ const useGame = () => {
   /*
    *  Helper functions for Elimination Set-Up
    */
+
   const assignPlayerLives = (playerLives: number) => {
     let numberOfPlayerLives = [...playerList];
     for (let i = 0; i < numberOfPlayerLives.length; i++) {

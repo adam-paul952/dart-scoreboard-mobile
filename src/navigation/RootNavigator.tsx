@@ -4,15 +4,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BottomTabNavigator from "./BottomTabNavigator";
 
 // Components
-import ModalScreen from "../screens/ModalScreen";
+import ModalScreen from "../screens/GameSelect";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import CreatePlayer from "../screens/CreatePlayer";
 import CreateGame from "../screens/CreateMatch";
-import Baseball from "../screens/games/Baseball";
-import X01 from "../screens/games/X01";
-import Elimination from "../screens/games/Elimination";
+import Baseball from "../games/Baseball";
+import X01 from "../games/X01";
+import Elimination from "../games/Elimination";
 import KillerSetUp from "../screens/gameOptions/KillerSetup";
-import Killer from "../screens/games/Killer";
+import Killer from "../games/Killer";
 import X01GameSelection from "../screens/gameOptions/X01Setup";
 import EliminationSetUp from "../screens/gameOptions/EliminationSetUp";
 
@@ -21,7 +21,7 @@ import ResetScoreListButton from "./buttons/ResetScoreListButton";
 import StackNavigatorBackButton from "./buttons/StackNavigatorBackButton";
 import AddPlayerButton from "./buttons/AddPlayerButton";
 
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "../../types";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

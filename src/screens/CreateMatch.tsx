@@ -3,25 +3,9 @@ import { Text, View } from "../components/Themed";
 import { Button, FlatList, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import { RootStackParamList } from "../types";
-
-import SelectionDropdown from "../components/Dropdown";
 import useGame, { PlayerList } from "../hooks/useGame";
 import { useThemeColor } from "../components/Themed";
 import useColorScheme from "../hooks/useColorScheme";
-
-// Array for dropdown items
-const games = [
-  { label: "Baseball", value: "Baseball" },
-  { label: "Cricket", value: "Cricket" },
-  { label: "Elimination", value: "Elimination" },
-  { label: "Killer", value: "Killer" },
-  { label: "X01", value: "X01" },
-];
-
-// Constants for label text
-const labelHeader = "Available Games";
-const initialPlaceholder = "Select a game";
 
 const CreateMatch = () => {
   const navigator = useNavigation();
@@ -33,9 +17,15 @@ const CreateMatch = () => {
     selectedPlayers,
     setSelectedPlayers,
   } = useGame();
-  const [game, setGame] = React.useState<keyof RootStackParamList>();
+
   const theme = useColorScheme();
   const color = useThemeColor({ light: "black", dark: "white" }, "background");
+  const [currentPlayers, setCurrentPlayers] =
+    React.useState<PlayerList>(playerList);
+
+  React.useEffect(() => {
+    console.log(selectedGame);
+  }, [selectedGame]);
 
   return (
     <>
@@ -54,43 +44,28 @@ const CreateMatch = () => {
             styles.gameSelection,
             theme === "light" && { backgroundColor: "lightblue" },
           ]}
-          onPressOut={() => {}}
+          onPressOut={() => {
+            navigator.navigate("Modal");
+          }}
         >
           <Text style={{ fontSize: 40 }}>{selectedGame}</Text>
         </Pressable>
       </View>
       <View style={{ height: "70%", backgroundColor: "grey" }}>
-        {selectedPlayers.length === 0 ? (
+        {playerList.length === 0 ? (
           <SelectPlayersMessage />
         ) : (
-          <DisplaySelectedPlayers selectedPlayers={selectedPlayers} />
+          <DisplaySelectedPlayers selectedPlayers={playerList} />
         )}
       </View>
       <Button
         title="Continue"
         onPress={
-          () => {}
-          // navigator.navigate(`${selectedGame}`
+          // () => console.log(typeof selectedGame)
+          () => navigator.navigate(`${selectedGame}`)
         }
-        disabled={selectedPlayers.length === 0 ? true : false}
+        disabled={playerList.length === 0 ? true : false}
       />
-
-      {/* <SelectionDropdown
-        array={games}
-        labelHeader={labelHeader}
-        initialPlaceholder={initialPlaceholder}
-        setGame={setGame}
-      />
-      <View>
-        <Text>Game selected: {game}</Text>
-        <Button
-          title="Continue"
-          onPress={() => {
-            navigator.navigate(game!);
-          }}
-          disabled={!game ? true : false}
-        ></Button>
-      </View> */}
     </>
   );
 };
@@ -119,7 +94,7 @@ const DisplaySelectedPlayers = (props: IDisplaySelectedPlayersProps) => {
           extraData={props.selectedPlayers}
           data={props.selectedPlayers}
           renderItem={({ item }) => (
-            <Text style={{ fontSize: 30, padding: 15 }}>- {item.name}</Text>
+            <Text style={{ fontSize: 30, padding: 15 }}> {item.name}</Text>
           )}
         />
       </View>

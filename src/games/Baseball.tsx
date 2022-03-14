@@ -1,10 +1,10 @@
 import React from "react";
 
 import { FlatList, StyleSheet } from "react-native";
-import { Text, View } from "../../components/Themed";
-import useGame, { PlayerList } from "../../hooks/useGame";
+import { Text, View } from "../components/Themed";
+import useGame, { PlayerList } from "../hooks/useGame";
 
-import BaseballScoreCalculator from "../../components/scoreCalculator/BaseballScoreCalculator";
+import BaseballScoreCalculator from "../components/scoreCalculator/BaseballScoreCalculator";
 
 const Baseball = () => {
   const {

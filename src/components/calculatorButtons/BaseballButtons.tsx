@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     padding: 1,
     margin: 4,
     minHeight: 60,
+    borderRadius: 5,
     // width: "50%",
   },
 });

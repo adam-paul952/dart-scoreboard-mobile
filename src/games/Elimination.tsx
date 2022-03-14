@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Text, View } from "../../components/Themed";
+import { Text, View } from "../components/Themed";
 
-import useGame from "../../hooks/useGame";
+import useGame from "../hooks/useGame";
 
 const Elimination = () => {
   const { playerList } = useGame();

@@ -2,7 +2,7 @@ import React from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { Text, View } from "../components/Themed";
 import { StyleSheet } from "react-native";
-import { RootStackParamList } from "../types";
+import { RootStackParamList } from "../../types";
 import { setGlobalCssModule } from "reactstrap/es/utils";
 
 type DropdownArray = { label: string | number; value: string | number };
@@ -46,7 +46,6 @@ const SelectionDropdown = ({
 
   return (
     <>
-      <View style={styles.container}></View>
       <View style={styles.container}>
         {isFocus && renderLabel()}
         <Dropdown

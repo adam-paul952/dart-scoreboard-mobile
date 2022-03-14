@@ -1,7 +1,7 @@
 import React from "react";
-import { Text } from "../../components/Themed";
+import { Text } from "../components/Themed";
 
-import useGame from "../../hooks/useGame";
+import useGame from "../hooks/useGame";
 
 const X01 = () => {
   const { playerList } = useGame();
