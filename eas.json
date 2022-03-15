@@ -17,7 +17,7 @@
       "android": {
         "serviceAccountKeyPath": "./credentials.json",
         "track": "internal",
-        "releaseStatus": "internal"
+        "releaseStatus": "completed"
       }
     }
   }

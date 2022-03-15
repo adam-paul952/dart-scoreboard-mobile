@@ -1,16 +1,11 @@
 import React from "react";
-import {
-  Button,
-  FlatList,
-  Pressable,
-  StyleSheet,
-  TextInput,
-} from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Text, View } from "../components/Themed";
-import useGame, { IPlayers, PlayerList } from "../hooks/useGame";
+import { View } from "../components/Themed";
+import useGame, { IPlayers } from "../hooks/useGame";
 
-import { Feather } from "@expo/vector-icons";
+import DisplayPlayerList from "../components/DisplayPlayerList";
+import PlayerInput from "../components/PlayerInput";
 
 const CreatePlayer = () => {
   const {
@@ -22,18 +17,16 @@ const CreatePlayer = () => {
   } = useGame();
   const navigator = useNavigation();
 
-  let list: PlayerList = [];
-
   const initialState = {
     id: Math.floor(Math.random() * 100),
     name: "",
     score: 0,
     scoreList: [],
     lives: 0,
+    selected: false,
   };
 
   const [playerName, setPlayerName] = React.useState<IPlayers>(initialState);
-  const { name } = playerName;
 
   const onAddPlayer = () => {
     addPlayer(playerName);
@@ -43,56 +36,15 @@ const CreatePlayer = () => {
   return (
     <>
       <View style={styles.container}>
-        <Text>Enter Playername:</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          onChangeText={(text) => setPlayerName({ ...playerName, name: text })}
-          keyboardType="default"
+        <PlayerInput
+          playerName={playerName}
+          setPlayerName={setPlayerName}
+          onAddPlayer={onAddPlayer}
         />
-        <Button
-          title="Add Player"
-          onPress={() => {
-            onAddPlayer();
-          }}
-        />
-        <FlatList
-          extraData={playerList}
-          data={playerList}
-          renderItem={(item) => (
-            <View key={item.item.id} style={styles.listRow}>
-              <Pressable
-                style={({ pressed }) => [
-                  { opacity: pressed ? 0.5 : 1 },
-                  { flexDirection: "row" },
-                ]}
-                onPressIn={() => {
-                  list.push(item.item);
-                  console.log(item.item);
-                }}
-                onPressOut={() => {
-                  console.log(list);
-                  // setSelectedPlayers([...selectedPlayers, list]);
-                }}
-                onPress={() => {
-                  console.log(selectedPlayers);
-                  navigator.navigate("CreateGame");
-                }}
-              >
-                <Text style={styles.listCol}>{item.item.id}</Text>
-                <Text style={styles.listCol}>{item.item.name}</Text>
-              </Pressable>
-              <View style={styles.listCol}>
-                <Pressable
-                  onPressOut={() => {
-                    deletePlayer(item.item.id);
-                  }}
-                >
-                  <Feather name="delete" size={27} color="white" />
-                </Pressable>
-              </View>
-            </View>
-          )}
+        <DisplayPlayerList
+          playerList={playerList}
+          selectedPlayers={selectedPlayers}
+          deletePlayer={deletePlayer}
         />
         <Button
           title="Create Game"
@@ -113,30 +65,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 50,
     marginBottom: 0,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "white",
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: "white",
-    width: "50%",
-  },
-  listRow: {
-    flexDirection: "row",
-    marginTop: 20,
-    marginBottom: 20,
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  listCol: {
-    marginLeft: 20,
-    marginRight: 20,
-    fontSize: 22,
   },
 });

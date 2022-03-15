@@ -80,8 +80,9 @@ const useGame = () => {
    * Set defaults from previous session
    */
 
-  const [selectedGame, setSelectedGame] =
-    React.useState<keyof RootStackParamList>("Baseball");
+  const [selectedGame, setSelectedGame] = React.useState<
+    keyof RootStackParamList | undefined
+  >("Baseball");
 
   const [selectedPlayers, setSelectedPlayers] = React.useState<PlayerList>([]);
 

@@ -69,6 +69,7 @@ const KillerSetUp = () => {
           keyboardType="numeric"
           value={playerTarget}
           onChangeText={(number) => onHandleChange(number)}
+          onSubmitEditing={() => onTargetSubmit()}
         />
         <Button
           title="Enter Score"

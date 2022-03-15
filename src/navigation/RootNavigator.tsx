@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import BottomTabNavigator from "./BottomTabNavigator";
 
 // Components
-import ModalScreen from "../screens/GameSelect";
+import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import CreatePlayer from "../screens/CreatePlayer";
 import CreateGame from "../screens/CreateMatch";
@@ -22,6 +22,7 @@ import StackNavigatorBackButton from "./buttons/StackNavigatorBackButton";
 import AddPlayerButton from "./buttons/AddPlayerButton";
 
 import { RootStackParamList } from "../../types";
+import Cricket from "../games/Cricket";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -109,6 +110,15 @@ const RootNavigator = () => {
         options={{
           headerLeft: () => <StackNavigatorBackButton />,
           title: "Killer",
+          headerRight: () => <ResetScoreListButton />,
+        }}
+      />
+      <Stack.Screen
+        name="Cricket"
+        component={Cricket}
+        options={{
+          headerLeft: () => <StackNavigatorBackButton />,
+          title: "Cricket",
           headerRight: () => <ResetScoreListButton />,
         }}
       />

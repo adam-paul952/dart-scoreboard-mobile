@@ -30,6 +30,7 @@ export type RootStackParamList = {
   EliminationGame: NavigatorScreenParams<RootTabParamList> | undefined;
   Killer: NavigatorScreenParams<RootTabParamList> | undefined;
   KillerGame: NavigatorScreenParams<RootTabParamList> | undefined;
+  Cricket: NavigatorScreenParams<RootTabParamList> | undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

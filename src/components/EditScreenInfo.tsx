@@ -1,59 +1,55 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
-import { Button, StyleSheet, TouchableOpacity } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 import Colors from "../constants/Colors";
 import { MonoText } from "./StyledText";
 import { Text, View } from "./Themed";
 
-import SelectionDropdown from "../components/Dropdown";
-
-import { RootStackParamList } from "../../types";
-
-import { useNavigation } from "@react-navigation/native";
-
-// Array for dropdown items
-const games = [
-  { label: "Baseball", value: "Baseball" },
-  { label: "Cricket", value: "Cricket" },
-  { label: "Elimination", value: "Elimination" },
-  { label: "Killer", value: "Killer" },
-  { label: "X01", value: "X01" },
-];
-
-// Constants for label text
-const labelHeader = "Available Games";
-const initialPlaceholder = "Select a game";
-
-export default function EditScreenInfo({
-  setSelectedGame,
-}: {
-  setSelectedGame: React.Dispatch<
-    React.SetStateAction<keyof RootStackParamList>
-  >;
-}) {
-  const navigator = useNavigation();
-  const [game, setGame] = React.useState<keyof RootStackParamList>();
+export default function EditScreenInfo({ path }: { path: string }) {
   return (
     <View>
-      <SelectionDropdown
-        array={games}
-        labelHeader={labelHeader}
-        initialPlaceholder={initialPlaceholder}
-        setGame={setGame}
-      />
-      <View>
-        <Text style={{ fontSize: 18 }}>Game selected: {game}</Text>
-        <Button
-          title="Select Game"
-          onPress={async () => {
-            await setSelectedGame(game!);
-            await navigator.goBack();
-          }}
-          disabled={!game ? true : false}
-        ></Button>
+      <View style={styles.getStartedContainer}>
+        <Text
+          style={styles.getStartedText}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)"
+        >
+          Open up the code for this screen:
+        </Text>
+
+        <View
+          style={[styles.codeHighlightContainer, styles.homeScreenFilename]}
+          darkColor="rgba(255,255,255,0.05)"
+          lightColor="rgba(0,0,0,0.05)"
+        >
+          <MonoText>{path}</MonoText>
+        </View>
+
+        <Text
+          style={styles.getStartedText}
+          lightColor="rgba(0,0,0,0.8)"
+          darkColor="rgba(255,255,255,0.8)"
+        >
+          Change any of the text, save the file, and your app will automatically
+          update.
+        </Text>
+      </View>
+
+      <View style={styles.helpContainer}>
+        <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
+          <Text style={styles.helpLinkText} lightColor={Colors.light.tint}>
+            Tap here if your app doesn't automatically update after making
+            changes
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
+  );
+}
+
+function handleHelpPress() {
+  WebBrowser.openBrowserAsync(
+    "https://docs.expo.io/get-started/create-a-new-app/#opening-the-app-on-your-phonetablet"
   );
 }
 

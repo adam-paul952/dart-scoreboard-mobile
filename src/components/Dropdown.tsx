@@ -3,7 +3,6 @@ import { Dropdown } from "react-native-element-dropdown";
 import { Text, View } from "../components/Themed";
 import { StyleSheet } from "react-native";
 import { RootStackParamList } from "../../types";
-import { setGlobalCssModule } from "reactstrap/es/utils";
 
 type DropdownArray = { label: string | number; value: string | number };
 
@@ -17,10 +16,12 @@ interface ISelectionDropdown {
     | React.Dispatch<React.SetStateAction<number>>
     | React.Dispatch<React.SetStateAction<string>>;
   setX01Points?: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedGame?: React.Dispatch<
+    React.SetStateAction<keyof RootStackParamList | undefined>
+  >;
 }
 
 // Create Game inside renderLabel needs dropdown header text
-//
 
 const SelectionDropdown = ({
   variant,
@@ -29,6 +30,7 @@ const SelectionDropdown = ({
   initialPlaceholder,
   setGame,
   setX01Points,
+  setSelectedGame,
 }: ISelectionDropdown) => {
   const [value, setValue] = React.useState<keyof RootStackParamList>();
   const [isFocus, setIsFocus] = React.useState(false);
@@ -69,6 +71,7 @@ const SelectionDropdown = ({
             setValue(item.value);
             setIsFocus(false);
             setGame(item.value);
+            setSelectedGame!(item.value);
           }}
         />
       </View>
@@ -81,7 +84,8 @@ export default SelectionDropdown;
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "black",
-    padding: 16,
+    padding: 25,
+    marginTop: 30,
   },
   dropdown: {
     height: 50,

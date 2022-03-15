@@ -1,10 +1,11 @@
 import React from "react";
-import { Text, View } from "../components/Themed";
+import { Text, View, useThemeColor } from "../components/Themed";
 import { Button, FlatList, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import DisplayModel from "../components/SelectGameModal";
+
 import useGame, { PlayerList } from "../hooks/useGame";
-import { useThemeColor } from "../components/Themed";
 import useColorScheme from "../hooks/useColorScheme";
 
 const CreateMatch = () => {
@@ -23,9 +24,7 @@ const CreateMatch = () => {
   const [currentPlayers, setCurrentPlayers] =
     React.useState<PlayerList>(playerList);
 
-  React.useEffect(() => {
-    console.log(selectedGame);
-  }, [selectedGame]);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   return (
     <>
@@ -45,7 +44,7 @@ const CreateMatch = () => {
             theme === "light" && { backgroundColor: "lightblue" },
           ]}
           onPressOut={() => {
-            navigator.navigate("Modal");
+            setModalVisible(!modalVisible);
           }}
         >
           <Text style={{ fontSize: 40 }}>{selectedGame}</Text>
@@ -61,11 +60,18 @@ const CreateMatch = () => {
       <Button
         title="Continue"
         onPress={
-          // () => console.log(typeof selectedGame)
-          () => navigator.navigate(`${selectedGame}`)
+          () => navigator.navigate(`${selectedGame!}`)
         }
         disabled={playerList.length === 0 ? true : false}
       />
+      {modalVisible && (
+        <DisplayModel
+          setSelectedGame={setSelectedGame}
+          selectedGame={selectedGame}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      )}
     </>
   );
 };
