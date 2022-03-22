@@ -25,8 +25,13 @@ const initialPlaceholder = "Select number of points";
 
 const X01GameSelection = () => {
   const navigator = useNavigation();
-  const { x01Points, setX01Points, x01GameSelect, assignX01PlayerScore } =
-    useGame();
+  const {
+    x01Points,
+    setX01Points,
+    x01GameSelect,
+    assignX01PlayerScore,
+    setSelectedGame,
+  } = useGame();
 
   const [game, setGame] = React.useState<number>(0);
 
@@ -45,6 +50,7 @@ const X01GameSelection = () => {
         initialPlaceholder={initialPlaceholder}
         setGame={setGame}
         setX01Points={setX01Points}
+        setSelectedGame={setSelectedGame}
       />
       <View>
         <Text>Game selected: {game}</Text>

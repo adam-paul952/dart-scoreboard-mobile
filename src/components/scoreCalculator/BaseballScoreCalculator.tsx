@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { Text, View } from "../../components/Themed";
 
-import BaseballCalculatorButtons from "../calculatorButtons/BaseballButtons";
+import StandardCalculatorButtons from "../calculatorButtons/StandardButtons";
 import { PlayerList, IPlayers } from "../../hooks/useGame";
 
 interface IBaseballScoreCalculatorProps {
@@ -83,7 +83,7 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
         <Text>Player Score: {playerScore}</Text>
         {props.winner && <Text>The winner is {props.winner.name}</Text>}
       </View>
-      <BaseballCalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
+      <StandardCalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
     </>
   );
 };
@@ -92,7 +92,7 @@ export default BaseballScoreCalculator;
 
 const styles = StyleSheet.create({
   scoreDisplay: {
-    marginTop: 50,
+    marginTop: 10,
     justifyContent: "center",
     alignItems: "center",
   },

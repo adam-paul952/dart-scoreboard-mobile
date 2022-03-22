@@ -16,13 +16,8 @@ interface IDisplaySelectedPlayersProps {
 
 const DisplayPlayerList = ({
   playerList,
-  selectedPlayers,
   deletePlayer,
 }: IDisplaySelectedPlayersProps) => {
-  const navigator = useNavigation();
-
-  let list: PlayerList = [];
-
   return (
     <>
       <FlatList
@@ -35,18 +30,6 @@ const DisplayPlayerList = ({
                 { opacity: pressed ? 0.5 : 1 },
                 { flexDirection: "row" },
               ]}
-              onPressIn={() => {
-                list.push(item.item);
-                console.log(item.item);
-              }}
-              onPressOut={() => {
-                console.log(list);
-                // setSelectedPlayers([...selectedPlayers, list]);
-              }}
-              onPress={() => {
-                console.log(selectedPlayers);
-                navigator.navigate("CreateGame");
-              }}
             >
               <Text style={styles.listCol}>{item.item.id}</Text>
               <Text style={styles.listCol}>{item.item.name}</Text>
@@ -57,7 +40,7 @@ const DisplayPlayerList = ({
                   deletePlayer(item.item.id);
                 }}
               >
-                <Feather name="delete" size={27} color="white" />
+                <Feather name="delete" size={27} color="black" />
               </Pressable>
             </View>
           </View>

@@ -1,44 +1,25 @@
 import { Modal, StyleSheet } from "react-native";
-import { View } from "../components/Themed";
-
-import { RootStackParamList } from "../../types";
-
-import GameSelection from "../screens/SelectGame";
+import { View } from "./Themed";
 
 interface ISelectGameProps {
-  setSelectedGame: React.Dispatch<
-    React.SetStateAction<keyof RootStackParamList | undefined>
-  >;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   modalVisible: boolean;
-  selectedGame: keyof RootStackParamList | undefined;
+  children: React.ReactNode;
 }
 
-const DisplayModel = ({
-  setSelectedGame,
-  modalVisible,
-  setModalVisible,
-  selectedGame,
-}: ISelectGameProps) => {
+const DisplayModel = (props: ISelectGameProps) => {
   return (
     <>
       <Modal
         animationType="slide"
         transparent={true}
-        visible={modalVisible}
+        visible={props.modalVisible}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          props.setModalVisible(!props.modalVisible);
         }}
       >
         <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <GameSelection
-              setSelectedGame={setSelectedGame}
-              selectedGame={selectedGame}
-              setModalVisible={setModalVisible}
-              modalVisible={modalVisible}
-            />
-          </View>
+          <View style={styles.modalView}>{props.children}</View>
         </View>
       </Modal>
     </>

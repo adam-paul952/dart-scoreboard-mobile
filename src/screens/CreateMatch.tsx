@@ -3,7 +3,8 @@ import { Text, View, useThemeColor } from "../components/Themed";
 import { Button, FlatList, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import DisplayModel from "../components/SelectGameModal";
+import DisplayModel from "../components/Modal";
+import GameSelection from "./SelectGame";
 
 import useGame, { PlayerList } from "../hooks/useGame";
 import useColorScheme from "../hooks/useColorScheme";
@@ -59,18 +60,21 @@ const CreateMatch = () => {
       </View>
       <Button
         title="Continue"
-        onPress={
-          () => navigator.navigate(`${selectedGame!}`)
-        }
+        onPress={() => navigator.navigate(`${selectedGame!}`)}
         disabled={playerList.length === 0 ? true : false}
       />
       {modalVisible && (
         <DisplayModel
-          setSelectedGame={setSelectedGame}
-          selectedGame={selectedGame}
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
-        />
+        >
+          <GameSelection
+            setSelectedGame={setSelectedGame}
+            selectedGame={selectedGame}
+            setModalVisible={setModalVisible}
+            modalVisible={modalVisible}
+          />
+        </DisplayModel>
       )}
     </>
   );

@@ -1,7 +1,7 @@
 import { FlatList, Pressable, StyleSheet } from "react-native";
-import { Text, View } from "../../components/Themed";
+import { Text, View } from "../Themed";
 
-interface IBaseballCalculatorButtons {
+interface IStandardCalculatorButtons {
   onHandleScoreSubmit: (input: string) => void;
 }
 
@@ -20,7 +20,7 @@ const calculatorButtons = [
   "Enter",
 ];
 
-const BaseballCalculatorButtons = (props: IBaseballCalculatorButtons) => {
+const StandardCalculatorButtons = (props: IStandardCalculatorButtons) => {
   return (
     <>
       <View style={styles.buttonGroup}>
@@ -46,16 +46,15 @@ const BaseballCalculatorButtons = (props: IBaseballCalculatorButtons) => {
   );
 };
 
-export default BaseballCalculatorButtons;
+export default StandardCalculatorButtons;
 
 const styles = StyleSheet.create({
   buttonGroup: {
-    backgroundColor: "black",
     padding: 10,
     justifyContent: "center",
     alignItems: "center",
     width: "100%",
-    marginTop: 60,
+    marginTop: 20,
     height: 300,
   },
   buttonRow: {
@@ -65,11 +64,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "blue",
+    backgroundColor: "lightgrey",
     padding: 1,
     margin: 4,
     minHeight: 60,
     borderRadius: 5,
-    // width: "50%",
   },
 });

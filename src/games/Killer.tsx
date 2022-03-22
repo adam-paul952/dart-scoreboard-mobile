@@ -8,7 +8,7 @@ import useGame, { PlayerList, IPlayers } from "../hooks/useGame";
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
-import BaseballCalculatorButtons from "../components/calculatorButtons/BaseballButtons";
+import BaseballCalculatorButtons from "../components/calculatorButtons/StandardButtons";
 
 const Killer = () => {
   const {

@@ -1,20 +1,20 @@
 import React from "react";
-import { Text } from "../components/Themed";
+import { Text, View } from "../components/Themed";
 
 import useGame from "../hooks/useGame";
 
+import StandardCalculatorButtons from "../components/calculatorButtons/StandardButtons";
+import PlayerScoreDisplay from "../components/scoreBoard/PlayerScoreDisplay";
+import X01Scoreboard from "../components/scoreBoard/X01Scoreboard";
+
 const X01 = () => {
   const { playerList } = useGame();
+  const [playerScore, setPlayerScore] = React.useState<string>("");
   return (
     <>
-      {playerList.map((player) => {
-        return (
-          <>
-            <Text key={player.id}>{player.name}</Text>
-            <Text key={player.id + 1}>{player.score}</Text>
-          </>
-        );
-      })}
+      <X01Scoreboard playerList={playerList} />
+      <PlayerScoreDisplay playerScore={playerScore} />
+      <StandardCalculatorButtons onHandleScoreSubmit={() => {}} />
     </>
   );
 };

@@ -36,11 +36,11 @@ const CreatePlayer = () => {
   return (
     <>
       <View style={styles.container}>
-        <PlayerInput
+        {/* <PlayerInput
           playerName={playerName}
           setPlayerName={setPlayerName}
           onAddPlayer={onAddPlayer}
-        />
+        /> */}
         <DisplayPlayerList
           playerList={playerList}
           selectedPlayers={selectedPlayers}

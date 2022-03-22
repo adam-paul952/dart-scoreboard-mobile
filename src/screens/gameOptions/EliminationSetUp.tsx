@@ -20,7 +20,7 @@ const eliminationLives = [
 ];
 
 const EliminationSetUp = () => {
-  const { assignPlayerLives } = useGame();
+  const { assignPlayerLives, setSelectedGame } = useGame();
   const navigator = useNavigation();
   const [playerLives, setPlayerLives] = React.useState<number>(0);
 
@@ -35,6 +35,7 @@ const EliminationSetUp = () => {
         labelHeader="Lives"
         initialPlaceholder="Select Lives"
         setGame={setPlayerLives}
+        setSelectedGame={setSelectedGame}
       />
       <View>
         <Text>Lives selected: {playerLives}</Text>

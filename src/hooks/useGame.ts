@@ -118,6 +118,38 @@ const useGame = () => {
   };
 
   /*
+   *  Helper functions for Elimination Gameplay
+   */
+
+  const [prevPlayerScore, setPrevPlayerScore] = React.useState<number>(0);
+  const [playerIsOut, setPlayerIsOut] = React.useState<PlayerList>([]);
+
+  const assignEliminationScore = (player: IPlayers, score: number) => {
+    if (player.lives !== 0) {
+      player.scoreList.push(score);
+      for (let i = 0; i < player.scoreList.length; i++) {
+        if (player.lives === 0 && player.scoreList[i] === 0) {
+          return;
+        }
+        player.score = player.scoreList[i];
+        setPrevPlayerScore(player.score);
+      }
+    }
+    if (prevPlayerScore >= player.score) {
+      player.lives -= 1;
+      if (player.lives < 0) {
+        player.lives = 0;
+      }
+    }
+    if (player.lives === 0) {
+      playerIsOut.push(player);
+      setPlayerIsOut([...playerIsOut]);
+    } else {
+      nextTurn();
+    }
+  };
+
+  /*
    *  Helper functions for Killer setup
    */
 
@@ -162,6 +194,8 @@ const useGame = () => {
     setSelectedGame,
     selectedPlayers,
     setSelectedPlayers,
+    playerIsOut,
+    assignEliminationScore,
   };
 };
 
