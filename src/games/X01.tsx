@@ -1,20 +1,36 @@
 import React from "react";
-import { Text, View } from "../components/Themed";
 
+// Hooks
 import useGame from "../hooks/useGame";
 
-import StandardCalculatorButtons from "../components/calculatorButtons/StandardButtons";
-import PlayerScoreDisplay from "../components/scoreBoard/PlayerScoreDisplay";
+// Components
 import X01Scoreboard from "../components/scoreBoard/X01Scoreboard";
+import X01ScoreCalculator from "../components/scoreCalculator/X01ScoreCalculator";
 
 const X01 = () => {
-  const { playerList } = useGame();
-  const [playerScore, setPlayerScore] = React.useState<string>("");
+  const {
+    playerList,
+    setPlayerList,
+    turn,
+    nextTurn,
+    winner,
+    setWinner,
+    resetScoreList,
+    assignX01GameScore,
+  } = useGame();
   return (
     <>
       <X01Scoreboard playerList={playerList} />
-      <PlayerScoreDisplay playerScore={playerScore} />
-      <StandardCalculatorButtons onHandleScoreSubmit={() => {}} />
+      <X01ScoreCalculator
+        playerList={playerList}
+        setPlayerList={setPlayerList}
+        turn={turn}
+        nextTurn={nextTurn}
+        winner={winner}
+        setWinner={setWinner}
+        resetScoreList={resetScoreList}
+        assignX01GameScore={assignX01GameScore}
+      />
     </>
   );
 };

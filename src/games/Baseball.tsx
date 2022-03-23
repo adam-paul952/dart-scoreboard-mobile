@@ -12,12 +12,12 @@ const Baseball = () => {
     playerList,
     setPlayerList,
     nextTurn,
-    getCurrentPlayer,
     turn,
     round,
     changeRounds,
     winner,
     setWinner,
+    resetScoreList,
   } = useGame();
 
   return (
@@ -28,12 +28,12 @@ const Baseball = () => {
           playerList={playerList}
           setPlayerList={setPlayerList}
           nextTurn={nextTurn}
-          getCurrentPlayer={getCurrentPlayer}
           turn={turn}
           round={round}
           changeRounds={changeRounds}
           winner={winner}
           setWinner={setWinner}
+          resetScoreList={resetScoreList}
         />
       </View>
     </>

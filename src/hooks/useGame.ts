@@ -13,6 +13,16 @@ export interface IPlayers {
 
 export type PlayerList = IPlayers[];
 
+export type IScoreCalculatorProps = {
+  playerList: PlayerList;
+  setPlayerList: (value: PlayerList) => Promise<void>;
+  turn: number;
+  nextTurn: () => void;
+  winner: IPlayers | null;
+  setWinner: React.Dispatch<React.SetStateAction<IPlayers | null>>;
+  resetScoreList: () => void;
+};
+
 const useGame = () => {
   /*
    * playerList to store players into storage
@@ -106,6 +116,34 @@ const useGame = () => {
   };
 
   /*
+   *  Helper functions for X01 Gameplay
+   */
+
+  const assignX01GameScore = (player: IPlayers, score: number) => {
+    player.scoreList.push(score);
+    let playerScoreReduced = player.scoreList.reduce(
+      (sum, current) => sum - current
+    );
+    if (playerScoreReduced < 0 || playerScoreReduced === 1) {
+      alert(`Bust!!`);
+      player.scoreList.pop();
+      playerScoreReduced = player.scoreList.reduce(
+        (sum, current) => sum - current
+      );
+    }
+    player.score = playerScoreReduced;
+    // for (let i = 0; i < player.scoreList.length; i++) {
+    //   if (
+    //     player.scoreList[i] > player.highScore &&
+    //     player.scoreList[i] <= 180
+    //   ) {
+    //     player.highScore = player.scoreList[i];
+    //   }
+    // }
+    setPlayerList([...playerList]);
+  };
+
+  /*
    *  Helper functions for Elimination Set-Up
    */
 
@@ -196,6 +234,7 @@ const useGame = () => {
     setSelectedPlayers,
     playerIsOut,
     assignEliminationScore,
+    assignX01GameScore,
   };
 };
 

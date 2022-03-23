@@ -1,14 +1,18 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { IPlayers } from "../../hooks/useGame";
 
 import { useNavigation } from "@react-navigation/native";
 
 import { Text, View } from "../Themed";
 
+// Types
+import { IPlayers } from "../../hooks/useGame";
+import { RootStackParamList } from "../../../types";
+
 interface IDisplayWinnerProps {
   winner: IPlayers | null;
   resetScoreList: () => void;
+  variant: keyof RootStackParamList;
 }
 
 const DisplayWinner = (props: IDisplayWinnerProps) => {
@@ -30,7 +34,7 @@ const DisplayWinner = (props: IDisplayWinnerProps) => {
           }}
           onPress={() => {
             props.resetScoreList();
-            navigation.navigate("Elimination");
+            navigation.navigate(`${props.variant}`);
           }}
         >
           <Text style={styles.winnerText}>Play Again</Text>

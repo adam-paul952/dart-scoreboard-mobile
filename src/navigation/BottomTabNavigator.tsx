@@ -1,21 +1,20 @@
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
-import { Foundation } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import React from "react";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import * as React from "react";
 // import { Pressable } from "react-native";
-
+// Theme Providers
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 
+// Screens
 import Rules from "../screens/Rules";
 import Landing from "../screens/Landing";
 
-import { RootTabParamList, RootTabScreenProps } from "../types";
+// Tab Icons
+import { TabBarIconHome, TabBarIconRules } from "./buttons/TabIcons";
+
+// Types
+import { RootTabParamList, RootTabScreenProps } from "../../types";
 
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
@@ -59,6 +58,7 @@ const BottomTabNavigator = () => {
         component={Rules}
         options={{
           title: "Rules",
+          headerTitle: "Dart Scoreboard",
           tabBarIcon: ({ color }) => (
             <TabBarIconRules name="text-document" color={color} />
           ),
@@ -69,20 +69,3 @@ const BottomTabNavigator = () => {
 };
 
 export default BottomTabNavigator;
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-const TabBarIconRules = (props: {
-  name: React.ComponentProps<typeof Entypo>["name"];
-  color: string;
-}) => {
-  return <Entypo size={30} style={{ marginBottom: -3 }} {...props} />;
-};
-
-const TabBarIconHome = (props: {
-  name: React.ComponentProps<typeof Foundation>["name"];
-  color: string;
-}) => {
-  return <Foundation size={30} style={{ marginBottom: -3 }} {...props} />;
-};

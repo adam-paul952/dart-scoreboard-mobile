@@ -12,6 +12,7 @@ import { useThemeColor } from "../components/Themed";
 import useColorScheme from "../hooks/useColorScheme";
 
 import { Text, View } from "../components/Themed";
+import CustomButton from "../components/CustomButton";
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,12 +30,17 @@ const Landing = () => {
         }}
       >
         <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
-          <TouchableOpacity
-            style={[
+          <CustomButton
+            title="New Game"
+            textStyle={styles.buttonText}
+            buttonStyle={[
               styles.childStyle,
-              theme === "light" && { backgroundColor: "lightblue" },
+              theme === "light" && {
+                backgroundColor: "lightblue",
+              },
             ]}
-            onPress={() => navigate.navigate("CreateGame")}
+            buttonIconStyle={styles.buttonIcon}
+            onPressOut={() => navigate.navigate("CreateGame")}
           >
             <MaterialCommunityIcons
               name="bullseye-arrow"
@@ -42,14 +48,16 @@ const Landing = () => {
               color={color}
               style={{ marginTop: 20 }}
             />
-            <Text style={styles.buttonText}>New Game</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[
+          </CustomButton>
+          <CustomButton
+            title="Create Player"
+            buttonStyle={[
               styles.childStyle,
               theme === "light" && { backgroundColor: "lightblue" },
             ]}
-            onPress={() => navigate.navigate("CreatePlayer")}
+            textStyle={styles.buttonText}
+            buttonIconStyle={styles.buttonIcon}
+            onPressOut={() => navigate.navigate("CreatePlayer")}
           >
             <AntDesign
               name="adduser"
@@ -57,18 +65,19 @@ const Landing = () => {
               color={color}
               style={{ marginTop: 20 }}
             />
-            <Text style={styles.buttonText}>Create Player</Text>
-          </TouchableOpacity>
+          </CustomButton>
         </View>
 
-        <View></View>
-
         <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
-          <View
-            style={[
+          <CustomButton
+            title="Resume Game"
+            buttonStyle={[
               styles.childStyle,
               theme === "light" && { backgroundColor: "lightblue" },
             ]}
+            textStyle={styles.buttonText}
+            buttonIconStyle={styles.buttonIcon}
+            onPressOut={() => {}}
           >
             <FontAwesome5
               name="undo-alt"
@@ -76,13 +85,16 @@ const Landing = () => {
               color={color}
               style={{ marginTop: 20 }}
             />
-            <Text style={styles.buttonText}>Resume Game</Text>
-          </View>
-          <View
-            style={[
+          </CustomButton>
+          <CustomButton
+            title="Manage Players"
+            buttonStyle={[
               styles.childStyle,
               theme === "light" && { backgroundColor: "lightblue" },
             ]}
+            textStyle={[styles.buttonText, { padding: 5 }]}
+            buttonIconStyle={styles.buttonIcon}
+            onPressOut={() => {}}
           >
             <FontAwesome5
               name="user-friends"
@@ -90,8 +102,7 @@ const Landing = () => {
               color={color}
               style={{ marginTop: 20 }}
             />
-            <Text style={styles.buttonText}>Manage Players</Text>
-          </View>
+          </CustomButton>
         </View>
       </View>
     </>
@@ -122,5 +133,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
     fontSize: 24,
+  },
+  buttonIcon: {
+    alignSelf: "center",
   },
 });

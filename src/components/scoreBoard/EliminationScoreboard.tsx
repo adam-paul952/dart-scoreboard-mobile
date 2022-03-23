@@ -4,11 +4,12 @@ import { Text, View } from "../Themed";
 
 import { PlayerList } from "../../hooks/useGame";
 
+// Constants
+import { eliminationHeaderOptions } from "../../constants/TableHeaderOptions";
+
 interface IEliminationScoreboardProps {
   playerList: PlayerList;
 }
-
-const headerOptions = ["Player Name", "Score", "Lives"];
 
 const EliminationScoreboard = (props: IEliminationScoreboardProps) => {
   return (
@@ -21,9 +22,13 @@ const EliminationScoreboard = (props: IEliminationScoreboardProps) => {
           { borderBottomColor: "black", borderBottomWidth: 1 },
         ]}
       >
-        <Text style={{ width: "33%" }}>{headerOptions[0]}</Text>
-        <Text style={styles.columnTextStyle}>{headerOptions[1]}</Text>
-        <Text style={styles.columnTextStyle}>{headerOptions[2]}</Text>
+        <Text style={{ width: "33%" }}>{eliminationHeaderOptions[0]}</Text>
+        <Text style={styles.columnTextStyle}>
+          {eliminationHeaderOptions[1]}
+        </Text>
+        <Text style={styles.columnTextStyle}>
+          {eliminationHeaderOptions[2]}
+        </Text>
       </View>
       {props.playerList.map((player) => {
         return (

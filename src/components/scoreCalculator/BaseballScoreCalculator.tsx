@@ -1,20 +1,17 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Text, View } from "../../components/Themed";
 
-import StandardCalculatorButtons from "../calculatorButtons/StandardButtons";
-import { PlayerList, IPlayers } from "../../hooks/useGame";
+// Components
+import DisplayWinner from "./DisplayWinner";
+import PlayerScoreDisplay from "../scoreBoard/PlayerScoreDisplay";
+import CalculatorButtons from "../calculatorButtons/CalculatorButtons";
 
-interface IBaseballScoreCalculatorProps {
-  playerList: PlayerList;
-  setPlayerList: (playerList: PlayerList) => void;
-  nextTurn: () => void;
-  getCurrentPlayer: () => IPlayers;
-  turn: number;
+//Types
+import { IScoreCalculatorProps } from "../../hooks/useGame";
+
+interface IBaseballScoreCalculatorProps extends IScoreCalculatorProps {
   round: number;
   changeRounds: () => void;
-  winner: IPlayers | null;
-  setWinner: (player: IPlayers) => void;
 }
 
 const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
@@ -50,8 +47,7 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
   };
 
   const changeTurn = (score: number) => {
-    let currentPlayer = props.getCurrentPlayer();
-    // console.log(currentPlayer);
+    let currentPlayer = props.playerList[props.turn];
     currentPlayer.scoreList.push(score);
     props.setPlayerList([...props.playerList]);
     props.nextTurn();
@@ -79,21 +75,22 @@ const BaseballScoreCalculator = (props: IBaseballScoreCalculatorProps) => {
 
   return (
     <>
-      <View style={styles.scoreDisplay}>
-        <Text>Player Score: {playerScore}</Text>
-        {props.winner && <Text>The winner is {props.winner.name}</Text>}
-      </View>
-      <StandardCalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
+      {props.winner ? (
+        <DisplayWinner
+          winner={props.winner}
+          resetScoreList={props.resetScoreList}
+          variant="Baseball"
+        />
+      ) : (
+        <>
+          <PlayerScoreDisplay playerScore={playerScore} />
+          <CalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
+        </>
+      )}
     </>
   );
 };
 
 export default BaseballScoreCalculator;
 
-const styles = StyleSheet.create({
-  scoreDisplay: {
-    marginTop: 10,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+const styles = StyleSheet.create({});

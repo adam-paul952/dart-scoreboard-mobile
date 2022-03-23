@@ -1,32 +1,27 @@
 import { FlatList, Pressable, StyleSheet } from "react-native";
 import { Text, View } from "../Themed";
 
+import {
+  calculatorButtons,
+  cricketCalculatorButtons,
+} from "../../constants/CalculatorButtons";
+
 interface IStandardCalculatorButtons {
   onHandleScoreSubmit: (input: string) => void;
+  variant?: string;
 }
 
-const calculatorButtons = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "Del",
-  "0",
-  "Enter",
-];
-
-const StandardCalculatorButtons = (props: IStandardCalculatorButtons) => {
+const CalculatorButtons = (props: IStandardCalculatorButtons) => {
   return (
     <>
       <View style={styles.buttonGroup}>
         <View style={styles.buttonRow}>
           <FlatList
-            data={calculatorButtons}
+            data={
+              props.variant === "cricket"
+                ? cricketCalculatorButtons
+                : calculatorButtons
+            }
             numColumns={3}
             keyExtractor={(item) => item}
             renderItem={(item) => (
@@ -46,7 +41,7 @@ const StandardCalculatorButtons = (props: IStandardCalculatorButtons) => {
   );
 };
 
-export default StandardCalculatorButtons;
+export default CalculatorButtons;
 
 const styles = StyleSheet.create({
   buttonGroup: {

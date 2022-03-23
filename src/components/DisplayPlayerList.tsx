@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, Pressable, StyleSheet } from "react-native";
 
-import { Text, View } from "../components/Themed";
+import { Text, View } from "./Themed";
 
 import { IPlayers, PlayerList } from "../hooks/useGame";
 import { useNavigation } from "@react-navigation/native";

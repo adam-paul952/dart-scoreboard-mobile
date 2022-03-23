@@ -1,20 +1,19 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 
+//Components
 import PlayerScoreDisplay from "../scoreBoard/PlayerScoreDisplay";
-import StandardCalculatorButtons from "../calculatorButtons/StandardButtons";
-
-import { IPlayers, PlayerList } from "../../hooks/useGame";
+import CalculatorButtons from "../calculatorButtons/CalculatorButtons";
 import DisplayWinner from "./DisplayWinner";
 
-interface IEliminationScoreCalculatorProps {
-  playerList: PlayerList;
-  setPlayerList: (value: PlayerList) => Promise<void>;
-  turn: number;
-  nextTurn: () => void;
-  winner: IPlayers | null;
-  setWinner: React.Dispatch<React.SetStateAction<IPlayers | null>>;
-  resetScoreList: () => void;
+// Types
+import {
+  IPlayers,
+  IScoreCalculatorProps,
+  PlayerList,
+} from "../../hooks/useGame";
+
+interface IEliminationScoreCalculatorProps extends IScoreCalculatorProps {
   assignEliminationScore: (player: IPlayers, score: number) => void;
   playerIsOut: PlayerList;
 }
@@ -58,7 +57,6 @@ const EliminationScoreCalculator = (
     props.assignEliminationScore(currentPlayer, score);
     props.setPlayerList([...props.playerList]);
     props.nextTurn();
-    // declareWinner();
   };
 
   React.useEffect(() => {
@@ -80,13 +78,12 @@ const EliminationScoreCalculator = (
         <DisplayWinner
           winner={props.winner}
           resetScoreList={props.resetScoreList}
+          variant="Elimination"
         />
       ) : (
         <>
           <PlayerScoreDisplay playerScore={playerScore} />
-          <StandardCalculatorButtons
-            onHandleScoreSubmit={onHandleScoreSubmit}
-          />
+          <CalculatorButtons onHandleScoreSubmit={onHandleScoreSubmit} />
         </>
       )}
     </>

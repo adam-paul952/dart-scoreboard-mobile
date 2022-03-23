@@ -1,18 +1,28 @@
 import React from "react";
-import { FlatList, StyleSheet } from "react-native";
 
-import { Text, View } from "../../components/Themed";
+import { FlatList, StyleSheet } from "react-native";
+import { Text, View } from "../Themed";
 
 import { PlayerList } from "../../hooks/useGame";
 
-// Constants
-import { baseballHeaderOptions } from "../../constants/TableHeaderOptions";
+import { cricketHeaderOptions } from "../../constants/TableHeaderOptions";
 
-interface IBaseballScoreboardProps {
+interface ICricketScoreboardProps {
   playerList: PlayerList;
 }
 
-const BaseballScoreboard = (props: IBaseballScoreboardProps) => {
+const CricketScoreboard = (props: ICricketScoreboardProps) => {
+  const targets = [20, 19, 18, 17, 16, 15, 25];
+  const hitTargets = targets.forEach((target) => {
+    props.playerList.forEach((player) => {
+      return player.scoreList.filter((hitNum) => hitNum === target).length;
+    });
+  });
+
+  React.useEffect(() => {
+    console.log(hitTargets);
+  }, [hitTargets]);
+
   return (
     <>
       <View style={styles.listContainer}>
@@ -22,7 +32,7 @@ const BaseballScoreboard = (props: IBaseballScoreboardProps) => {
             { borderBottomColor: "black", borderBottomWidth: 1 },
           ]}
         >
-          {baseballHeaderOptions.map((header, index) => {
+          {cricketHeaderOptions.map((header, index) => {
             if (index === 0) {
               return (
                 <Text
@@ -38,7 +48,7 @@ const BaseballScoreboard = (props: IBaseballScoreboardProps) => {
                   {header}
                 </Text>
               );
-            } else if (index === baseballHeaderOptions.length - 1) {
+            } else if (index === cricketHeaderOptions.length - 1) {
               return (
                 <Text key={header} style={{ fontWeight: "700" }}>
                   {header}
@@ -82,7 +92,7 @@ const BaseballScoreboard = (props: IBaseballScoreboardProps) => {
   );
 };
 
-export default BaseballScoreboard;
+export default CricketScoreboard;
 
 const styles = StyleSheet.create({
   listContainer: {
