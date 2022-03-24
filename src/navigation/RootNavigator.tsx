@@ -23,6 +23,7 @@ import AddPlayerButton from "./buttons/AddPlayerButton";
 
 import { RootStackParamList } from "../../types";
 import Cricket from "../games/Cricket";
+import SignInPage from "../screens/SignIn";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -31,8 +32,10 @@ const RootNavigator = () => {
     <Stack.Navigator>
       <Stack.Screen
         name="Root"
-        component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        // component={BottomTabNavigator}
+        component={SignInPage}
+        // options={{ headerShown: false }}
+        options={{ title: "Signup" }}
       />
       <Stack.Screen
         name="NotFound"
