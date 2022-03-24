@@ -3,20 +3,34 @@ import { Button, StyleSheet, TextInput } from "react-native";
 
 import { Text } from "../components/Themed";
 
-import { IPlayers } from "../hooks/useGame";
+import useGame, { IPlayers } from "../hooks/useGame";
 
-interface IPlayerInputProps {
-  playerName: IPlayers;
-  setPlayerName: React.Dispatch<React.SetStateAction<IPlayers>>;
-  onAddPlayer: () => void;
-}
+const initialState = {
+  id: Math.floor(Math.random() * 100),
+  name: "",
+  score: 0,
+  scoreList: [],
+  lives: 0,
+  selected: true,
+};
 
 const PlayerInput = ({
-  playerName,
-  setPlayerName,
-  onAddPlayer,
-}: IPlayerInputProps) => {
+  modalVisible,
+  setModalVisible,
+}: {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  const { addPlayer } = useGame();
+
+  const [playerName, setPlayerName] = React.useState<IPlayers>(initialState);
   const { name } = playerName;
+
+  const onAddPlayer = () => {
+    addPlayer(playerName);
+    setPlayerName(initialState);
+  };
+
   return (
     <>
       <Text>Enter Playername:</Text>
@@ -31,6 +45,7 @@ const PlayerInput = ({
         title="Add Player"
         onPress={() => {
           onAddPlayer();
+          setModalVisible(!modalVisible);
         }}
       />
     </>

@@ -6,7 +6,7 @@ import BottomTabNavigator from "./BottomTabNavigator";
 // Components
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import CreatePlayer from "../screens/CreatePlayer";
+import ManagePlayer from "../screens/ManagePlayer";
 import CreateGame from "../screens/CreateMatch";
 import Baseball from "../games/Baseball";
 import X01 from "../games/X01";
@@ -41,8 +41,11 @@ const RootNavigator = () => {
       />
       <Stack.Screen
         name="CreatePlayer"
-        component={CreatePlayer}
-        options={{ title: "Select Players" }}
+        component={ManagePlayer}
+        options={{
+          title: "Select Players",
+          headerRight: () => <AddPlayerButton />,
+        }}
       />
       <Stack.Screen
         name="CreateGame"
