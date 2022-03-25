@@ -9,9 +9,14 @@ import useColorScheme from "../hooks/useColorScheme";
 // Screens
 import Rules from "../screens/Rules";
 import Landing from "../screens/Landing";
+import UserSettings from "../screens/Settings";
 
 // Tab Icons
-import { TabBarIconHome, TabBarIconRules } from "./buttons/TabIcons";
+import {
+  TabBarIconHome,
+  TabBarIconRules,
+  TabBarIconSettings,
+} from "./buttons/TabIcons";
 
 // Types
 import { RootTabParamList, RootTabScreenProps } from "../../types";
@@ -61,6 +66,17 @@ const BottomTabNavigator = () => {
           headerTitle: "Dart Scoreboard",
           tabBarIcon: ({ color }) => (
             <TabBarIconRules name="text-document" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={UserSettings}
+        options={{
+          title: "Settings",
+          headerTitle: "User Settings",
+          tabBarIcon: ({ color }) => (
+            <TabBarIconSettings name="settings-outline" color={color} />
           ),
         }}
       />

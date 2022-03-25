@@ -15,6 +15,10 @@ import KillerSetUp from "../screens/gameOptions/KillerSetup";
 import Killer from "../games/Killer";
 import X01GameSelection from "../screens/gameOptions/X01Setup";
 import EliminationSetUp from "../screens/gameOptions/EliminationSetUp";
+import Cricket from "../games/Cricket";
+import LoginPage from "../screens/Login";
+import InitialLandingPage from "../screens/InitialPage";
+import ConfirmSignupPage from "../screens/ConfirmSignup";
 
 // Navigation Buttons
 import ResetScoreListButton from "./buttons/ResetScoreListButton";
@@ -22,8 +26,7 @@ import StackNavigatorBackButton from "./buttons/StackNavigatorBackButton";
 import AddPlayerButton from "./buttons/AddPlayerButton";
 
 import { RootStackParamList } from "../../types";
-import Cricket from "../games/Cricket";
-import SignInPage from "../screens/SignIn";
+import SignupPage from "../screens/Signup";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,14 +36,21 @@ const RootNavigator = () => {
       <Stack.Screen
         name="Root"
         // component={BottomTabNavigator}
-        component={SignInPage}
-        // options={{ headerShown: false }}
-        options={{ title: "Signup" }}
+        component={InitialLandingPage}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
+      />
+      <Stack.Screen name="Login" component={LoginPage} />
+      <Stack.Screen name="Signup" component={SignupPage} />
+      <Stack.Screen name="ConfirmSignup" component={ConfirmSignupPage} />
+      <Stack.Screen
+        name="LandingPage"
+        component={BottomTabNavigator}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CreatePlayer"

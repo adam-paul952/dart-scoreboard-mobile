@@ -17,20 +17,24 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  Root: undefined;
   Modal: undefined;
   NotFound: undefined;
-  CreatePlayer: NavigatorScreenParams<RootTabParamList> | undefined;
-  Rules: NavigatorScreenParams<RootTabParamList> | undefined;
-  CreateGame: NavigatorScreenParams<RootTabParamList> | undefined;
-  Baseball: NavigatorScreenParams<RootTabParamList> | undefined;
-  X01: NavigatorScreenParams<RootTabParamList> | undefined;
-  X01Game: NavigatorScreenParams<RootTabParamList> | undefined;
-  Elimination: NavigatorScreenParams<RootTabParamList> | undefined;
-  EliminationGame: NavigatorScreenParams<RootTabParamList> | undefined;
-  Killer: NavigatorScreenParams<RootTabParamList> | undefined;
-  KillerGame: NavigatorScreenParams<RootTabParamList> | undefined;
-  Cricket: NavigatorScreenParams<RootTabParamList> | undefined;
+  LandingPage: undefined;
+  Login: undefined;
+  Signup: undefined;
+  ConfirmSignup: { username: string };
+  CreatePlayer: undefined;
+  Rules: undefined;
+  CreateGame: undefined;
+  Baseball: undefined;
+  X01: undefined;
+  X01Game: undefined;
+  Elimination: undefined;
+  EliminationGame: undefined;
+  Killer: undefined;
+  KillerGame: undefined;
+  Cricket: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -39,6 +43,7 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 export type RootTabParamList = {
   GetStarted: undefined;
   Rules: undefined;
+  Settings: undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
