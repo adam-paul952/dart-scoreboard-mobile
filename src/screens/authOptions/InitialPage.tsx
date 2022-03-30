@@ -42,7 +42,7 @@ const InitialLandingPage = () => {
         buttonStyle={styles.buttonStyle}
         textStyle={styles.buttonText}
         onPress={() => {
-          navigation.navigate("Login");
+          navigation.navigate("Login", { userEmail: "", isSignedUp: false });
         }}
       />
       <CustomButton

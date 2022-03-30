@@ -23,6 +23,7 @@ interface ICustomTextInputProps {
   secureTextEntry?: boolean;
   editable?: boolean;
   keyboardType?: KeyboardTypeOptions | undefined;
+  autoCapitalize?: "none" | "sentences" | "words" | "characters";
 }
 
 const CustomTextInput = (props: ICustomTextInputProps) => {
@@ -50,6 +51,7 @@ const CustomTextInput = (props: ICustomTextInputProps) => {
         secureTextEntry={props.secureTextEntry}
         editable={props.editable}
         keyboardType={props.keyboardType ? props.keyboardType : "default"}
+        autoCapitalize={props.autoCapitalize ? props.autoCapitalize : "none"}
       />
     </View>
   );

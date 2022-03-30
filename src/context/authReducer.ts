@@ -12,7 +12,6 @@ export interface IAuthState {
   username: string | null;
   userToken: string | null;
   isSignout: boolean;
-  isLoading: boolean;
 }
 
 export const authReducer = (state: IAuthState, action: IActions) => {
@@ -23,7 +22,6 @@ export const authReducer = (state: IAuthState, action: IActions) => {
         id: action.payload!.id,
         username: action.payload!.username,
         userToken: action.payload!.userToken,
-        isLoading: false,
       };
     case "SIGN_IN":
       return {

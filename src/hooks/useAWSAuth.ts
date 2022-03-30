@@ -12,20 +12,18 @@ const useAWSAuth = () => {
       console.log(user);
       return user;
     } catch (error) {
-      console.log(`The error is: `, error);
-      return { result: undefined, error: error };
+      throw new Error(`${error}`);
     }
   };
-  // TODO: Error handling
+
   const confirmSignUp = async (username: string, code: string) => {
     try {
       await Auth.confirmSignUp(username, code);
-      console.log("confirmed sign up");
     } catch (error) {
-      console.log("error confirming sign up", error);
+      throw new Error(`${error}`);
     }
   };
-  // TODO: Error handling
+
   const signIn = async (
     dispatch: React.Dispatch<IActions>,
     payloadOptions: { username: string; password: string }
@@ -41,21 +39,18 @@ const useAWSAuth = () => {
           userToken: user.signInUserSession.idToken.jwtToken,
         },
       });
-      console.log(`successfull login`);
       return user;
     } catch (error) {
-      console.log("error signing in", error);
+      throw new Error(`${error}`);
     }
   };
 
   const signOut = async () => {
     try {
       await Auth.signOut();
-      console.log(`User has been signed out`);
       return true;
     } catch (error) {
-      console.log("error signing out: ", error);
-      return error;
+      throw new Error(`${error}`);
     }
   };
 

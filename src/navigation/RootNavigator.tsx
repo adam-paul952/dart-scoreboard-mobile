@@ -1,9 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import BottomTabNavigator from "./BottomTabNavigator";
-
 // Components
+import BottomTabNavigator from "./BottomTabNavigator";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import CreatePlayer from "../screens/CreatePlayer";
@@ -44,11 +43,11 @@ const RootNavigator = () => {
         options={{ title: "Oops!" }}
       />
 
-      <Stack.Screen
+      {/* <Stack.Screen
         name="LandingPage"
         component={BottomTabNavigator}
         options={{}}
-      />
+      /> */}
       <Stack.Screen
         name="CreatePlayer"
         component={CreatePlayer}

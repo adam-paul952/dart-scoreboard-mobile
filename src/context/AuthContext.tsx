@@ -12,7 +12,6 @@ const initialState: IAuthState = {
   username: null,
   userToken: null,
   isSignout: false,
-  isLoading: true,
 };
 
 const AuthStateContext = React.createContext<IAuthContext>({} as IAuthContext);

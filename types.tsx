@@ -21,7 +21,7 @@ export type RootStackParamList = {
   Modal: undefined;
   NotFound: undefined;
   LandingPage: undefined;
-  Login: undefined;
+  Login: { userEmail: string; isSignedUp: boolean };
   Signup: undefined;
   ConfirmSignup: { username: string };
   CreatePlayer: undefined;
