@@ -8,7 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "aws-export": "echo 'Update Expo AWS_EXPORTS secret with value: \n\n' && cat aws-exports.js |base64",
+    "eas-build-pre-install": "echo $AWS_EXPORTS | base64 -di > ./aws-exports.js"
   },
   "jest": {
     "preset": "jest-expo"
