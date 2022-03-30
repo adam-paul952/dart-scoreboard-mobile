@@ -52,8 +52,8 @@ jobs:
       #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #   run: amplify pull --providers useProfile profileName:default --yes
-      - name: Configure AWS_Exports
-        run: npm run aws-export
+      # - name: Configure AWS_Exports
+      #   run: npm run aws-export
 
       - name: Build on EAS
         run: eas build --platform android --non-interactive
