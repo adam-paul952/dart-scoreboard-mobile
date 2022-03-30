@@ -48,7 +48,7 @@ jobs:
           npm install -g @aws-amplify/cli --unsafe-perm=true
 
       - name: Configure AWS_Exports
-        run: amplify pull
+        run: amplify pull --yes
 
       - name: Build on EAS
         run: eas build --platform android --non-interactive
