@@ -2,36 +2,36 @@ import React from "react";
 import { Alert, Keyboard, Platform, Pressable, StyleSheet } from "react-native";
 // Hooks
 import { useNavigation } from "@react-navigation/native";
-import useAWSAuth from "../hooks/useAWSAuth";
+import useAWSAuth from "../../hooks/useAWSAuth";
 // Components
-import { KeyboardAvoidingView, View } from "../components/Themed";
-import TextInput from "../components/TextInput";
-import CustomButton from "../components/CustomButton";
+import { KeyboardAvoidingView, View } from "../../components/Themed";
+import TextInput from "../../components/TextInput";
+import CustomButton from "../../components/CustomButton";
+import { CognitoUser } from "amazon-cognito-identity-js";
+
+interface IUser extends CognitoUser {
+  result?: undefined;
+  error?: string;
+}
 
 const SignupPage = () => {
-  const { isError, signUp, errorMessage } = useAWSAuth();
+  const { signUp } = useAWSAuth();
   const navigation = useNavigation();
-  const [username, setUsername] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
-  const [passwordConfirm, setPasswordConfirm] = React.useState<string>("");
+  const [username, setUsername] = React.useState<string>("adam.paul@live.com");
+  const [password, setPassword] = React.useState<string>("password");
+  const [passwordConfirm, setPasswordConfirm] =
+    React.useState<string>("password");
 
-  const registerUser = async (username: string, password: string) => {
-    await signUp(username, password);
-    if (isError) {
-      return Alert.alert("Error", `${errorMessage}`, [
+  const verifyPassword = async () => {
+    if (password !== passwordConfirm) {
+      return Alert.alert("Error", "Passwords do not match", [
         {
           text: "OK",
           style: "cancel",
         },
       ]);
-    } else {
-      navigation.navigate("ConfirmSignup", { username: username });
-    }
-  };
-
-  const verifyPassword = async () => {
-    if (password !== passwordConfirm) {
-      Alert.alert("Error", "Passwords do not match", [
+    } else if (password.length < 5 || passwordConfirm.length < 5) {
+      return Alert.alert("Error", "Password must be at least 5 characters", [
         {
           text: "OK",
           style: "cancel",
@@ -39,6 +39,20 @@ const SignupPage = () => {
       ]);
     } else {
       await registerUser(username, password);
+    }
+  };
+
+  const registerUser = async (username: string, password: string) => {
+    const user = (await signUp(username, password)) as IUser;
+    if (user.result === undefined) {
+      return Alert.alert("Error", `${user.error}`, [
+        {
+          text: "OK",
+          style: "cancel",
+        },
+      ]);
+    } else {
+      navigation.navigate("ConfirmSignup", { username: username });
     }
   };
 
@@ -97,11 +111,3 @@ const SignupPage = () => {
 export default SignupPage;
 
 const styles = StyleSheet.create({});
-
-/* ---------- Sign Out ---------- */
-/*
-<Pressable style={{ backgroundColor: "grey", marginVertical: "5%" }}>
-          <Text>Sign Out</Text>
-        </Pressable>
-        */
-/*           EndSignOut                        */

@@ -35,6 +35,7 @@ export type RootStackParamList = {
   Killer: undefined;
   KillerGame: undefined;
   Cricket: undefined;
+  InitialLanding: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =

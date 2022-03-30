@@ -7,6 +7,7 @@ import {
   Text as DefaultText,
   View as DefaultView,
   KeyboardAvoidingView as DefaultKeyboardAvoidingView,
+  TextInput as DefaultTextInput,
 } from "react-native";
 
 import Colors from "../constants/Colors";
@@ -35,6 +36,7 @@ export type TextProps = ThemeProps & DefaultText["props"];
 export type ViewProps = ThemeProps & DefaultView["props"];
 export type KeyboardAvoidingViewProps = ThemeProps &
   DefaultKeyboardAvoidingView["props"];
+export type TextInputProps = ThemeProps & DefaultTextInput["props"];
 
 export function Text(props: TextProps) {
   const { style, lightColor, darkColor, ...otherProps } = props;
@@ -66,4 +68,11 @@ export function KeyboardAvoidingView(props: KeyboardAvoidingViewProps) {
       {...otherProps}
     />
   );
+}
+
+export function TextInput(props: TextInputProps) {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+
+  return <DefaultTextInput style={[{ color }, style]} {...otherProps} />;
 }

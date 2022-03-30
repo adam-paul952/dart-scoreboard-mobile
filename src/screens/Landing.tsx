@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import {
@@ -9,17 +9,19 @@ import {
 } from "@expo/vector-icons";
 
 import { useThemeColor } from "../components/Themed";
-import useColorScheme from "../hooks/useColorScheme";
 
-import { Text, View } from "../components/Themed";
+import { View } from "../components/Themed";
 import CustomButton from "../components/CustomButton";
 
 const { width, height } = Dimensions.get("window");
 
 const Landing = () => {
   const navigate = useNavigation();
-  const theme = useColorScheme();
   const color = useThemeColor({ light: "black", dark: "white" }, "text");
+  const buttonBackgroundColor = useThemeColor(
+    { light: "lightblue", dark: "royalblue" },
+    "background"
+  );
   return (
     <>
       <View
@@ -29,17 +31,21 @@ const Landing = () => {
           width: width,
         }}
       >
-        <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+        <View style={[styles.container, { flexDirection: "row" }]}>
           <CustomButton
             title="New Game"
             textStyle={styles.buttonText}
             buttonStyle={[
               styles.childStyle,
-              theme === "light" && {
-                backgroundColor: "lightblue",
+              {
+                backgroundColor: buttonBackgroundColor,
               },
             ]}
-            buttonIconStyle={styles.buttonIcon}
+            buttonChildrenStyle={{ backgroundColor: buttonBackgroundColor }}
+            buttonIconStyle={[
+              styles.buttonIcon,
+              { backgroundColor: buttonBackgroundColor },
+            ]}
             onPressOut={() => navigate.navigate("CreateGame")}
           >
             <MaterialCommunityIcons
@@ -53,10 +59,14 @@ const Landing = () => {
             title="Create Player"
             buttonStyle={[
               styles.childStyle,
-              theme === "light" && { backgroundColor: "lightblue" },
+              { backgroundColor: buttonBackgroundColor },
             ]}
             textStyle={styles.buttonText}
-            buttonIconStyle={styles.buttonIcon}
+            buttonChildrenStyle={{ backgroundColor: buttonBackgroundColor }}
+            buttonIconStyle={[
+              styles.buttonIcon,
+              { backgroundColor: buttonBackgroundColor },
+            ]}
             onPressOut={() => navigate.navigate("CreatePlayer")}
           >
             <AntDesign
@@ -68,15 +78,19 @@ const Landing = () => {
           </CustomButton>
         </View>
 
-        <View style={[styles.container, { flex: 5, flexDirection: "column" }]}>
+        <View style={[styles.container, { flexDirection: "column" }]}>
           <CustomButton
             title="Resume Game"
+            textStyle={styles.buttonText}
             buttonStyle={[
               styles.childStyle,
-              theme === "light" && { backgroundColor: "lightblue" },
+              { backgroundColor: buttonBackgroundColor },
             ]}
-            textStyle={styles.buttonText}
-            buttonIconStyle={styles.buttonIcon}
+            buttonChildrenStyle={{ backgroundColor: buttonBackgroundColor }}
+            buttonIconStyle={[
+              styles.buttonIcon,
+              { backgroundColor: buttonBackgroundColor },
+            ]}
             onPressOut={() => {}}
           >
             <FontAwesome5
@@ -90,10 +104,14 @@ const Landing = () => {
             title="Manage Players"
             buttonStyle={[
               styles.childStyle,
-              theme === "light" && { backgroundColor: "lightblue" },
+              { backgroundColor: buttonBackgroundColor },
             ]}
             textStyle={[styles.buttonText, { padding: 5 }]}
-            buttonIconStyle={styles.buttonIcon}
+            buttonChildrenStyle={{ backgroundColor: buttonBackgroundColor }}
+            buttonIconStyle={[
+              styles.buttonIcon,
+              { backgroundColor: buttonBackgroundColor },
+            ]}
             onPressOut={() => {}}
           >
             <FontAwesome5
@@ -122,9 +140,7 @@ const styles = StyleSheet.create({
   childStyle: {
     width: "100%",
     height: height / 3,
-    backgroundColor: "royalblue",
     borderWidth: 1,
-    borderColor: "black",
     marginBottom: 10,
     justifyContent: "center",
     alignItems: "center",

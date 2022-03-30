@@ -2,18 +2,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getUsers = /* GraphQL */ `
+  query GetUsers($id: ID!) {
+    getUsers(id: $id) {
       id
       name
-      posts {
+      players {
         items {
           id
-          title
+          name
           createdAt
           updatedAt
-          blogPostsId
+          usersPlayersId
         }
         nextToken
       }
@@ -22,17 +22,17 @@ export const getBlog = /* GraphQL */ `
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUsersFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
-        posts {
+        players {
           nextToken
         }
         createdAt
@@ -42,110 +42,119 @@ export const listBlogs = /* GraphQL */ `
     }
   }
 `;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
+export const getPlayers = /* GraphQL */ `
+  query GetPlayers($id: ID!) {
+    getPlayers(id: $id) {
       id
-      title
-      blog {
+      name
+      user {
         id
         name
-        posts {
+        players {
           nextToken
         }
         createdAt
         updatedAt
       }
-      comments {
+      stats {
         items {
           id
-          content
+          gamesWon
+          gamesLost
+          winPercent
+          highScore
           createdAt
           updatedAt
-          postCommentsId
+          playersStatsId
         }
         nextToken
       }
       createdAt
       updatedAt
-      blogPostsId
+      usersPlayersId
     }
   }
 `;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
+export const listPlayers = /* GraphQL */ `
+  query ListPlayers(
+    $filter: ModelPlayersFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listPlayers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
-        blog {
+        name
+        user {
           id
           name
           createdAt
           updatedAt
         }
-        comments {
+        stats {
           nextToken
         }
         createdAt
         updatedAt
-        blogPostsId
+        usersPlayersId
       }
       nextToken
     }
   }
 `;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
+export const getStats = /* GraphQL */ `
+  query GetStats($id: ID!) {
+    getStats(id: $id) {
       id
-      post {
+      player {
         id
-        title
-        blog {
+        name
+        user {
           id
           name
           createdAt
           updatedAt
         }
-        comments {
+        stats {
           nextToken
         }
         createdAt
         updatedAt
-        blogPostsId
+        usersPlayersId
       }
-      content
+      gamesWon
+      gamesLost
+      winPercent
+      highScore
       createdAt
       updatedAt
-      postCommentsId
+      playersStatsId
     }
   }
 `;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
+export const listStats = /* GraphQL */ `
+  query ListStats(
+    $filter: ModelStatsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listStats(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        post {
+        player {
           id
-          title
+          name
           createdAt
           updatedAt
-          blogPostsId
+          usersPlayersId
         }
-        content
+        gamesWon
+        gamesLost
+        winPercent
+        highScore
         createdAt
         updatedAt
-        postCommentsId
+        playersStatsId
       }
       nextToken
     }

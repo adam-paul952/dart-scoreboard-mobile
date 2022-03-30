@@ -2,13 +2,12 @@ import React from "react";
 import {
   Keyboard,
   KeyboardTypeOptions,
-  Text,
-  TextInput,
   TextStyle,
   StyleProp,
   StyleSheet,
-  View,
 } from "react-native";
+
+import { Text, TextInput, View } from "../components/Themed";
 
 import window from "../constants/Layout";
 

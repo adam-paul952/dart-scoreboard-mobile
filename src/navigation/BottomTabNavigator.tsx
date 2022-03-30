@@ -37,7 +37,8 @@ const BottomTabNavigator = () => {
         name="GetStarted"
         component={Landing}
         options={({ navigation }: RootTabScreenProps<"GetStarted">) => ({
-          title: "Dart Scoreboard",
+          headerTitle: "",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIconHome name="target" color={color} />
           ),
@@ -62,8 +63,8 @@ const BottomTabNavigator = () => {
         name="Rules"
         component={Rules}
         options={{
-          title: "Rules",
-          headerTitle: "Dart Scoreboard",
+          headerTitle: "",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIconRules name="text-document" color={color} />
           ),
@@ -73,8 +74,8 @@ const BottomTabNavigator = () => {
         name="Settings"
         component={UserSettings}
         options={{
-          title: "Settings",
-          headerTitle: "User Settings",
+          headerTitle: "",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIconSettings name="settings-outline" color={color} />
           ),

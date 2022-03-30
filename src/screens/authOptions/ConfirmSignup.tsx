@@ -1,10 +1,11 @@
 import React from "react";
-import { RootStackScreenProps } from "../../types";
-import { View } from "../components/Themed";
-import CustomButton from "../components/CustomButton";
-import TextInput from "../components/TextInput";
-import useAWSAuth from "../hooks/useAWSAuth";
-
+// Components
+import { View } from "../../components/Themed";
+import CustomButton from "../../components/CustomButton";
+import TextInput from "../../components/TextInput";
+import useAWSAuth from "../../hooks/useAWSAuth";
+// Types
+import { RootStackScreenProps } from "../../../types";
 type ConfirmSignupProps = RootStackScreenProps<"ConfirmSignup">;
 
 const ConfirmSignupPage = ({ route }: ConfirmSignupProps) => {
@@ -13,6 +14,7 @@ const ConfirmSignupPage = ({ route }: ConfirmSignupProps) => {
   const [code, setCode] = React.useState<string>("");
   return (
     <View>
+      <TextInput label="Email" value={username} setValue={() => {}} />
       <TextInput
         keyboardType="numeric"
         value={code}

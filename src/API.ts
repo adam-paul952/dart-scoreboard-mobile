@@ -2,16 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBlogInput = {
+export type CreateUsersInput = {
   id?: string | null,
   name: string,
 };
 
-export type ModelBlogConditionInput = {
+export type ModelUsersConditionInput = {
   name?: ModelStringInput | null,
-  and?: Array< ModelBlogConditionInput | null > | null,
-  or?: Array< ModelBlogConditionInput | null > | null,
-  not?: ModelBlogConditionInput | null,
+  and?: Array< ModelUsersConditionInput | null > | null,
+  or?: Array< ModelUsersConditionInput | null > | null,
+  not?: ModelUsersConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,69 +54,72 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Blog = {
-  __typename: "Blog",
+export type Users = {
+  __typename: "Users",
   id: string,
   name: string,
-  posts?: ModelPostConnection | null,
+  players?: ModelPlayersConnection | null,
   createdAt: string,
   updatedAt: string,
 };
 
-export type ModelPostConnection = {
-  __typename: "ModelPostConnection",
-  items:  Array<Post | null >,
+export type ModelPlayersConnection = {
+  __typename: "ModelPlayersConnection",
+  items:  Array<Players | null >,
   nextToken?: string | null,
 };
 
-export type Post = {
-  __typename: "Post",
+export type Players = {
+  __typename: "Players",
   id: string,
-  title: string,
-  blog?: Blog | null,
-  comments?: ModelCommentConnection | null,
+  name: string,
+  user: Users,
+  stats?: ModelStatsConnection | null,
   createdAt: string,
   updatedAt: string,
-  blogPostsId?: string | null,
+  usersPlayersId?: string | null,
 };
 
-export type ModelCommentConnection = {
-  __typename: "ModelCommentConnection",
-  items:  Array<Comment | null >,
+export type ModelStatsConnection = {
+  __typename: "ModelStatsConnection",
+  items:  Array<Stats | null >,
   nextToken?: string | null,
 };
 
-export type Comment = {
-  __typename: "Comment",
+export type Stats = {
+  __typename: "Stats",
   id: string,
-  post?: Post | null,
-  content: string,
+  player: Players,
+  gamesWon?: number | null,
+  gamesLost?: number | null,
+  winPercent?: number | null,
+  highScore?: number | null,
   createdAt: string,
   updatedAt: string,
-  postCommentsId?: string | null,
+  playersStatsId?: string | null,
 };
 
-export type UpdateBlogInput = {
+export type UpdateUsersInput = {
   id: string,
   name?: string | null,
 };
 
-export type DeleteBlogInput = {
+export type DeleteUsersInput = {
   id: string,
 };
 
-export type CreatePostInput = {
+export type CreatePlayersInput = {
   id?: string | null,
-  title: string,
-  blogPostsId?: string | null,
+  name: string,
+  usersPlayersId?: string | null,
 };
 
-export type ModelPostConditionInput = {
-  title?: ModelStringInput | null,
-  and?: Array< ModelPostConditionInput | null > | null,
-  or?: Array< ModelPostConditionInput | null > | null,
-  not?: ModelPostConditionInput | null,
-  blogPostsId?: ModelIDInput | null,
+export type ModelPlayersConditionInput = {
+  name?: ModelStringInput | null,
+  and?: Array< ModelPlayersConditionInput | null > | null,
+  or?: Array< ModelPlayersConditionInput | null > | null,
+  not?: ModelPlayersConditionInput | null,
+  usersPlayersId?: ModelIDInput | null,
 };
 
 export type ModelIDInput = {
@@ -135,393 +138,435 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type UpdatePostInput = {
+export type UpdatePlayersInput = {
   id: string,
-  title?: string | null,
-  blogPostsId?: string | null,
+  name?: string | null,
+  usersPlayersId?: string | null,
 };
 
-export type DeletePostInput = {
+export type DeletePlayersInput = {
   id: string,
 };
 
-export type CreateCommentInput = {
+export type CreateStatsInput = {
   id?: string | null,
-  content: string,
-  postCommentsId?: string | null,
+  gamesWon?: number | null,
+  gamesLost?: number | null,
+  winPercent?: number | null,
+  highScore?: number | null,
+  playersStatsId?: string | null,
 };
 
-export type ModelCommentConditionInput = {
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentConditionInput | null > | null,
-  or?: Array< ModelCommentConditionInput | null > | null,
-  not?: ModelCommentConditionInput | null,
-  postCommentsId?: ModelIDInput | null,
+export type ModelStatsConditionInput = {
+  gamesWon?: ModelIntInput | null,
+  gamesLost?: ModelIntInput | null,
+  winPercent?: ModelIntInput | null,
+  highScore?: ModelIntInput | null,
+  and?: Array< ModelStatsConditionInput | null > | null,
+  or?: Array< ModelStatsConditionInput | null > | null,
+  not?: ModelStatsConditionInput | null,
+  playersStatsId?: ModelIDInput | null,
 };
 
-export type UpdateCommentInput = {
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type UpdateStatsInput = {
   id: string,
-  content?: string | null,
-  postCommentsId?: string | null,
+  gamesWon?: number | null,
+  gamesLost?: number | null,
+  winPercent?: number | null,
+  highScore?: number | null,
+  playersStatsId?: string | null,
 };
 
-export type DeleteCommentInput = {
+export type DeleteStatsInput = {
   id: string,
 };
 
-export type ModelBlogFilterInput = {
+export type ModelUsersFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  and?: Array< ModelBlogFilterInput | null > | null,
-  or?: Array< ModelBlogFilterInput | null > | null,
-  not?: ModelBlogFilterInput | null,
+  and?: Array< ModelUsersFilterInput | null > | null,
+  or?: Array< ModelUsersFilterInput | null > | null,
+  not?: ModelUsersFilterInput | null,
 };
 
-export type ModelBlogConnection = {
-  __typename: "ModelBlogConnection",
-  items:  Array<Blog | null >,
+export type ModelUsersConnection = {
+  __typename: "ModelUsersConnection",
+  items:  Array<Users | null >,
   nextToken?: string | null,
 };
 
-export type ModelPostFilterInput = {
+export type ModelPlayersFilterInput = {
   id?: ModelIDInput | null,
-  title?: ModelStringInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
-  blogPostsId?: ModelIDInput | null,
+  name?: ModelStringInput | null,
+  and?: Array< ModelPlayersFilterInput | null > | null,
+  or?: Array< ModelPlayersFilterInput | null > | null,
+  not?: ModelPlayersFilterInput | null,
+  usersPlayersId?: ModelIDInput | null,
 };
 
-export type ModelCommentFilterInput = {
+export type ModelStatsFilterInput = {
   id?: ModelIDInput | null,
-  content?: ModelStringInput | null,
-  and?: Array< ModelCommentFilterInput | null > | null,
-  or?: Array< ModelCommentFilterInput | null > | null,
-  not?: ModelCommentFilterInput | null,
-  postCommentsId?: ModelIDInput | null,
+  gamesWon?: ModelIntInput | null,
+  gamesLost?: ModelIntInput | null,
+  winPercent?: ModelIntInput | null,
+  highScore?: ModelIntInput | null,
+  and?: Array< ModelStatsFilterInput | null > | null,
+  or?: Array< ModelStatsFilterInput | null > | null,
+  not?: ModelStatsFilterInput | null,
+  playersStatsId?: ModelIDInput | null,
 };
 
-export type CreateBlogMutationVariables = {
-  input: CreateBlogInput,
-  condition?: ModelBlogConditionInput | null,
+export type CreateUsersMutationVariables = {
+  input: CreateUsersInput,
+  condition?: ModelUsersConditionInput | null,
 };
 
-export type CreateBlogMutation = {
-  createBlog?:  {
-    __typename: "Blog",
+export type CreateUsersMutation = {
+  createUsers?:  {
+    __typename: "Users",
     id: string,
     name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
+    players?:  {
+      __typename: "ModelPlayersConnection",
       items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type UpdateBlogMutationVariables = {
-  input: UpdateBlogInput,
-  condition?: ModelBlogConditionInput | null,
-};
-
-export type UpdateBlogMutation = {
-  updateBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type DeleteBlogMutationVariables = {
-  input: DeleteBlogInput,
-  condition?: ModelBlogConditionInput | null,
-};
-
-export type DeleteBlogMutation = {
-  deleteBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type CreatePostMutation = {
-  createPost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type UpdatePostMutation = {
-  updatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
-  condition?: ModelPostConditionInput | null,
-};
-
-export type DeletePostMutation = {
-  deletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type CreateCommentMutationVariables = {
-  input: CreateCommentInput,
-  condition?: ModelCommentConditionInput | null,
-};
-
-export type CreateCommentMutation = {
-  createComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
   } | null,
 };
 
-export type UpdateCommentMutationVariables = {
-  input: UpdateCommentInput,
-  condition?: ModelCommentConditionInput | null,
+export type UpdateUsersMutationVariables = {
+  input: UpdateUsersInput,
+  condition?: ModelUsersConditionInput | null,
 };
 
-export type UpdateCommentMutation = {
-  updateComment?:  {
-    __typename: "Comment",
+export type UpdateUsersMutation = {
+  updateUsers?:  {
+    __typename: "Users",
     id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+    name: string,
+    players?:  {
+      __typename: "ModelPlayersConnection",
+      items:  Array< {
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
   } | null,
 };
 
-export type DeleteCommentMutationVariables = {
-  input: DeleteCommentInput,
-  condition?: ModelCommentConditionInput | null,
+export type DeleteUsersMutationVariables = {
+  input: DeleteUsersInput,
+  condition?: ModelUsersConditionInput | null,
 };
 
-export type DeleteCommentMutation = {
-  deleteComment?:  {
-    __typename: "Comment",
+export type DeleteUsersMutation = {
+  deleteUsers?:  {
+    __typename: "Users",
     id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+    name: string,
+    players?:  {
+      __typename: "ModelPlayersConnection",
+      items:  Array< {
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreatePlayersMutationVariables = {
+  input: CreatePlayersInput,
+  condition?: ModelPlayersConditionInput | null,
+};
+
+export type CreatePlayersMutation = {
+  createPlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
+    usersPlayersId?: string | null,
   } | null,
 };
 
-export type GetBlogQueryVariables = {
+export type UpdatePlayersMutationVariables = {
+  input: UpdatePlayersInput,
+  condition?: ModelPlayersConditionInput | null,
+};
+
+export type UpdatePlayersMutation = {
+  updatePlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    usersPlayersId?: string | null,
+  } | null,
+};
+
+export type DeletePlayersMutationVariables = {
+  input: DeletePlayersInput,
+  condition?: ModelPlayersConditionInput | null,
+};
+
+export type DeletePlayersMutation = {
+  deletePlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    usersPlayersId?: string | null,
+  } | null,
+};
+
+export type CreateStatsMutationVariables = {
+  input: CreateStatsInput,
+  condition?: ModelStatsConditionInput | null,
+};
+
+export type CreateStatsMutation = {
+  createStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
+  } | null,
+};
+
+export type UpdateStatsMutationVariables = {
+  input: UpdateStatsInput,
+  condition?: ModelStatsConditionInput | null,
+};
+
+export type UpdateStatsMutation = {
+  updateStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
+  } | null,
+};
+
+export type DeleteStatsMutationVariables = {
+  input: DeleteStatsInput,
+  condition?: ModelStatsConditionInput | null,
+};
+
+export type DeleteStatsMutation = {
+  deleteStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
+  } | null,
+};
+
+export type GetUsersQueryVariables = {
   id: string,
 };
 
-export type GetBlogQuery = {
-  getBlog?:  {
-    __typename: "Blog",
+export type GetUsersQuery = {
+  getUsers?:  {
+    __typename: "Users",
     id: string,
     name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
+    players?:  {
+      __typename: "ModelPlayersConnection",
       items:  Array< {
-        __typename: "Post",
+        __typename: "Players",
         id: string,
-        title: string,
+        name: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        usersPlayersId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
@@ -530,21 +575,21 @@ export type GetBlogQuery = {
   } | null,
 };
 
-export type ListBlogsQueryVariables = {
-  filter?: ModelBlogFilterInput | null,
+export type ListUsersQueryVariables = {
+  filter?: ModelUsersFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBlogsQuery = {
-  listBlogs?:  {
-    __typename: "ModelBlogConnection",
+export type ListUsersQuery = {
+  listUsers?:  {
+    __typename: "ModelUsersConnection",
     items:  Array< {
-      __typename: "Blog",
+      __typename: "Users",
       id: string,
       name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
+      players?:  {
+        __typename: "ModelPlayersConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
@@ -554,393 +599,420 @@ export type ListBlogsQuery = {
   } | null,
 };
 
-export type GetPostQueryVariables = {
+export type GetPlayersQueryVariables = {
   id: string,
 };
 
-export type GetPostQuery = {
-  getPost?:  {
-    __typename: "Post",
+export type GetPlayersQuery = {
+  getPlayers?:  {
+    __typename: "Players",
     id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
+    name: string,
+    user:  {
+      __typename: "Users",
       id: string,
       name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
+      players?:  {
+        __typename: "ModelPlayersConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
       items:  Array< {
-        __typename: "Comment",
+        __typename: "Stats",
         id: string,
-        content: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
         createdAt: string,
         updatedAt: string,
-        postCommentsId?: string | null,
+        playersStatsId?: string | null,
       } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    usersPlayersId?: string | null,
   } | null,
 };
 
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
+export type ListPlayersQueryVariables = {
+  filter?: ModelPlayersFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListPostsQuery = {
-  listPosts?:  {
-    __typename: "ModelPostConnection",
+export type ListPlayersQuery = {
+  listPlayers?:  {
+    __typename: "ModelPlayersConnection",
     items:  Array< {
-      __typename: "Post",
+      __typename: "Players",
       id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+      name: string,
+      user:  {
+        __typename: "Users",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      usersPlayersId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type GetCommentQueryVariables = {
+export type GetStatsQueryVariables = {
   id: string,
 };
 
-export type GetCommentQuery = {
-  getComment?:  {
-    __typename: "Comment",
+export type GetStatsQuery = {
+  getStats?:  {
+    __typename: "Stats",
     id: string,
-    post?:  {
-      __typename: "Post",
+    player:  {
+      __typename: "Players",
       id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+      name: string,
+      user:  {
+        __typename: "Users",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
-    } | null,
-    content: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
+    playersStatsId?: string | null,
   } | null,
 };
 
-export type ListCommentsQueryVariables = {
-  filter?: ModelCommentFilterInput | null,
+export type ListStatsQueryVariables = {
+  filter?: ModelStatsFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListCommentsQuery = {
-  listComments?:  {
-    __typename: "ModelCommentConnection",
+export type ListStatsQuery = {
+  listStats?:  {
+    __typename: "ModelStatsConnection",
     items:  Array< {
-      __typename: "Comment",
+      __typename: "Stats",
       id: string,
-      post?:  {
-        __typename: "Post",
+      player:  {
+        __typename: "Players",
         id: string,
-        title: string,
+        name: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
-      } | null,
-      content: string,
+        usersPlayersId?: string | null,
+      },
+      gamesWon?: number | null,
+      gamesLost?: number | null,
+      winPercent?: number | null,
+      highScore?: number | null,
       createdAt: string,
       updatedAt: string,
-      postCommentsId?: string | null,
+      playersStatsId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
 };
 
-export type OnCreateBlogSubscription = {
-  onCreateBlog?:  {
-    __typename: "Blog",
+export type OnCreateUsersSubscription = {
+  onCreateUsers?:  {
+    __typename: "Users",
     id: string,
     name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
+    players?:  {
+      __typename: "ModelPlayersConnection",
       items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnUpdateBlogSubscription = {
-  onUpdateBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnDeleteBlogSubscription = {
-  onDeleteBlog?:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts?:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-        createdAt: string,
-        updatedAt: string,
-        blogPostsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-  } | null,
-};
-
-export type OnCreatePostSubscription = {
-  onCreatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type OnUpdatePostSubscription = {
-  onUpdatePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type OnDeletePostSubscription = {
-  onDeletePost?:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog?:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts?:  {
-        __typename: "ModelPostConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-    } | null,
-    comments?:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string,
-        createdAt: string,
-        updatedAt: string,
-        postCommentsId?: string | null,
-      } | null >,
-      nextToken?: string | null,
-    } | null,
-    createdAt: string,
-    updatedAt: string,
-    blogPostsId?: string | null,
-  } | null,
-};
-
-export type OnCreateCommentSubscription = {
-  onCreateComment?:  {
-    __typename: "Comment",
-    id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
   } | null,
 };
 
-export type OnUpdateCommentSubscription = {
-  onUpdateComment?:  {
-    __typename: "Comment",
+export type OnUpdateUsersSubscription = {
+  onUpdateUsers?:  {
+    __typename: "Users",
     id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+    name: string,
+    players?:  {
+      __typename: "ModelPlayersConnection",
+      items:  Array< {
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
-        nextToken?: string | null,
-      } | null,
-      createdAt: string,
-      updatedAt: string,
-      blogPostsId?: string | null,
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
   } | null,
 };
 
-export type OnDeleteCommentSubscription = {
-  onDeleteComment?:  {
-    __typename: "Comment",
+export type OnDeleteUsersSubscription = {
+  onDeleteUsers?:  {
+    __typename: "Users",
     id: string,
-    post?:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog?:  {
-        __typename: "Blog",
+    name: string,
+    players?:  {
+      __typename: "ModelPlayersConnection",
+      items:  Array< {
+        __typename: "Players",
         id: string,
         name: string,
         createdAt: string,
         updatedAt: string,
-      } | null,
-      comments?:  {
-        __typename: "ModelCommentConnection",
+        usersPlayersId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreatePlayersSubscription = {
+  onCreatePlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
         nextToken?: string | null,
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
-    content: string,
     createdAt: string,
     updatedAt: string,
-    postCommentsId?: string | null,
+    usersPlayersId?: string | null,
+  } | null,
+};
+
+export type OnUpdatePlayersSubscription = {
+  onUpdatePlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    usersPlayersId?: string | null,
+  } | null,
+};
+
+export type OnDeletePlayersSubscription = {
+  onDeletePlayers?:  {
+    __typename: "Players",
+    id: string,
+    name: string,
+    user:  {
+      __typename: "Users",
+      id: string,
+      name: string,
+      players?:  {
+        __typename: "ModelPlayersConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    },
+    stats?:  {
+      __typename: "ModelStatsConnection",
+      items:  Array< {
+        __typename: "Stats",
+        id: string,
+        gamesWon?: number | null,
+        gamesLost?: number | null,
+        winPercent?: number | null,
+        highScore?: number | null,
+        createdAt: string,
+        updatedAt: string,
+        playersStatsId?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    usersPlayersId?: string | null,
+  } | null,
+};
+
+export type OnCreateStatsSubscription = {
+  onCreateStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
+  } | null,
+};
+
+export type OnUpdateStatsSubscription = {
+  onUpdateStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
+  } | null,
+};
+
+export type OnDeleteStatsSubscription = {
+  onDeleteStats?:  {
+    __typename: "Stats",
+    id: string,
+    player:  {
+      __typename: "Players",
+      id: string,
+      name: string,
+      user:  {
+        __typename: "Users",
+        id: string,
+        name: string,
+        createdAt: string,
+        updatedAt: string,
+      },
+      stats?:  {
+        __typename: "ModelStatsConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      usersPlayersId?: string | null,
+    },
+    gamesWon?: number | null,
+    gamesLost?: number | null,
+    winPercent?: number | null,
+    highScore?: number | null,
+    createdAt: string,
+    updatedAt: string,
+    playersStatsId?: string | null,
   } | null,
 };

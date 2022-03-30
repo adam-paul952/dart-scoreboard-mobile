@@ -2,18 +2,18 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog {
-    onCreateBlog {
+export const onCreateUsers = /* GraphQL */ `
+  subscription OnCreateUsers {
+    onCreateUsers {
       id
       name
-      posts {
+      players {
         items {
           id
-          title
+          name
           createdAt
           updatedAt
-          blogPostsId
+          usersPlayersId
         }
         nextToken
       }
@@ -22,18 +22,18 @@ export const onCreateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog {
-    onUpdateBlog {
+export const onUpdateUsers = /* GraphQL */ `
+  subscription OnUpdateUsers {
+    onUpdateUsers {
       id
       name
-      posts {
+      players {
         items {
           id
-          title
+          name
           createdAt
           updatedAt
-          blogPostsId
+          usersPlayersId
         }
         nextToken
       }
@@ -42,18 +42,18 @@ export const onUpdateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog {
-    onDeleteBlog {
+export const onDeleteUsers = /* GraphQL */ `
+  subscription OnDeleteUsers {
+    onDeleteUsers {
       id
       name
-      posts {
+      players {
         items {
           id
-          title
+          name
           createdAt
           updatedAt
-          blogPostsId
+          usersPlayersId
         }
         nextToken
       }
@@ -62,174 +62,192 @@ export const onDeleteBlog = /* GraphQL */ `
     }
   }
 `;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
+export const onCreatePlayers = /* GraphQL */ `
+  subscription OnCreatePlayers {
+    onCreatePlayers {
       id
-      title
-      blog {
+      name
+      user {
         id
         name
-        posts {
+        players {
           nextToken
         }
         createdAt
         updatedAt
       }
-      comments {
+      stats {
         items {
           id
-          content
+          gamesWon
+          gamesLost
+          winPercent
+          highScore
           createdAt
           updatedAt
-          postCommentsId
+          playersStatsId
         }
         nextToken
       }
       createdAt
       updatedAt
-      blogPostsId
+      usersPlayersId
     }
   }
 `;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
+export const onUpdatePlayers = /* GraphQL */ `
+  subscription OnUpdatePlayers {
+    onUpdatePlayers {
       id
-      title
-      blog {
+      name
+      user {
         id
         name
-        posts {
+        players {
           nextToken
         }
         createdAt
         updatedAt
       }
-      comments {
+      stats {
         items {
           id
-          content
+          gamesWon
+          gamesLost
+          winPercent
+          highScore
           createdAt
           updatedAt
-          postCommentsId
+          playersStatsId
         }
         nextToken
       }
       createdAt
       updatedAt
-      blogPostsId
+      usersPlayersId
     }
   }
 `;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
+export const onDeletePlayers = /* GraphQL */ `
+  subscription OnDeletePlayers {
+    onDeletePlayers {
       id
-      title
-      blog {
+      name
+      user {
         id
         name
-        posts {
+        players {
           nextToken
         }
         createdAt
         updatedAt
       }
-      comments {
+      stats {
         items {
           id
-          content
+          gamesWon
+          gamesLost
+          winPercent
+          highScore
           createdAt
           updatedAt
-          postCommentsId
+          playersStatsId
         }
         nextToken
       }
       createdAt
       updatedAt
-      blogPostsId
+      usersPlayersId
     }
   }
 `;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
+export const onCreateStats = /* GraphQL */ `
+  subscription OnCreateStats {
+    onCreateStats {
       id
-      post {
+      player {
         id
-        title
-        blog {
+        name
+        user {
           id
           name
           createdAt
           updatedAt
         }
-        comments {
+        stats {
           nextToken
         }
         createdAt
         updatedAt
-        blogPostsId
+        usersPlayersId
       }
-      content
+      gamesWon
+      gamesLost
+      winPercent
+      highScore
       createdAt
       updatedAt
-      postCommentsId
+      playersStatsId
     }
   }
 `;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
+export const onUpdateStats = /* GraphQL */ `
+  subscription OnUpdateStats {
+    onUpdateStats {
       id
-      post {
+      player {
         id
-        title
-        blog {
+        name
+        user {
           id
           name
           createdAt
           updatedAt
         }
-        comments {
+        stats {
           nextToken
         }
         createdAt
         updatedAt
-        blogPostsId
+        usersPlayersId
       }
-      content
+      gamesWon
+      gamesLost
+      winPercent
+      highScore
       createdAt
       updatedAt
-      postCommentsId
+      playersStatsId
     }
   }
 `;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
+export const onDeleteStats = /* GraphQL */ `
+  subscription OnDeleteStats {
+    onDeleteStats {
       id
-      post {
+      player {
         id
-        title
-        blog {
+        name
+        user {
           id
           name
           createdAt
           updatedAt
         }
-        comments {
+        stats {
           nextToken
         }
         createdAt
         updatedAt
-        blogPostsId
+        usersPlayersId
       }
-      content
+      gamesWon
+      gamesLost
+      winPercent
+      highScore
       createdAt
       updatedAt
-      postCommentsId
+      playersStatsId
     }
   }
 `;
