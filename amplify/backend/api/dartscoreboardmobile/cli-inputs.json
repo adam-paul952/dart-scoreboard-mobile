@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "dartscoreboardmobile",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "C:\\Users\\adamp\\dart-scoreboard-mobile\\amplify\\backend\\api\\dartscoreboardmobile\\schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 180,
+      "apiKeyExpirationDate": "2022-09-20T19:14:58.018Z",
+      "keyDescription": "test-again-scoreboard"
+    }
+  }
+}

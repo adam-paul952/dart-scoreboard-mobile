@@ -1,9 +1,8 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import BottomTabNavigator from "./BottomTabNavigator";
-
 // Components
+import BottomTabNavigator from "./BottomTabNavigator";
 import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import ManagePlayer from "../screens/ManagePlayer";
@@ -15,14 +14,15 @@ import KillerSetUp from "../screens/gameOptions/KillerSetup";
 import Killer from "../games/Killer";
 import X01GameSelection from "../screens/gameOptions/X01Setup";
 import EliminationSetUp from "../screens/gameOptions/EliminationSetUp";
+import Cricket from "../games/Cricket";
 
 // Navigation Buttons
 import ResetScoreListButton from "./buttons/ResetScoreListButton";
 import StackNavigatorBackButton from "./buttons/StackNavigatorBackButton";
 import AddPlayerButton from "./buttons/AddPlayerButton";
+import SignoutButton from "./buttons/Signout";
 
 import { RootStackParamList } from "../../types";
-import Cricket from "../games/Cricket";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,13 +32,22 @@ const RootNavigator = () => {
       <Stack.Screen
         name="Root"
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={{
+          headerTitle: "Dart Scoreboard",
+          headerRight: () => <SignoutButton />,
+        }}
       />
       <Stack.Screen
         name="NotFound"
         component={NotFoundScreen}
         options={{ title: "Oops!" }}
       />
+
+      {/* <Stack.Screen
+        name="LandingPage"
+        component={BottomTabNavigator}
+        options={{}}
+      /> */}
       <Stack.Screen
         name="CreatePlayer"
         component={ManagePlayer}

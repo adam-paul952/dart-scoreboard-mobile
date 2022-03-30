@@ -9,9 +9,14 @@ import useColorScheme from "../hooks/useColorScheme";
 // Screens
 import Rules from "../screens/Rules";
 import Landing from "../screens/Landing";
+import UserSettings from "../screens/Settings";
 
 // Tab Icons
-import { TabBarIconHome, TabBarIconRules } from "./buttons/TabIcons";
+import {
+  TabBarIconHome,
+  TabBarIconRules,
+  TabBarIconSettings,
+} from "./buttons/TabIcons";
 
 // Types
 import { RootTabParamList, RootTabScreenProps } from "../../types";
@@ -32,7 +37,8 @@ const BottomTabNavigator = () => {
         name="GetStarted"
         component={Landing}
         options={({ navigation }: RootTabScreenProps<"GetStarted">) => ({
-          title: "Dart Scoreboard",
+          headerTitle: "",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIconHome name="target" color={color} />
           ),
@@ -57,10 +63,21 @@ const BottomTabNavigator = () => {
         name="Rules"
         component={Rules}
         options={{
-          title: "Rules",
-          headerTitle: "Dart Scoreboard",
+          headerTitle: "",
+          headerShown: false,
           tabBarIcon: ({ color }) => (
             <TabBarIconRules name="text-document" color={color} />
+          ),
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={UserSettings}
+        options={{
+          headerTitle: "",
+          headerShown: false,
+          tabBarIcon: ({ color }) => (
+            <TabBarIconSettings name="settings-outline" color={color} />
           ),
         }}
       />

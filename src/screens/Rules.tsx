@@ -15,7 +15,7 @@ const Rules = () => {
       <ScrollView>
         {games.map((game) => {
           return (
-            <CustomAccordian title={game}>
+            <CustomAccordian key={game} title={game}>
               <RulesDescription variant={game} />
             </CustomAccordian>
           );
@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: "5%",
     marginVertical: "5%",
+    alignSelf: "center",
   },
 });

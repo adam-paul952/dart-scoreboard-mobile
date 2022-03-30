@@ -3,11 +3,11 @@ import {
   Pressable,
   StyleProp,
   StyleSheet,
-  Text,
   TextStyle,
-  View,
   ViewStyle,
 } from "react-native";
+
+import { Text, View } from "../components/Themed";
 
 import window from "../constants/Layout";
 
@@ -19,6 +19,7 @@ interface ICustomButtonProps {
   buttonStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   buttonIconStyle?: StyleProp<ViewStyle>;
+  buttonChildrenStyle?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
   disabled?: boolean;
   selected?: boolean;
@@ -61,16 +62,17 @@ const CustomButton = (props: ICustomButtonProps) => {
     >
       {props.children ? (
         <View
-          style={{
-            alignSelf: "center",
-            padding: 5,
-            // flexDirection: "row",
-          }}
+          style={[
+            {
+              alignSelf: "center",
+              padding: 5,
+              // flexDirection: "row",
+            },
+            props.buttonChildrenStyle,
+          ]}
         >
           <View style={props.buttonIconStyle}>{props.children}</View>
-          <View
-          //   style={{ flex: 0.9 }}
-          >
+          <View style={props.buttonChildrenStyle}>
             <Text
               style={
                 props.selected
@@ -110,7 +112,7 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   button: {
-    // backgroundColor: "#5D6758",
+    // backgroundColor: "royalblue",
     // width: winWidth * 0.8,
     // alignSelf: "center",
     // borderRadius: 20,
