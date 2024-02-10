@@ -1,11 +1,15 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 
-import { useColorScheme } from '@/components/useColorScheme';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -50,8 +54,18 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+        <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+        <Stack.Screen
+          name='manage-players'
+          options={{ title: 'Manage Players' }}
+        />
+        <Stack.Screen name='new-game' options={{ title: 'New Game' }} />
+        <Stack.Screen name='baseball' options={{ title: 'Baseball' }} />
+        <Stack.Screen name='cricket' options={{ title: 'Cricket' }} />
+        <Stack.Screen name='x01' options={{ title: 'X01' }} />
+        <Stack.Screen name='elimination' options={{ title: 'Elimination' }} />
+        <Stack.Screen name='killer' options={{ title: 'Killer' }} />
       </Stack>
     </ThemeProvider>
   );
