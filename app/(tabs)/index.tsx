@@ -1,103 +1,80 @@
+import {
+  FontAwesome5,
+  Ionicons,
+  MaterialCommunityIcons,
+} from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
-import { /*Alert,*/ StyleSheet } from 'react-native';
-// import { useNavigation } from "@react-navigation/native";
+import { Alert, StyleSheet } from 'react-native';
 
-// import { usePlayerState } from "../context/PlayerContext";
-// import useColorScheme from '@/hooks/useColorScheme';
-
+import { IconButton } from '@/components/ButtonIcons';
 import LandingPageButton from '@/components/LandingButtons';
 import { View } from '@/components/Themed';
-// import {
-//   FontAwesome5Icon,
-//   IonIcon,
-//   MaterialCommunityIcon,
-// } from "../components/button-icons/ButtonIcons";
-
-// import Colors from "../constants/Colors";
-// import window from "../constants/Layout";
-// const width = window.window.width;
+import Colors from '@/constants/Colors';
+import { usePlayerState } from '@/context/Player';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 /**
  * @component
  * @description Main Landing Screen - Renders buttons to direct the user
- *  New Game - route "create-match"
- *  Manage Players - route "manage-players"
- *  Resume Game - route "resume-game" (Not used yet)
- *  Stats - route "statistics"
+ *  New Game - route "/create-match"
+ *  Manage Players - route "/manage-players"
+ *  Resume Game - route "/resume-game" (Not used yet)
+ *  Stats - route "/statistics"
  */
 
 const Landing = () => {
-  // const { playerList } = usePlayerState();
+  const { playerList } = usePlayerState();
 
-  // const navigation = useNavigation();
-  // const colorScheme = useColorScheme();
-  // const color = Colors[colorScheme].text;
-
-  // const alertUserNoPlayers = () => {
-  //   if (playerList.length < 2)
-  //     Alert.alert("", "Please create a player first", [
-  //       {
-  //         text: "Create Players",
-  //         onPress: () => navigation.navigate("create-player"),
-  //       },
-  //     ]);
-  //   else navigation.navigate("create-match");
-  // };
+  const colorScheme = useColorScheme() as 'light' | 'dark';
+  const color = Colors[colorScheme].text;
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonRow}>
-        <Link href="/new-game">
-          <LandingPageButton
-            variant="New Game"
-            // onPressOut={() => alertUserNoPlayers()}
-            onPressOut={() => {}}
+        <LandingPageButton variant='New Game'>
+          <Link
+            href={`${playerList.length < 2 ? '/create-player' : '/new-game'}`}
           >
-            <FontAwesome size={60} name="code" />
-            {/* <MaterialCommunityIcon
-            name="bullseye-arrow"
-            color={color}
-            size={60}
-          /> */}
-          </LandingPageButton>
-        </Link>
-        <Link href="/">
-          {' '}
-          <LandingPageButton
-            variant="Resume Game"
-            // onPressOut={() => navigation.navigate("resume-game")}
-            onPressOut={() => {}}
-          >
-            <FontAwesome size={60} name="code" />
-            {/* <FontAwesome5Icon name="undo-alt" color={color} size={60} /> */}
-          </LandingPageButton>
-        </Link>
-      </View>
-      <View style={styles.buttonRow}>
-        <Link href="/manage-players">
-          <LandingPageButton
-            variant="Manage Players"
-            // onPressOut={() => {
-            //   navigation.navigate("manage-players");
-            // }}
-            onPressOut={() => {}}
-          >
-            <FontAwesome size={60} name="code" />
-            {/* <FontAwesome5Icon name="user-friends" color={color} size={60} /> */}
-          </LandingPageButton>
-        </Link>
-        <Link href="/">
-          <LandingPageButton
-            variant="Stats"
-            // onPressOut={() => navigation.navigate("statistics")}
-            onPressOut={() => {}}
-          >
-            <FontAwesome size={60} name="code" />
-            {/* <IonIcon name="stats-chart" color={color} size={60} /> */}
-          </LandingPageButton>
-        </Link>
+            <IconButton
+              IconComponent={MaterialCommunityIcons}
+              name='bullseye-arrow'
+              size={60}
+              color={color}
+            />
+          </Link>
+        </LandingPageButton>
+        <LandingPageButton variant='Resume Game' disabled>
+          <Link href='/'>
+            <IconButton
+              IconComponent={FontAwesome5}
+              name='undo-alt'
+              size={60}
+              color={color}
+            />
+          </Link>
+        </LandingPageButton>
+        <LandingPageButton variant='Manage Players'>
+          <Link href='/manage-players'>
+            <IconButton
+              IconComponent={FontAwesome5}
+              name='user-friends'
+              size={60}
+              color={color}
+            />
+          </Link>
+        </LandingPageButton>
+        <LandingPageButton variant='Stats' disabled>
+          <Link href='/'>
+            <IconButton
+              IconComponent={Ionicons}
+              name='stats-chart'
+              size={60}
+              color={color}
+            />
+          </Link>
+        </LandingPageButton>
       </View>
     </View>
   );
@@ -109,10 +86,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
+    paddingTop: '20%',
   },
   buttonRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-evenly',
   },
 });

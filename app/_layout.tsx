@@ -1,3 +1,4 @@
+import { AntDesign } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import {
   DarkTheme,
@@ -5,10 +6,14 @@ import {
   ThemeProvider,
 } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { Pressable } from 'react-native';
 
+import { IconButton } from '@/components/ButtonIcons';
+import Colors from '@/constants/Colors';
+import { PlayerListProvider } from '@/context/Player';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 export {
@@ -49,24 +54,71 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() as 'light' | 'dark';
+  const navigation = useRouter();
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-        <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
-        <Stack.Screen
-          name='manage-players'
-          options={{ title: 'Manage Players' }}
-        />
-        <Stack.Screen name='new-game' options={{ title: 'New Game' }} />
-        <Stack.Screen name='baseball' options={{ title: 'Baseball' }} />
-        <Stack.Screen name='cricket' options={{ title: 'Cricket' }} />
-        <Stack.Screen name='x01' options={{ title: 'X01' }} />
-        <Stack.Screen name='elimination' options={{ title: 'Elimination' }} />
-        <Stack.Screen name='killer' options={{ title: 'Killer' }} />
-      </Stack>
-    </ThemeProvider>
+    <PlayerListProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+          <Stack.Screen name='modal' options={{ presentation: 'modal' }} />
+          <Stack.Screen
+            name='manage-players'
+            options={{
+              title: 'Manage Players',
+              headerRight: () => (
+                <Pressable
+                  onPress={() => navigation.navigate('create-player')}
+                  style={({ pressed }) => ({
+                    opacity: pressed ? 0.5 : 1,
+                  })}
+                  accessibilityHint='add-player'
+                >
+                  <IconButton
+                    IconComponent={AntDesign}
+                    name='adduser'
+                    size={25}
+                    color={Colors[colorScheme].text}
+                  />
+                </Pressable>
+              ),
+            }}
+            // options={({navigation}) => ({
+            //   title: 'Manage Players',
+            //   headerRight: () => (
+            //     <Pressable
+            //       onPress={() => navigation.navigate("create-player")}
+            //       style={({ pressed }) => ({
+            //         opacity: pressed ? 0.5 : 1,
+            //       })}
+            //       accessibilityHint="add-player"
+            //     >
+            //       <AntDesignIcon
+            //         name="adduser"
+            //         size={25}
+            //         color={Colors[colorScheme].text}
+            //       />
+            //     </Pressable>
+            //   ),
+            // })}
+          />
+          <Stack.Screen name='new-game' options={{ title: 'New Game' }} />
+          <Stack.Screen name='baseball' options={{ title: 'Baseball' }} />
+          <Stack.Screen name='cricket' options={{ title: 'Cricket' }} />
+          <Stack.Screen name='x01' options={{ title: 'X01' }} />
+          <Stack.Screen name='elimination' options={{ title: 'Elimination' }} />
+          <Stack.Screen name='killer' options={{ title: 'Killer' }} />
+          <Stack.Screen
+            name='create-player'
+            options={{ title: 'Create Player' }}
+          />
+          <Stack.Screen
+            name='create-match'
+            options={{ title: 'Create Match' }}
+          />
+        </Stack>
+      </ThemeProvider>
+    </PlayerListProvider>
   );
 }

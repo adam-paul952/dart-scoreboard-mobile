@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
 
-// import useColorScheme from "../hooks/useColorScheme";
 import Button from './Button';
 
-// import Colors from '../constants/Colors';
+import Colors from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
 // import window from "../constants/Layout";
 
 // const height = window.window.height;
@@ -22,13 +22,13 @@ interface ILandingButtonProps {
     | 'Killer'
     | 'X01';
   children: React.ReactNode;
-  onPressOut: () => void;
   buttonOverrideStyle?: StyleProp<ViewStyle>;
+  disabled?: boolean;
 }
 
 const LandingPageButton = (props: ILandingButtonProps) => {
-  //   const colorScheme = useColorScheme();
-  //   const buttonBG = Colors[colorScheme].buttonColor;
+  const colorScheme = useColorScheme();
+  const buttonBG = Colors[colorScheme as 'light' | 'dark'].buttonColor;
 
   return (
     <Button
@@ -37,14 +37,14 @@ const LandingPageButton = (props: ILandingButtonProps) => {
       buttonStyle={[
         styles.buttonStyle,
         props.buttonOverrideStyle,
-        // { backgroundColor: buttonBG },
+        { backgroundColor: buttonBG },
       ]}
       buttonChildrenStyle={{ backgroundColor: 'transparent' }}
       buttonIconStyle={[
         styles.buttonIconStyle,
         { backgroundColor: 'transparent' },
       ]}
-      onPressOut={props.onPressOut}
+      disabled={props.disabled}
     >
       {props.children}
     </Button>
@@ -55,16 +55,15 @@ export default LandingPageButton;
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    width: '49%',
-    // height: height / 3,
-    height: '100%',
+    width: '48%',
+    height: '80%',
     marginBottom: 5,
     justifyContent: 'center',
-    alignItems: 'center',
   },
   buttonTextStyle: {
     marginTop: 20,
-    fontSize: 24,
+    fontSize: 20,
+    textAlign: 'center',
   },
   buttonIconStyle: {
     alignSelf: 'center',

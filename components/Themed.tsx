@@ -3,10 +3,15 @@
  * https://docs.expo.io/guides/color-schemes/
  */
 
-import { Text as DefaultText, View as DefaultView } from 'react-native';
+import {
+  Text as DefaultText,
+  View as DefaultView,
+  KeyboardAvoidingView as DefaultKeyboardAvoidingView,
+  TextInput as DefaultTextInput,
+} from 'react-native';
 
 import Colors from '@/constants/Colors';
-import { useColorScheme } from '../hooks/useColorScheme';
+import { useColorScheme } from '@/hooks/useColorScheme';
 
 type ThemeProps = {
   lightColor?: string;
@@ -15,6 +20,9 @@ type ThemeProps = {
 
 export type TextProps = ThemeProps & DefaultText['props'];
 export type ViewProps = ThemeProps & DefaultView['props'];
+export type KeyboardAvoidingViewProps = ThemeProps &
+  DefaultKeyboardAvoidingView['props'];
+export type TextInputProps = ThemeProps & DefaultTextInput['props'];
 
 export function useThemeColor(
   props: { light?: string; dark?: string },
@@ -23,11 +31,7 @@ export function useThemeColor(
   const theme = useColorScheme() ?? 'light';
   const colorFromProps = props[theme];
 
-  if (colorFromProps) {
-    return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
-  }
+  return colorFromProps ? colorFromProps : Colors[theme][colorName];
 }
 
 export function Text(props: TextProps) {
@@ -46,3 +50,25 @@ export function View(props: ViewProps) {
 
   return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
 }
+
+export const KeyboardAvoidingView = (props: KeyboardAvoidingViewProps) => {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    'background',
+  );
+
+  return (
+    <DefaultKeyboardAvoidingView
+      style={[{ backgroundColor }, style]}
+      {...otherProps}
+    />
+  );
+};
+
+export const TextInput = (props: TextInputProps) => {
+  const { style, lightColor, darkColor, ...otherProps } = props;
+  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+
+  return <DefaultTextInput style={[{ color }, style]} {...otherProps} />;
+};

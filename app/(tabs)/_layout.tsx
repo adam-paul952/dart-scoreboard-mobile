@@ -28,17 +28,17 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name='index'
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
           headerShown: false,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href='/modal' asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
+                    name='info-circle'
                     size={25}
                     color={Colors[colorScheme ?? 'light'].text}
                     style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
@@ -50,17 +50,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="rules"
+        name='rules'
         options={{
           title: 'Rules',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
         }}
       />
       <Tabs.Screen
-        name="four"
+        name='four'
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name='code' color={color} />,
         }}
       />
     </Tabs>
