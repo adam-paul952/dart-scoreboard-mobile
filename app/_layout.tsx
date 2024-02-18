@@ -103,7 +103,6 @@ function RootLayoutNav() {
             //   ),
             // })}
           />
-          <Stack.Screen name='new-game' options={{ title: 'New Game' }} />
           <Stack.Screen name='baseball' options={{ title: 'Baseball' }} />
           <Stack.Screen name='cricket' options={{ title: 'Cricket' }} />
           <Stack.Screen name='x01' options={{ title: 'X01' }} />

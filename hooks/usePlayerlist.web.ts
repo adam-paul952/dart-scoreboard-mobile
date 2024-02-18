@@ -6,7 +6,7 @@ import { IPlayer } from '@/context/Player';
 // };
 
 const usePlayerList = () => {
-  const onGetPlayerlist = (): any[] => {
+  const onGetPlayerlist = (): IPlayer[] => {
     return JSON.parse(window.localStorage.getItem('__players') ?? '[]');
   };
 

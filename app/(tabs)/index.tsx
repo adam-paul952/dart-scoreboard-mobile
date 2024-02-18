@@ -35,7 +35,7 @@ const Landing = () => {
       <View style={styles.buttonRow}>
         <LandingPageButton variant='New Game'>
           <Link
-            href={`${playerList.length < 2 ? '/create-player' : '/new-game'}`}
+            href={`${playerList.length < 2 ? '/create-player' : '/create-match'}`}
           >
             <IconButton
               IconComponent={MaterialCommunityIcons}

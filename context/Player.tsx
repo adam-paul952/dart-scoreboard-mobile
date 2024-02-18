@@ -68,17 +68,12 @@ const PlayerListProvider = ({ children }: { children: React.ReactNode }) => {
         return player;
       }),
     );
+
     setSelectedPlayers(playerList);
   };
 
   const assignSelectedPlayers = () => {
-    setSelectedPlayers(
-      playerList.filter((player) => {
-        if (player.selected === true) {
-          return player;
-        }
-      }),
-    );
+    setSelectedPlayers(playerList.filter((player) => player.selected === true));
   };
 
   useEffect(() => {

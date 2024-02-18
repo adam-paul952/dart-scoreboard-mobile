@@ -1,43 +1,33 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // import { useKeepAwake } from 'expo-keep-awake';
 import React, { useEffect, useRef } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
-import CalculatorButtons from '@/components/CalculatorButtons';
-import { View } from '@/components/Themed';
+import {
+  BaseballRoundInfo,
+  CalculatorButtons,
+  gameOverAlert,
+  GameScoreboardBody,
+  GameScoreboardHeader,
+  View,
+} from '@/components';
 import { usePlayerState } from '@/context/Player';
 import useGame from '@/hooks/useGame';
+import usePlayerStats from '@/hooks/usePlayerStats';
 import useUndoRedo from '@/hooks/useUndoRedo';
-// import usePlayerStats from "../../hooks/usePlayerStats";
 // import useResumeGame from "../../hooks/useResumeGame";
 
-// import CustomStackScreenHeader from "@components/scoreboard/CustomStackScreenHeader";
-// import GameScoreboardHeader from "@components/scoreboard/header/GameScoreboardHeader";
-// import GameScoreboardBody from "@components/scoreboard/body/GameScoreboardBody";
-// import BaseballRoundInfo from "@scoreboard/round-info/BaseballRoundInfo";
-
-// import gameOverAlert from "@components/GameOverAlert";
-
-// import { RootStackParamList } from "types";
-
-// type BaseballRouteProps = NativeStackScreenProps<
-//   RootStackParamList,
-//   "baseball"
-// >;
-
-const winner: { id: number; name: string } = {
-  id: 0,
+let winner: { id: string; name: string } = {
+  id: '',
   name: '',
 };
 const variant = 'baseball';
 
-// const Baseball = ({ route, navigation }: BaseballRouteProps) => {
-const Baseball = ({ route, navigation }: any) => {
+const Baseball = () => {
   // keep device awake while on game screen
   //   useKeepAwake();
 
   const { selectedPlayers, setSelectedPlayers } = usePlayerState();
-  //   const { onUpdatePlayerStats, setGameOver } = usePlayerStats();
+  const { /* onUpdatePlayerStats, */ setGameOver } = usePlayerStats();
   //   const { onAddGame } = useResumeGame();
   const {
     playerScore,
@@ -56,25 +46,25 @@ const Baseball = ({ route, navigation }: any) => {
 
   const { turn, round, leadingScore, currentPlayer } = gameState;
 
-  //   const [undoState, { set: setUndoState, undo: undoTurn, canUndo }] =
-  //     useUndoRedo({
-  //       ...gameState,
-  //       nextPlayer: { ...nextPlayer },
-  //     });
+  const [undoState, { set: setUndoState, undo: undoTurn, canUndo }] =
+    useUndoRedo({
+      ...gameState,
+      nextPlayer: { ...nextPlayer },
+    });
 
-  //   const { past, present } = undoState;
+  const { past, present } = undoState;
 
   const roundRef = useRef(round);
 
-  //   // set initial player scorelist filled with 0 - for display purposes
-  //   useEffect(() => {
-  //     setSelectedPlayers((prev) =>
-  //       prev.map((player) => {
-  //         player.scoreList = new Array(10).fill(0);
-  //         return player;
-  //       }),
-  //     );
-  //   }, []);
+  // set initial player scorelist filled with 0 - for display purposes
+  useEffect(() => {
+    setSelectedPlayers((prev) =>
+      prev.map((player) => {
+        player.scoreList = new Array(10).fill(0);
+        return player;
+      }),
+    );
+  }, []);
 
   // handle score input
   const handleScoreInput = () => {
@@ -83,150 +73,158 @@ const Baseball = ({ route, navigation }: any) => {
     // if score is NaN - score = 0
     if (isNaN(roundScore)) roundScore = 0;
     // assign score to proper index in scorelist
-    // round <= 9
-    //   ? (currentPlayer.scoreList[round - 1] = roundScore)
-    //   : (currentPlayer.scoreList[9] += roundScore);
+    if (round <= 9) {
+      currentPlayer.scoreList[round - 1] = roundScore;
+    } else {
+      currentPlayer.scoreList[9] += roundScore;
+    }
 
     // calculate total by reducing scorelist
-    // const overallScore = currentPlayer.scoreList
-    //   .filter(String)
-    //   .reduce((a, b) => a + b, 0);
+    const overallScore = currentPlayer.scoreList
+      .filter(String)
+      .reduce((a, b) => a + b, 0);
 
-    // assignCurrentPlayerHighScore(currentPlayer);
+    assignCurrentPlayerHighScore(currentPlayer);
 
     // assign new totals to current player
-    // setSelectedPlayers((prev) =>
-    //   prev.map((player) =>
-    //     player.id !== currentPlayer.id
-    //       ? player
-    //       : {
-    //           ...player,
-    //           score: overallScore,
-    //           scoreList: [...currentPlayer.scoreList],
-    //         },
-    //   ),
-    // );
+    setSelectedPlayers((prev) =>
+      prev.map((player) =>
+        player.id === currentPlayer.id
+          ? {
+              ...player,
+              score: overallScore,
+              scoreList: [...currentPlayer.scoreList],
+            }
+          : player,
+      ),
+    );
 
-    // onChangeTurns(selectedPlayers, overallScore);
+    onChangeTurns(selectedPlayers, overallScore);
   };
 
   // handle turn change
-  //   const onHandleTurnChange = () => {
-  //     handleScoreInput();
-  //     roundRef.current = round;
+  const onHandleTurnChange = () => {
+    handleScoreInput();
+    roundRef.current = round;
 
-  //     // if round is = 9 and turn is last turn check for duplicates or winner
-  //     if (round === 9 && turn === selectedPlayers.length - 1) {
-  //       selectedPlayers.filter((player) => player.score === leadingScore).length >
-  //       1
-  //         ? playExtraInnings()
-  //         : declareWinner();
-  //     } else if (
-  //       round > 9 &&
-  //       round === present.round &&
-  //       // since state update is batched we need to manually add
-  //       // if not always returns true
-  //       currentPlayer.score + parseInt(playerScore, 10) !== leadingScore &&
-  //       selectedPlayers.filter((player) => player.score === leadingScore)
-  //         .length === 1
-  //     )
-  //       declareWinner();
-  //   };
+    // if round is = 9 and turn is last turn check for duplicates or winner
+    if (round === 9 && turn === selectedPlayers.length - 1) {
+      if (
+        selectedPlayers.filter((player) => player.score === leadingScore)
+          .length > 1
+      ) {
+        playExtraInnings();
+      } else {
+        declareWinner();
+      }
+    } else if (
+      round > 9 &&
+      round === present.round &&
+      // since state update is batched we need to manually add
+      // if not always returns true
+      currentPlayer.score + parseInt(playerScore, 10) !== leadingScore &&
+      selectedPlayers.filter((player) => player.score === leadingScore)
+        .length === 1
+    )
+      declareWinner();
+  };
 
-  //   // handle score submit
-  //   const onHandleSubmit = () => {
-  //     onHandleTurnChange();
+  // handle score submit
+  const onHandleSubmit = () => {
+    onHandleTurnChange();
 
-  //     // assign state to undo redo
-  //     setUndoState({
-  //       ...gameState,
-  //       nextPlayer: { ...nextPlayer },
-  //     });
-  //   };
+    // assign state to undo redo
+    setUndoState({
+      ...gameState,
+      nextPlayer: { ...nextPlayer },
+    });
+  };
 
   // declare winning player
   const declareWinner = () => {
     // find winner's name
     selectedPlayers.forEach((player) => {
       if (player.score === leadingScore) {
+        winner = { id: player.id, name: player.name };
       }
-      //   winner = { id: player.id, name: player.name };
     });
 
-    //   // alert game over with winner name
-    //   gameOverAlert({
-    //     winner,
-    //     navigation,
-    //     variant,
-    //     undo: onUndoGameEnd,
-    //     gameEnd: onHandleGameEnd,
-    //   });
+    // alert game over with winner name
+    gameOverAlert({
+      winner,
+      // navigation,
+      variant,
+      undo: onUndoGameEnd,
+      gameEnd: onHandleGameEnd,
+    });
   };
 
-  //   const onUndoGameEnd = () => {
-  //     undoTurn();
+  const onUndoGameEnd = () => {
+    undoTurn();
 
-  //     setSelectedPlayers((prev) =>
-  //       prev.map((player) =>
-  //         player.id === present.currentPlayer.id ? present.currentPlayer : player,
-  //       ),
-  //     );
+    setSelectedPlayers((prev) =>
+      prev.map((player) =>
+        player.id === present.currentPlayer.id ? present.currentPlayer : player,
+      ),
+    );
 
-  //     setGameState((prev) => ({
-  //       ...prev,
-  //       currentPlayer: { ...past[past.length - 1].currentPlayer },
-  //       turn: (present.turn + 1) % selectedPlayers.length,
-  //       round: present.round,
-  //       leadingScore: present.leadingScore,
-  //     }));
-  //   };
+    setGameState((prev) => ({
+      ...prev,
+      currentPlayer: { ...past[past.length - 1].currentPlayer },
+      turn: (present.turn + 1) % selectedPlayers.length,
+      round: present.round,
+      leadingScore: present.leadingScore,
+    }));
+  };
 
-  // const onHandleGameEnd = () => {
-  //   selectedPlayers.forEach((player) => {
-  //     onUpdatePlayerStats(variant, player, winner);
-  //   });
+  const onHandleGameEnd = () => {
+    // selectedPlayers.forEach((player) => {
+    //   onUpdatePlayerStats(variant, player, winner);
+    // });
 
-  //   setGameOver({ isOver: true, game: variant });
-  //   onResetGame(variant);
-  // };
+    setGameOver({ isOver: true, game: variant });
+    onResetGame(variant);
+  };
 
   // set state for undo
-  //   const onUndo = () => {
-  //     undoTurn();
-  //     setSelectedPlayers((prev) =>
-  //       prev.map((player) =>
-  //         player.id === present.currentPlayer.id ? present.currentPlayer : player,
-  //       ),
-  //     );
+  const onUndo = () => {
+    undoTurn();
+    setSelectedPlayers((prev) =>
+      prev.map((player) =>
+        player.id === present.currentPlayer.id ? present.currentPlayer : player,
+      ),
+    );
 
-  //     setGameState((prev) => ({
-  //       ...prev,
-  //       currentPlayer: { ...present.currentPlayer },
-  //       turn: present.turn,
-  //       round: present.round,
-  //       leadingScore: present.leadingScore,
-  //     }));
-  //   };
+    setGameState((prev) => ({
+      ...prev,
+      currentPlayer: { ...present.currentPlayer },
+      turn: present.turn,
+      round: present.round,
+      leadingScore: present.leadingScore,
+    }));
+  };
 
   // set players for extra innings
-  //   const playExtraInnings = () => {
-  //     selectedPlayers.forEach((player) => {
-  //       if (playerIsOut.some((value) => value.name === player.name)) return;
-  //       else if (player.score < leadingScore) {
-  //         setPlayerIsOut((prev) => prev.concat(player));
-  //       }
-  //     });
+  const playExtraInnings = () => {
+    selectedPlayers.forEach((player) => {
+      if (
+        !playerIsOut.some((value) => value.name === player.name) &&
+        player.score < leadingScore
+      ) {
+        setPlayerIsOut((prev) => prev.concat(player));
+      }
+    });
 
-  //     Alert.alert('', 'Extra Innings!', [{ text: 'Ok', style: 'cancel' }]);
-  //   };
+    Alert.alert('', 'Extra Innings!', [{ text: 'Ok', style: 'cancel' }]);
+  };
 
   // extra innings - if player is out - skip turn
-  //   useEffect(() => {
-  //     if (playerIsOut.length >= 1)
-  //       playerIsOut.forEach((player) => {
-  //         if (player.name === currentPlayer.name) skipPlayer();
-  //       });
-  //   }, [currentPlayer]);
+  useEffect(() => {
+    if (playerIsOut.length >= 1)
+      playerIsOut.forEach((player) => {
+        if (player.name === currentPlayer.name) skipPlayer();
+      });
+  }, [currentPlayer]);
 
   //   // set resume game state
   //   useEffect(() => {
@@ -272,29 +270,26 @@ const Baseball = ({ route, navigation }: any) => {
         navigation={navigation}
       /> */}
       <View style={styles.scoreboardContainer}>
-        {/* <GameScoreboardHeader variant={variant} />
+        <GameScoreboardHeader variant={variant} />
         <GameScoreboardBody
           variant={variant}
           selectedPlayers={selectedPlayers}
           currentPlayer={currentPlayer.id}
           playersOut={playerIsOut}
-        /> */}
+        />
       </View>
       <View>
-        {/* <BaseballRoundInfo
+        <BaseballRoundInfo
           currentPlayer={currentPlayer}
           round={round}
           playerScore={playerScore}
           leadingScore={leadingScore}
-        /> */}
+        />
         <CalculatorButtons
-          variant=''
-          //   variant={variant}
-          onHandleSubmit={() => {}}
-          //   onHandleSubmit={onHandleSubmit}
-          onDeleteInput={() => {}}
-          //   onDeleteInput={() => onDeleteInput(variant)}
-          //   setValue={setPlayerScore}
+          variant='baseball'
+          onHandleSubmit={onHandleSubmit}
+          onDeleteInput={() => onDeleteInput(variant)}
+          setValue={setPlayerScore}
         />
       </View>
     </View>

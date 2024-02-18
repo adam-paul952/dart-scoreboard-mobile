@@ -16,11 +16,15 @@ interface ButtonItemProps {
   hits?: number;
 }
 
-const ButtonItem = (props: ButtonItemProps) => {
-  const { item, onButtonPress, disabled, variant, hits } = props;
-
-  const colorScheme = useColorScheme();
-  const color = Colors[colorScheme as 'light' | 'dark'].text;
+export const ButtonItem = ({
+  item,
+  onButtonPress,
+  disabled,
+  variant,
+  hits,
+}: ButtonItemProps) => {
+  const colorScheme = useColorScheme() ?? 'light';
+  const color = Colors[colorScheme].text;
 
   if (item === '') {
     return (
@@ -92,8 +96,6 @@ const ButtonItem = (props: ButtonItemProps) => {
       />
     );
 };
-
-export default ButtonItem;
 
 const styles = StyleSheet.create({
   item: {

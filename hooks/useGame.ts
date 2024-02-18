@@ -18,8 +18,8 @@ const useGame = () => {
   const [gameState, setGameState] = useState({
     turn: 0,
     round: 1,
-    currentPlayer: null,
-    // currentPlayer: selectedPlayers[0] ?? null,
+    // currentPlayer: null,
+    currentPlayer: selectedPlayers[0] ?? null,
     leadingScore: 0,
   });
 
@@ -84,14 +84,14 @@ const useGame = () => {
       gameState.leadingScore < score ? score : gameState.leadingScore;
     const newRound = newTurn === 0 ? gameState.round + 1 : gameState.round;
 
-    // setGameState({
-    //   ...gameState,
-    //   turn: newTurn,
-    //   round: newRound,
-    //   leadingScore:
-    //     typeof newScore === 'string' ? parseInt(newScore, 10) : newScore,
-    //   currentPlayer: { ...players[newTurn] },
-    // });
+    setGameState({
+      ...gameState,
+      turn: newTurn,
+      round: newRound,
+      leadingScore:
+        typeof newScore === 'string' ? parseInt(newScore, 10) : newScore,
+      currentPlayer: { ...players[newTurn] },
+    });
   };
 
   // turn information
@@ -113,10 +113,10 @@ const useGame = () => {
     turn === selectedPlayers.length - 1 ? setRound((prev) => prev + 1) : null;
 
   // current player
-  const [currentPlayer, setCurrentPlayer] = useState<any>();
-  //   const [currentPlayer, setCurrentPlayer] = useState<IPlayer>(
-  //     selectedPlayers[turn],
-  //   );
+  // const [currentPlayer, setCurrentPlayer] = useState<any>();
+  const [currentPlayer, setCurrentPlayer] = useState<IPlayer>(
+    selectedPlayers[turn],
+  );
 
   // calculate current player highscore
   const assignCurrentPlayerHighScore = (player: IPlayer) => {
@@ -127,9 +127,9 @@ const useGame = () => {
 
   const [playerIsOut, setPlayerIsOut] = useState<IPlayer[]>([]);
 
-  const nextPlayer = null;
-  //   const nextPlayer =
-  //     selectedPlayers[(gameState.turn + 1) % selectedPlayers.length];
+  // const nextPlayer = null;
+  const nextPlayer =
+    selectedPlayers[(gameState.turn + 1) % selectedPlayers.length];
 
   const limitNumberOfHits = (calculatedHits: number[]): void => {};
   //   const limitNumberOfHits = (calculatedHits: number[]): void => {
