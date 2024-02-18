@@ -1,18 +1,13 @@
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
-// import usePlayerlist from "../hooks/usePlayerlist";
-
-import Button from '@/components/Button';
-import PlayerItem from '@/components/PlayerItem';
-import { Text, View } from '@/components/Themed';
+import { Button, PlayerItem, Text, View } from '@/components';
 import { IPlayer, usePlayerState } from '@/context/Player';
 
 const ManagePlayerScreen = () => {
-  const { playerList, onDeletePlayer, togglePlayerSelect } = usePlayerState();
-  //   const { updateSelectedPlayerlist } = usePlayerlist();
-  const navigation = useRouter();
+  const { playerList, onDeletePlayer, toggleSelectedPlayers } =
+    usePlayerState();
 
   const disableButton = () => {
     const selected = playerList.filter(
@@ -22,31 +17,13 @@ const ManagePlayerScreen = () => {
     return selected <= 1;
   };
 
-  const onHandleContinue = () => {
-    // playerList.forEach((player) => {
-    //   let selected;
-    //   selected = player.selected === true ? 1 : 0;
-    //   // updateSelectedPlayerlist({ selected, id: player.id });
-    // });
-
-    navigation.navigate('/create-match');
-  };
-
   const renderItem = ({ item }: { item: IPlayer }) => {
     return (
       <PlayerItem
         player={item}
-        togglePlayerSelect={togglePlayerSelect}
+        togglePlayerSelect={toggleSelectedPlayers}
         deletePlayer={onDeletePlayer}
       />
-    );
-  };
-
-  const ListEmpty = () => {
-    return (
-      <Text style={{ fontSize: 22 }}>
-        No players added -- {'\n'}Please add players to continue
-      </Text>
     );
   };
 
@@ -65,12 +42,9 @@ const ManagePlayerScreen = () => {
         keyExtractor={(item) => `${item.id}`}
         ListEmptyComponent={ListEmpty}
       />
-      <Button
-        title='Continue to Game'
-        buttonStyle={styles.buttonStyle}
-        disabled={disableButton()}
-        onPressOut={onHandleContinue}
-      />
+      <Link href='/create-match' asChild disabled={disableButton()}>
+        <Button title='Continue to Game' buttonStyle={styles.buttonStyle} />
+      </Link>
     </View>
   );
 };
@@ -91,3 +65,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
 });
+
+const ListEmpty = () => {
+  return (
+    <Text style={{ fontSize: 22 }}>
+      No players added -- {'\n'}Please add players to continue
+    </Text>
+  );
+};

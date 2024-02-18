@@ -4,13 +4,12 @@ import { Platform, StyleSheet } from 'react-native';
 import uuid from 'react-native-uuid';
 
 import {
+  Button,
   KeyboardAvoidingView,
   Text,
   TextInput,
   View,
-} from '../components/Themed';
-
-import CustomButton from '@/components/Button';
+} from '@/components';
 import { usePlayerState } from '@/context/Player';
 
 const initialState = {
@@ -62,7 +61,7 @@ const CreatePlayer = () => {
           placeholder='Player name'
         />
         <View style={styles.buttonContainer}>
-          <CustomButton
+          <Button
             title='Add Player'
             buttonStyle={styles.buttonStyle}
             onPress={addPlayer}

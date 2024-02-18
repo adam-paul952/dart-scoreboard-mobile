@@ -3,28 +3,27 @@ import Checkbox from 'expo-checkbox';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { View } from '../components/Themed';
-
-import CustomButton from '@/components/Button';
+import { Button, View } from '@/components';
 import Colors from '@/constants/Colors';
+import { IPlayer } from '@/context/Player';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 interface PlayerItemProps {
-  player: any;
+  player: IPlayer;
   togglePlayerSelect: (id: string) => void;
   deletePlayer: (id: string) => void;
 }
 
-const PlayerItem = ({
+export const PlayerItem = ({
   player,
   togglePlayerSelect,
   deletePlayer,
 }: PlayerItemProps) => {
-  const colorScheme = useColorScheme() as 'light' | 'dark';
+  const colorScheme = useColorScheme() ?? 'light';
 
   return (
     <View style={styles.rowContainer}>
-      <CustomButton
+      <Button
         title={player.name}
         buttonStyle={styles.buttonStyle}
         onPressOut={() => togglePlayerSelect(player.id)}
@@ -33,7 +32,7 @@ const PlayerItem = ({
         value={player.selected}
         onChange={() => togglePlayerSelect(player.id)}
       />
-      <CustomButton
+      <Button
         title='delete'
         buttonStyle={styles.delButtonStyle}
         buttonChildrenStyle={styles.delChildButtonStyle}
@@ -45,12 +44,10 @@ const PlayerItem = ({
           size={32}
           color={Colors[colorScheme].text}
         />
-      </CustomButton>
+      </Button>
     </View>
   );
 };
-
-export default PlayerItem;
 
 const styles = StyleSheet.create({
   rowContainer: {

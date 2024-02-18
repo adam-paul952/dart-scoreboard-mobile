@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Text, View } from '@/components';
-// import CricketScoreboardColumn from "./CricketScoreboardColumn";
+import { CricketScoreboardColumn } from './CricketScoreboardColumn';
 
+import { Text, View } from '@/components';
 import Colors from '@/constants/Colors';
 import { IPlayer } from '@/context/Player';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -109,7 +109,7 @@ export const DefaultGame = (props: GameScoreboardBodyProps) => {
                 ))
               : null}
 
-            {/* {variant === "cricket" ? (
+            {variant === 'cricket' ? (
               <CricketScoreboardColumn
                 player={player}
                 hitTargets={
@@ -117,7 +117,7 @@ export const DefaultGame = (props: GameScoreboardBodyProps) => {
                 }
                 hitMarkColor={hitMarkColor}
               />
-            ) : null} */}
+            ) : null}
 
             <View
               style={[

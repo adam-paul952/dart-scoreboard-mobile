@@ -6,8 +6,7 @@ import DraggableFlatList, {
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SwipeableItem from 'react-native-swipeable-item';
 
-import { Text, View } from '@/components';
-import CustomButton from '@/components/Button';
+import { Button, Text, View } from '@/components';
 import { IPlayer } from '@/context/Player';
 
 interface ActivePlayerListProps {
@@ -33,7 +32,7 @@ export const ActivePlayerList = ({
             renderUnderlayLeft={() => <UnderlayRight item={item} />}
             activationThreshold={10}
           >
-            <CustomButton title={item.name} onPressIn={drag} />
+            <Button title={item.name} onPressIn={drag} />
           </SwipeableItem>
         </View>
       );

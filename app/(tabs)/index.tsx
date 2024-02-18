@@ -3,14 +3,11 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import React from 'react';
-import { Alert, StyleSheet } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 
-import { IconButton } from '@/components/ButtonIcons';
-import LandingPageButton from '@/components/LandingButtons';
-import { View } from '@/components/Themed';
+import { ButtonIcon, LandingPageButton, View } from '@/components';
 import Colors from '@/constants/Colors';
 import { usePlayerState } from '@/context/Player';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -21,60 +18,63 @@ import { useColorScheme } from '@/hooks/useColorScheme';
  *  New Game - route "/create-match"
  *  Manage Players - route "/manage-players"
  *  Resume Game - route "/resume-game" (Not used yet)
- *  Stats - route "/statistics"
+ *  Stats - route "/statistics" (Not used yet)
  */
 
 const Landing = () => {
   const { playerList } = usePlayerState();
 
-  const colorScheme = useColorScheme() as 'light' | 'dark';
+  const colorScheme = useColorScheme() ?? 'light';
   const color = Colors[colorScheme].text;
+
+  const iconProps = {
+    size: 60,
+    color,
+    style: { alignSelf: 'center', backgroundColor: 'transparent' } as ViewStyle,
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.buttonRow}>
-        <LandingPageButton variant='New Game'>
-          <Link
-            href={`${playerList.length < 2 ? '/create-player' : '/create-match'}`}
-          >
-            <IconButton
+        <Link
+          href={playerList.length < 2 ? `/create-player` : `/create-match`}
+          asChild
+        >
+          <LandingPageButton variant='New Game'>
+            <ButtonIcon
               IconComponent={MaterialCommunityIcons}
               name='bullseye-arrow'
-              size={60}
-              color={color}
+              {...iconProps}
             />
-          </Link>
-        </LandingPageButton>
-        <LandingPageButton variant='Resume Game' disabled>
-          <Link href='/'>
-            <IconButton
+          </LandingPageButton>
+        </Link>
+        <Link href='/' disabled asChild>
+          <LandingPageButton variant='Resume Game'>
+            <ButtonIcon
               IconComponent={FontAwesome5}
               name='undo-alt'
-              size={60}
-              color={color}
+              {...iconProps}
             />
-          </Link>
-        </LandingPageButton>
-        <LandingPageButton variant='Manage Players'>
-          <Link href='/manage-players'>
-            <IconButton
+          </LandingPageButton>
+        </Link>
+        <Link href='/manage-players' asChild>
+          <LandingPageButton variant='Manage Players'>
+            <ButtonIcon
               IconComponent={FontAwesome5}
               name='user-friends'
-              size={60}
-              color={color}
+              {...iconProps}
             />
-          </Link>
-        </LandingPageButton>
-        <LandingPageButton variant='Stats' disabled>
-          <Link href='/'>
-            <IconButton
+          </LandingPageButton>
+        </Link>
+        <Link href='/' disabled asChild>
+          <LandingPageButton variant='Stats'>
+            <ButtonIcon
               IconComponent={Ionicons}
               name='stats-chart'
-              size={60}
-              color={color}
+              {...iconProps}
             />
-          </Link>
-        </LandingPageButton>
+          </LandingPageButton>
+        </Link>
       </View>
     </View>
   );
@@ -85,12 +85,14 @@ export default Landing;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
     width: '100%',
-    paddingTop: '20%',
+    overflow: 'hidden',
   },
   buttonRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
+    height: '60%',
   },
 });

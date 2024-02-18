@@ -2,9 +2,7 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
 
-import CustomButton from './Button';
-import { IconButton } from './ButtonIcons';
-
+import { Button, ButtonIcon } from '@/components';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -26,75 +24,83 @@ export const ButtonItem = ({
   const colorScheme = useColorScheme() ?? 'light';
   const color = Colors[colorScheme].text;
 
-  if (item === '') {
-    return (
-      <CustomButton
-        buttonStyle={[styles.item, { opacity: 1 }]}
-        disabled
-        title={item}
-      />
-    );
-  }
-  if (item === 'Del') {
-    return (
-      <CustomButton
-        buttonStyle={styles.item}
-        buttonChildrenStyle={styles.buttonChildrenStyle}
-        buttonIconStyle={styles.buttonIconStyle}
-        title={item}
-        textStyle={styles.buttonTextStyle}
-        onPressOut={() => onButtonPress(item)}
-      >
-        <IconButton
-          IconComponent={Feather}
-          name='delete'
-          size={30}
-          color={color}
+  const renderButton = (
+    item: string,
+    variant: string,
+    color: string,
+    disabled?: boolean,
+    hits?: number,
+  ) => {
+    const commonProps = {
+      buttonStyle: styles.item,
+      title: item,
+      onPress: () => onButtonPress(item),
+    };
+
+    if (item === '') {
+      return (
+        <Button
+          {...commonProps}
+          buttonStyle={[styles.item, { opacity: 1 }]}
+          disabled
         />
-      </CustomButton>
-    );
-  } else if (item === 'Enter') {
-    return (
-      <CustomButton
-        buttonStyle={styles.item}
-        buttonChildrenStyle={styles.buttonChildrenStyle}
-        buttonIconStyle={styles.buttonIconStyle}
-        title={item}
-        textStyle={styles.buttonTextStyle}
-        onPressOut={() => onButtonPress(item)}
-        disabled={disabled}
-      >
-        <IconButton
-          IconComponent={AntDesign}
-          name='enter'
-          size={30}
-          color={color}
-        />
-      </CustomButton>
-    );
-  } else if (variant === 'cricket' || variant === 'killer') {
-    return (
-      <CustomButton
-        buttonStyle={styles.item}
-        title={item}
-        onPressOut={() => onButtonPress(item)}
-        buttonChildrenStyle={{
-          backgroundColor: 'transparent',
-        }}
-        buttonIconStyle={[hits === 0 ? { display: 'none' } : styles.hitsTag]}
-        disabled={disabled}
-      >
-        <Text style={styles.hitsTagText}>x{hits}</Text>
-      </CustomButton>
-    );
-  } else
-    return (
-      <CustomButton
-        buttonStyle={styles.item}
-        title={item}
-        onPressOut={() => onButtonPress(item)}
-      />
-    );
+      );
+    }
+
+    if (item === 'Del') {
+      return (
+        <Button
+          {...commonProps}
+          buttonChildrenStyle={styles.buttonChildrenStyle}
+          buttonIconStyle={styles.buttonIconStyle}
+          textStyle={styles.buttonTextStyle}
+        >
+          <ButtonIcon
+            IconComponent={Feather}
+            name='delete'
+            size={30}
+            color={color}
+          />
+        </Button>
+      );
+    }
+
+    if (item === 'Enter') {
+      return (
+        <Button
+          {...commonProps}
+          buttonChildrenStyle={styles.buttonChildrenStyle}
+          buttonIconStyle={styles.buttonIconStyle}
+          textStyle={styles.buttonTextStyle}
+          disabled={disabled}
+        >
+          <ButtonIcon
+            IconComponent={AntDesign}
+            name='enter'
+            size={30}
+            color={color}
+          />
+        </Button>
+      );
+    }
+
+    if (variant === 'cricket' || variant === 'killer') {
+      return (
+        <Button
+          {...commonProps}
+          buttonChildrenStyle={{ backgroundColor: 'transparent' }}
+          buttonIconStyle={[hits === 0 ? { display: 'none' } : styles.hitsTag]}
+          disabled={disabled}
+        >
+          <Text style={styles.hitsTagText}>x{hits}</Text>
+        </Button>
+      );
+    }
+
+    return <Button {...commonProps} />;
+  };
+
+  return renderButton(item, variant, color, disabled, hits);
 };
 
 const styles = StyleSheet.create({
@@ -114,10 +120,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     position: 'absolute',
     top: -8,
-    right: -36,
-    padding: 2,
+    right: -40,
+    padding: 3,
+    paddingHorizontal: 5,
     borderRadius: 30,
-    width: '35%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   hitsTagText: { fontSize: 17, textAlign: 'center' },
   buttonChildrenStyle: {

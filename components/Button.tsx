@@ -8,11 +8,11 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { Text, View } from '@/components';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
-export interface ICustomButtonProps extends PressableProps {
+export interface CustomButtonProps extends PressableProps {
   title: string;
   buttonStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
@@ -22,8 +22,11 @@ export interface ICustomButtonProps extends PressableProps {
   selected?: boolean;
 }
 
-const CustomButton = (props: ICustomButtonProps) => {
-  const colorScheme = useColorScheme() as 'light' | 'dark';
+export const CustomButton = React.forwardRef<
+  React.ElementRef<typeof Pressable>,
+  CustomButtonProps
+>((props, ref) => {
+  const colorScheme = useColorScheme() ?? 'light';
   const background = Colors[colorScheme].buttonColor;
   const textColor = Colors[colorScheme].text;
   const disabledBackground = Colors[colorScheme].disabledButtonColor;
@@ -31,6 +34,7 @@ const CustomButton = (props: ICustomButtonProps) => {
   return (
     <Pressable
       {...props}
+      ref={ref}
       accessibilityLabel={props.title}
       accessibilityRole='button'
       accessibilityState={
@@ -118,9 +122,7 @@ const CustomButton = (props: ICustomButtonProps) => {
       )}
     </Pressable>
   );
-};
-
-export default CustomButton;
+});
 
 const styles = StyleSheet.create({
   button: {

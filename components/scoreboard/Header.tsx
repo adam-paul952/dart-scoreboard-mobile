@@ -16,17 +16,16 @@ interface GameScoreboardHeaderProps {
 }
 
 export const Header = ({ variant }: GameScoreboardHeaderProps) => {
-  let data: string[] = [];
-
-  variant === 'baseball'
-    ? (data = baseballHeader)
-    : variant === 'cricket'
-      ? (data = cricketHeader)
-      : variant === 'elimination'
-        ? (data = eliminationHeader)
-        : variant === 'killer'
-          ? (data = killerHeader)
-          : (data = x01Header);
+  const data =
+    variant === 'baseball'
+      ? baseballHeader
+      : variant === 'cricket'
+        ? cricketHeader
+        : variant === 'elimination'
+          ? eliminationHeader
+          : variant === 'killer'
+            ? killerHeader
+            : x01Header;
 
   return (
     <View style={styles.scoreboardHeader}>
@@ -60,6 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    paddingVertical: 3,
+    paddingTop: 10,
+    paddingBottom: 3,
   },
 });

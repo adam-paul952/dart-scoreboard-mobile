@@ -1,10 +1,9 @@
 import { Picker } from '@react-native-picker/picker';
-import { useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { ActivePlayerList, Text, View } from '@/components';
-import CustomButton from '@/components/Button';
+import { ActivePlayerList, Button, Text, View } from '@/components';
 import {
   gameData,
   x01Data,
@@ -14,9 +13,9 @@ import {
 import { usePlayerState } from '@/context/Player';
 
 const CreateMatch = () => {
-  const { selectedPlayers, setSelectedPlayers, togglePlayerSelect } =
+  const { selectedPlayers, setSelectedPlayers, toggleSelectedPlayers } =
     usePlayerState();
-  const navigation = useRouter();
+  // const navigation = useRouter();
   // game to be selected
   const [game, setGame] = useState<GameType>(gameData[0].value);
   // x01 points - elimination lives
@@ -51,38 +50,39 @@ const CreateMatch = () => {
       }),
     );
 
-  const resetPlayerState = () => {
-    setSelectedPlayers((prev) =>
-      prev.map((player) => {
-        player.score = 0;
-        player.scoreList = [];
-        player.lives = 0;
-        player.killer = false;
-        return player;
-      }),
-    );
-  };
+  // const resetPlayerState = () => {
+  //   setSelectedPlayers((prev) =>
+  //     prev.map((player) => {
+  //       player.score = 0;
+  //       player.scoreList = [];
+  //       player.lives = 0;
+  //       player.killer = false;
+  //       return player;
+  //     }),
+  //   );
+  // };
 
   // handle conditions for setting state and navigation
-  const onHandleSelect = () => {
-    if (game !== null) {
-      switch (game) {
-        case 'x01':
-          setX01Points();
-          navigation.navigate(game);
-          break;
-        case 'elimination':
-          setEliminationLives();
-          navigation.navigate(game);
-          break;
-        case 'killer':
-          navigation.navigate('killer-setup');
-          break;
-        default:
-          navigation.navigate(game);
-      }
+  const onHandleSelect = ():
+    | '/baseball'
+    | '/elimination'
+    | '/killer-setup'
+    | '/cricket'
+    | '/x01'
+    | '/killer' => {
+    if (game === 'x01') {
+      setX01Points();
+    } else if (game === 'elimination') {
+      setEliminationLives();
     }
+
+    if (game === 'killer') {
+      return '/killer-setup';
+    }
+
+    return `/${game}`;
   };
+
   const shuffleList = <T,>(array: T[]) => {
     let currentIndex = array.length;
     let randomIndex;
@@ -110,31 +110,24 @@ const CreateMatch = () => {
     setGame(randomGame[0].value);
   };
 
-  //   useEffect(() => {
-  //     const unsubscribe = navigation.addListener("focus", () =>
-  //       resetPlayerState()
-  //     );
-
-  //     return unsubscribe;
-  //   }, [navigation]);
-
   // because draggable flatlist uses useLayoutEffect we need to wait until we're sure we're on the client
   useEffect(() => {
     setShowPlayerList(true);
   }, []);
 
+  const onShufflePlayers = () => {
+    setSelectedPlayers((prev) => shuffleList(prev).map((player) => player));
+  };
+
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          minHeight: '20%',
-        }}
-      >
+      <View style={{ flex: 0.5, justifyContent: 'space-evenly' }}>
         <Picker
           selectedValue={game}
-          onValueChange={(itemValue, itemIndex) => {
+          onValueChange={(itemValue) => {
             setGame(itemValue);
           }}
+          style={styles.pickerStyle}
         >
           {gameData.map((item, index) => {
             return (
@@ -142,105 +135,62 @@ const CreateMatch = () => {
             );
           })}
         </Picker>
-        {game === 'x01' ? (
-          <Picker>
-            {x01Data.map((item, index) => {
-              return (
-                <Picker.Item
-                  label={item.label}
-                  value={item.value}
-                  key={index}
-                />
-              );
-            })}
-          </Picker>
-        ) : game === 'elimination' ? (
-          <Picker>
-            {eliminationData.map((item, index) => {
-              return (
-                <Picker.Item
-                  label={item.label}
-                  value={item.value}
-                  key={index}
-                />
-              );
-            })}
-          </Picker>
-        ) : null}
+        {game === 'x01'
+          ? renderPicker(x01Data, setPoints)
+          : game === 'elimination'
+            ? renderPicker(eliminationData, setPoints)
+            : null}
       </View>
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'space-around',
-          paddingVertical: 10,
-        }}
-      >
+      <View style={styles.randomizeContainer}>
         <Text style={{ fontSize: 20 }}>- Or -</Text>
-        <CustomButton
+        <Button
           title='Randomize Game'
-          buttonStyle={{
-            backgroundColor: 'transparent',
-            alignSelf: 'flex-end',
-            flexBasis: '70%',
-            borderWidth: 1,
-            borderColor: '#ddd',
-          }}
-          onPressOut={() => onRandomGame()}
+          buttonStyle={styles.randomizeButton}
+          onPress={onRandomGame}
         />
       </View>
       <View style={{ flexGrow: 1, paddingVertical: 10 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Text
-            style={{
-              fontSize: 25,
-              textDecorationLine: 'underline',
-              paddingBottom: 5,
-            }}
-          >
-            Players to play:
-          </Text>
-          <CustomButton
+        <View style={styles.shuffleButtonContainer}>
+          <Text style={styles.textStyle}>Players to play:</Text>
+          <Button
             title='Shuffle'
-            buttonStyle={{
-              backgroundColor: 'transparent',
-              paddingRight: 10,
-              paddingBottom: 10,
-            }}
-            onPressIn={() =>
-              setSelectedPlayers((prev) =>
-                shuffleList(prev).map((player) => player),
-              )
-            }
+            buttonStyle={styles.shuffleButton}
+            onPress={onShufflePlayers}
           />
         </View>
         {showPlayerList ? (
           <ActivePlayerList
             selectedPlayers={selectedPlayers}
             setSelectedPlayers={setSelectedPlayers}
-            togglePlayerSelect={togglePlayerSelect}
+            togglePlayerSelect={toggleSelectedPlayers}
           />
         ) : (
           false
         )}
       </View>
       <View style={styles.buttonContainer}>
-        <CustomButton
-          title='Continue to Game'
-          buttonStyle={styles.buttonStyle}
-          disabled={disableButton()}
-          onPressOut={() => onHandleSelect()}
-        />
+        <Link href={onHandleSelect()} asChild disabled={disableButton()}>
+          <Button title='Continue to Game' buttonStyle={styles.buttonStyle} />
+        </Link>
       </View>
     </View>
   );
 };
+
+const renderPicker = (
+  data: { label: string; value: string }[],
+  setData: React.Dispatch<React.SetStateAction<number | null>>,
+) => (
+  <Picker
+    selectedValue={data[0]}
+    onValueChange={(itemValue) => setData(parseInt(itemValue.value, 2))}
+    style={[styles.pickerStyle, { marginTop: 20 }]}
+  >
+    {data.map((item, index) => (
+      <Picker.Item label={item.label} value={item.value} key={index} />
+    ))}
+  </Picker>
+);
 
 export default CreateMatch;
 
@@ -258,5 +208,41 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: '80%',
     alignSelf: 'center',
+  },
+  pickerStyle: {
+    backgroundColor: 'transparent',
+    borderColor: 'none',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    fontSize: 20,
+  },
+  randomizeButton: {
+    backgroundColor: 'transparent',
+    alignSelf: 'flex-end',
+    flexBasis: '70%',
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  randomizeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+  },
+  shuffleButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  shuffleButton: {
+    backgroundColor: 'transparent',
+    paddingRight: 10,
+    paddingBottom: 10,
+  },
+  textStyle: {
+    fontSize: 25,
+    textDecorationLine: 'underline',
+    paddingBottom: 5,
   },
 });

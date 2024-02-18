@@ -11,7 +11,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import { Pressable } from 'react-native';
 
-import { IconButton } from '@/components/ButtonIcons';
+import { ButtonIcon } from '@/components';
 import Colors from '@/constants/Colors';
 import { PlayerListProvider } from '@/context/Player';
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -54,7 +54,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-  const colorScheme = useColorScheme() as 'light' | 'dark';
+  const colorScheme = useColorScheme() ?? 'light';
   const navigation = useRouter();
 
   return (
@@ -69,13 +69,15 @@ function RootLayoutNav() {
               title: 'Manage Players',
               headerRight: () => (
                 <Pressable
-                  onPress={() => navigation.navigate('create-player')}
+                  onPress={() => navigation.navigate('/create-player')}
                   style={({ pressed }) => ({
                     opacity: pressed ? 0.5 : 1,
+                    marginRight: 10,
+                    marginBottom: 15,
                   })}
                   accessibilityHint='add-player'
                 >
-                  <IconButton
+                  <ButtonIcon
                     IconComponent={AntDesign}
                     name='adduser'
                     size={25}
@@ -84,30 +86,36 @@ function RootLayoutNav() {
                 </Pressable>
               ),
             }}
-            // options={({navigation}) => ({
-            //   title: 'Manage Players',
-            //   headerRight: () => (
-            //     <Pressable
-            //       onPress={() => navigation.navigate("create-player")}
-            //       style={({ pressed }) => ({
-            //         opacity: pressed ? 0.5 : 1,
-            //       })}
-            //       accessibilityHint="add-player"
-            //     >
-            //       <AntDesignIcon
-            //         name="adduser"
-            //         size={25}
-            //         color={Colors[colorScheme].text}
-            //       />
-            //     </Pressable>
-            //   ),
-            // })}
           />
-          <Stack.Screen name='baseball' options={{ title: 'Baseball' }} />
-          <Stack.Screen name='cricket' options={{ title: 'Cricket' }} />
-          <Stack.Screen name='x01' options={{ title: 'X01' }} />
-          <Stack.Screen name='elimination' options={{ title: 'Elimination' }} />
-          <Stack.Screen name='killer' options={{ title: 'Killer' }} />
+          <Stack.Screen
+            name='baseball'
+            options={{
+              title: 'Baseball',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='cricket'
+            options={{
+              title: 'Cricket',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='x01'
+            options={{ title: 'X01', headerShown: false }}
+          />
+          <Stack.Screen
+            name='elimination'
+            options={{
+              title: 'Elimination',
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name='killer'
+            options={{ title: 'Killer', headerShown: false }}
+          />
           <Stack.Screen
             name='create-player'
             options={{ title: 'Create Player' }}

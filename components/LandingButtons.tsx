@@ -1,15 +1,11 @@
 import React from 'react';
-import { StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import { Pressable, PressableProps, StyleSheet } from 'react-native';
 
-import Button from './Button';
-
+import { Text } from '@/components';
 import Colors from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-// import window from "../constants/Layout";
 
-// const height = window.window.height;
-
-interface ILandingButtonProps {
+interface LandingButtonProps extends PressableProps {
   variant:
     | 'New Game'
     | 'Resume Game'
@@ -22,43 +18,47 @@ interface ILandingButtonProps {
     | 'Killer'
     | 'X01';
   children: React.ReactNode;
-  buttonOverrideStyle?: StyleProp<ViewStyle>;
-  disabled?: boolean;
 }
 
-const LandingPageButton = (props: ILandingButtonProps) => {
-  const colorScheme = useColorScheme();
-  const buttonBG = Colors[colorScheme as 'light' | 'dark'].buttonColor;
+export const LandingPageButton = React.forwardRef<
+  React.ElementRef<typeof Pressable>,
+  LandingButtonProps
+>(({ variant, children, ...rest }, ref) => {
+  const colorScheme = useColorScheme() ?? 'light';
+  const buttonBG = Colors[colorScheme].buttonColor;
+  const disabledBackground = Colors[colorScheme].disabledButtonColor;
+
+  const { disabled, onPress } = rest;
 
   return (
-    <Button
-      title={props.variant}
-      textStyle={styles.buttonTextStyle}
-      buttonStyle={[
-        styles.buttonStyle,
-        props.buttonOverrideStyle,
-        { backgroundColor: buttonBG },
-      ]}
-      buttonChildrenStyle={{ backgroundColor: 'transparent' }}
-      buttonIconStyle={[
-        styles.buttonIconStyle,
-        { backgroundColor: 'transparent' },
-      ]}
-      disabled={props.disabled}
+    <Pressable
+      ref={ref}
+      style={
+        disabled
+          ? [
+              { opacity: 0.5 },
+              { backgroundColor: disabledBackground },
+              styles.buttonStyle,
+            ]
+          : ({ pressed }) => [
+              { opacity: pressed ? 0.5 : 1 },
+              [styles.buttonStyle, { backgroundColor: buttonBG }],
+            ]
+      }
+      onPress={onPress}
     >
-      {props.children}
-    </Button>
+      {children}
+      <Text style={styles.buttonTextStyle}>{variant}</Text>
+    </Pressable>
   );
-};
-
-export default LandingPageButton;
+});
 
 const styles = StyleSheet.create({
   buttonStyle: {
     width: '48%',
-    height: '80%',
     marginBottom: 5,
     justifyContent: 'center',
+    borderRadius: 10,
   },
   buttonTextStyle: {
     marginTop: 20,

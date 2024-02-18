@@ -10,7 +10,7 @@ interface PlayerContext {
   onDeletePlayer: (id: string) => void;
   selectedPlayers: IPlayer[];
   setSelectedPlayers: React.Dispatch<React.SetStateAction<IPlayer[]>>;
-  togglePlayerSelect: (id: string) => void;
+  toggleSelectedPlayers: (id: string) => void;
 }
 
 export interface IPlayer {
@@ -59,7 +59,7 @@ const PlayerListProvider = ({ children }: { children: React.ReactNode }) => {
     onSetPlayerlist(playerList.filter((player) => player.id !== id));
   };
 
-  const togglePlayerSelect = (id: string) => {
+  const toggleSelectedPlayers = (id: string) => {
     setPlayerList(() =>
       playerList.map((player) => {
         if (player.id === id) {
@@ -70,6 +70,7 @@ const PlayerListProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
     setSelectedPlayers(playerList);
+    onSetPlayerlist(playerList);
   };
 
   const assignSelectedPlayers = () => {
@@ -80,9 +81,9 @@ const PlayerListProvider = ({ children }: { children: React.ReactNode }) => {
     assignSelectedPlayers();
   }, [playerList]);
 
-  useEffect(() => {
-    console.log(`Selected Players: `, selectedPlayers);
-  }, [selectedPlayers]);
+  // useEffect(() => {
+  //   console.log(`Selected Players: `, selectedPlayers);
+  // }, [selectedPlayers]);
 
   return (
     <PlayerStateContext.Provider
@@ -93,7 +94,7 @@ const PlayerListProvider = ({ children }: { children: React.ReactNode }) => {
         onDeletePlayer,
         selectedPlayers,
         setSelectedPlayers,
-        togglePlayerSelect,
+        toggleSelectedPlayers,
       }}
     >
       {children}

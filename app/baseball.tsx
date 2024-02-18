@@ -5,6 +5,7 @@ import { Alert, StyleSheet } from 'react-native';
 import {
   BaseballRoundInfo,
   CalculatorButtons,
+  CustomStackScreenHeader,
   gameOverAlert,
   GameScoreboardBody,
   GameScoreboardHeader,
@@ -261,14 +262,14 @@ const Baseball = () => {
 
   return (
     <View style={styles.container}>
-      {/* <CustomStackScreenHeader
+      <CustomStackScreenHeader
         canUndo={canUndo}
         onUndo={onUndo}
         onResetGame={onResetGame}
-        onAddGame={addGame}
+        // onAddGame={addGame}
         variant={variant}
-        navigation={navigation}
-      /> */}
+        // navigation={navigation}
+      />
       <View style={styles.scoreboardContainer}>
         <GameScoreboardHeader variant={variant} />
         <GameScoreboardBody
